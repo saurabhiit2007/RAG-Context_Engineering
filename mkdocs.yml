@@ -1,0 +1,55 @@
+site_name: RAG & Context Engineering
+site_description: A technical reference Retrieval Augmented Generation And Context Engineering.
+site_author: Saurabh Goyal
+repo_url: https://github.com/saurabhiit2007/RAG_And_Context_Engineering
+theme:
+  name: material
+  features:
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - mathjax
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue
+      accent: deep purple
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue
+      accent: lime
+  font:
+    text: Inter
+    code: JetBrains Mono
+
+extra_javascript:
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+nav:
+  - Home: index.md
+  - RAG Techniques:
+      - RAG: ./RAG/rag.md
+  - Context Engineering:
+      - Context Engineering: ./context_engineering/ce.md
+  - References: references.md
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - pymdownx.arithmatex:
+      generic: true
+  - toc:
+      permalink: true
+  - footnotes
+  - tables
+  - pymdownx.arithmatex
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.tasklist
+  - pymdownx.snippets
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
