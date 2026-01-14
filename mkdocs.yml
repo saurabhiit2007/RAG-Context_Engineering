@@ -30,8 +30,10 @@ extra_javascript:
 
 nav:
   - Home: index.md
-  - RAG Techniques:
-      - RAG: ./RAG/rag.md
+  - Retrival Augmented Generation (RAG):
+      - Fundamentals: ./RAG/fundamentals.md
+      - Chunking: ./RAG/chunking.md
+      - Embedding: ./RAG/embedding.md
   - Context Engineering:
       - Context Engineering: ./context_engineering/ce.md
   - References: references.md
