@@ -34,6 +34,8 @@ nav:
       - Fundamentals: ./RAG/fundamentals.md
       - Chunking: ./RAG/chunking.md
       - Embedding: ./RAG/embedding.md
+      - Indexing & Retrieval: ./RAG/indexing_and_vector_database.md
+      - Evaluation: ./RAG/evaluation.md
   - Context Engineering:
       - Context Engineering: ./context_engineering/ce.md
   - References: references.md
