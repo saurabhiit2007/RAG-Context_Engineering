@@ -36,6 +36,11 @@ nav:
       - Embedding: ./RAG/embedding.md
       - Indexing & Retrieval: ./RAG/indexing_and_vector_database.md
       - Evaluation: ./RAG/evaluation.md
+      - Supporting Concepts:
+          - TF_IDF: /RAG/supporting_topics/tf_idf.md
+          - BM25: /RAG/supporting_topics/bm25.md
+          - Splade: /RAG/supporting_topics/splade.md
+          - Sentence Transformer: /RAG/supporting_topics/sentence_transformer.md
   - Context Engineering:
       - Context Engineering: ./context_engineering/ce.md
   - References: references.md
