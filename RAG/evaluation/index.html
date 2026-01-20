@@ -1,0 +1,1957 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A technical reference Retrieval Augmented Generation And Context Engineering.">
+      
+      
+        <meta name="author" content="Saurabh Goyal">
+      
+      
+      
+        <link rel="prev" href="../indexing_and_vector_database/">
+      
+      
+        <link rel="next" href="../supporting_topics/tf_idf/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Evaluation - RAG & Context Engineering</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#evaluation-of-retrieval-augmented-generation-rag-systems" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="RAG &amp; Context Engineering" class="md-header__button md-logo" aria-label="RAG & Context Engineering" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RAG & Context Engineering
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Evaluation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-purple"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="lime"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/saurabhiit2007/RAG_And_Context_Engineering" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RAG &amp; Context Engineering" class="md-nav__button md-logo" aria-label="RAG & Context Engineering" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    RAG & Context Engineering
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/saurabhiit2007/RAG_And_Context_Engineering" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Retrival Augmented Generation (RAG)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Retrival Augmented Generation (RAG)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chunking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chunking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../embedding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Embedding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../indexing_and_vector_database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Indexing & Retrieval
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluation
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#evaluation-of-retrieval-augmented-generation-rag-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation of Retrieval-Augmented Generation (RAG) Systems
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-why-rag-evaluation-is-hard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Why RAG Evaluation Is Hard
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-component-level-vs-end-to-end-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Component-Level vs End-to-End Evaluation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Component-Level vs End-to-End Evaluation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#component-level-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component-Level Evaluation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#end-to-end-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        End-to-End Evaluation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-retrieval-evaluation-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Retrieval Evaluation Metrics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Retrieval Evaluation Metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-recallk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Recall@k
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-mean-reciprocal-rank-mrr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Mean Reciprocal Rank (MRR)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-normalized-discounted-cumulative-gain-ndcg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Normalized Discounted Cumulative Gain (nDCG)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-generation-quality-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Generation Quality Metrics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Generation Quality Metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-exact-match-em" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Exact Match (EM)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-f1-score" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 F1 Score
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-bleu-and-rouge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 BLEU and ROUGE
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-faithfulness-and-groundedness-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Faithfulness and Groundedness Evaluation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Faithfulness and Groundedness Evaluation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-faithfulness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Faithfulness
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-groundedness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Groundedness
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-llm-based-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. LLM-Based Evaluation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. LLM-Based Evaluation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Cases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benefits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#risks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Risks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-human-evaluation-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Human Evaluation Protocols
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Human Evaluation Protocols">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Criteria
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#protocol-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protocol Design
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tradeoffs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tradeoffs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-error-analysis-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Error Analysis and Failure Modes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Error Analysis and Failure Modes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-failure-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Failure Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-dataset-construction-for-rag-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Dataset Construction for RAG Evaluation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Dataset Construction for RAG Evaluation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-challenges" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Challenges
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dataset-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dataset Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-tradeoffs-and-design-choices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Tradeoffs and Design Choices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-what-interviewers-look-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. What Interviewers Look For
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Supporting Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Supporting Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../supporting_topics/tf_idf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TF_IDF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../supporting_topics/bm25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BM25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../supporting_topics/splade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Splade
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../supporting_topics/sentence_transformers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sentence Transformer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context Engineering
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Context Engineering
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../context_engineering/ce/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#evaluation-of-retrieval-augmented-generation-rag-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation of Retrieval-Augmented Generation (RAG) Systems
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-why-rag-evaluation-is-hard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Why RAG Evaluation Is Hard
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-component-level-vs-end-to-end-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Component-Level vs End-to-End Evaluation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Component-Level vs End-to-End Evaluation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#component-level-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component-Level Evaluation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#end-to-end-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        End-to-End Evaluation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-retrieval-evaluation-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Retrieval Evaluation Metrics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Retrieval Evaluation Metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-recallk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Recall@k
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-mean-reciprocal-rank-mrr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Mean Reciprocal Rank (MRR)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-normalized-discounted-cumulative-gain-ndcg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Normalized Discounted Cumulative Gain (nDCG)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-generation-quality-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Generation Quality Metrics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Generation Quality Metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-exact-match-em" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Exact Match (EM)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-f1-score" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 F1 Score
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-bleu-and-rouge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 BLEU and ROUGE
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-faithfulness-and-groundedness-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Faithfulness and Groundedness Evaluation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Faithfulness and Groundedness Evaluation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-faithfulness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Faithfulness
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-groundedness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Groundedness
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-llm-based-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. LLM-Based Evaluation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. LLM-Based Evaluation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Cases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benefits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#risks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Risks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-human-evaluation-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Human Evaluation Protocols
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Human Evaluation Protocols">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Criteria
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#protocol-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protocol Design
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tradeoffs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tradeoffs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-error-analysis-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Error Analysis and Failure Modes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Error Analysis and Failure Modes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-failure-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Failure Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-dataset-construction-for-rag-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Dataset Construction for RAG Evaluation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Dataset Construction for RAG Evaluation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-challenges" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Challenges
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dataset-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dataset Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-tradeoffs-and-design-choices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Tradeoffs and Design Choices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-what-interviewers-look-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. What Interviewers Look For
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Evaluation</h1>
+
+<h2 id="evaluation-of-retrieval-augmented-generation-rag-systems">Evaluation of Retrieval-Augmented Generation (RAG) Systems<a class="headerlink" href="#evaluation-of-retrieval-augmented-generation-rag-systems" title="Permanent link">&para;</a></h2>
+<p>Evaluation is one of the hardest and most important aspects of Retrieval-Augmented Generation systems. A RAG pipeline combines multiple components such as retrieval, reranking, and generation, each of which can fail in different ways. As a result, evaluation must be multi-dimensional, covering both component-level and end-to-end behavior.</p>
+<hr />
+<h2 id="1-why-rag-evaluation-is-hard">1. Why RAG Evaluation Is Hard<a class="headerlink" href="#1-why-rag-evaluation-is-hard" title="Permanent link">&para;</a></h2>
+<p>Unlike traditional NLP tasks, RAG systems:
+- Do not have a single ground-truth output
+- Depend on external knowledge sources
+- Can fail silently by generating fluent but incorrect answers
+- Have multiple interacting components</p>
+<p>Because of this, no single metric is sufficient. Effective evaluation requires layered evaluation across retrieval quality, generation quality, and faithfulness to sources.</p>
+<hr />
+<h2 id="2-component-level-vs-end-to-end-evaluation">2. Component-Level vs End-to-End Evaluation<a class="headerlink" href="#2-component-level-vs-end-to-end-evaluation" title="Permanent link">&para;</a></h2>
+<h3 id="component-level-evaluation">Component-Level Evaluation<a class="headerlink" href="#component-level-evaluation" title="Permanent link">&para;</a></h3>
+<p>Each module is evaluated independently.</p>
+<p><strong>Retrieval</strong></p>
+<ul>
+<li>Are relevant documents retrieved?</li>
+<li>Are they ranked correctly?</li>
+</ul>
+<p><strong>Generation</strong></p>
+<ul>
+<li>Given perfect context, can the model answer correctly?</li>
+</ul>
+<p><strong>Pros</strong></p>
+<ul>
+<li>Easier to debug failures</li>
+<li>Clear attribution of errors</li>
+<li>Allows offline benchmarking</li>
+</ul>
+<p><strong>Cons</strong></p>
+<ul>
+<li>Does not capture compounding errors</li>
+<li>May overestimate real-world performance</li>
+</ul>
+<hr />
+<h3 id="end-to-end-evaluation">End-to-End Evaluation<a class="headerlink" href="#end-to-end-evaluation" title="Permanent link">&para;</a></h3>
+<p>The full pipeline is evaluated from user query to final answer.</p>
+<p><strong>Pros</strong></p>
+<ul>
+<li>Reflects real user experience</li>
+<li>Captures interaction effects between components</li>
+</ul>
+<p><strong>Cons</strong></p>
+<ul>
+<li>Hard to diagnose root causes</li>
+<li>More expensive and noisy</li>
+</ul>
+<blockquote>
+<p>Note: Strong systems use both, starting with component-level evaluation during development and end-to-end evaluation before deployment.</p>
+</blockquote>
+<hr />
+<h2 id="3-retrieval-evaluation-metrics">3. Retrieval Evaluation Metrics<a class="headerlink" href="#3-retrieval-evaluation-metrics" title="Permanent link">&para;</a></h2>
+<p>Retrieval metrics measure whether the system is able to fetch relevant context.</p>
+<h3 id="31-recallk">3.1 Recall@k<a class="headerlink" href="#31-recallk" title="Permanent link">&para;</a></h3>
+<p>Fraction of queries for which at least one relevant document appears in the top-k retrieved results.</p>
+<p><strong>Why it matters</strong></p>
+<ul>
+<li>If recall is low, generation cannot recover</li>
+<li>Especially critical for factual question answering</li>
+</ul>
+<p><strong>Limitations</strong></p>
+<ul>
+<li>Does not consider ranking within top-k</li>
+<li>Binary notion of relevance</li>
+</ul>
+<hr />
+<h3 id="32-mean-reciprocal-rank-mrr">3.2 Mean Reciprocal Rank (MRR)<a class="headerlink" href="#32-mean-reciprocal-rank-mrr" title="Permanent link">&para;</a></h3>
+<p>MRR measures how early the first relevant document appears in the ranked list, giving higher scores when the system retrieves a useful document closer to the top.</p>
+<p><strong>Why it matters</strong></p>
+<ul>
+<li>Rewards systems that rank relevant documents earlier</li>
+<li>Useful when only one document is needed</li>
+</ul>
+<p><strong>Limitations</strong></p>
+<ul>
+<li>Ignores multiple relevant documents</li>
+</ul>
+<hr />
+<h3 id="33-normalized-discounted-cumulative-gain-ndcg">3.3 Normalized Discounted Cumulative Gain (nDCG)<a class="headerlink" href="#33-normalized-discounted-cumulative-gain-ndcg" title="Permanent link">&para;</a></h3>
+<p>nDCG measures how well the system orders documents by relevance, rewarding highly relevant documents appearing early in the ranking and smoothly penalizing them as they appear lower.</p>
+<p><strong>Why it matters</strong></p>
+<ul>
+<li>More realistic for multi-document relevance</li>
+<li>Penalizes relevant documents appearing lower in the list</li>
+</ul>
+<p><strong>Limitations</strong></p>
+<ul>
+<li>Requires graded relevance labels</li>
+<li>More complex to compute and interpret</li>
+</ul>
+<hr />
+<h2 id="4-generation-quality-metrics">4. Generation Quality Metrics<a class="headerlink" href="#4-generation-quality-metrics" title="Permanent link">&para;</a></h2>
+<p>Generation metrics evaluate the textual quality of the final answer.</p>
+<h3 id="41-exact-match-em">4.1 Exact Match (EM)<a class="headerlink" href="#41-exact-match-em" title="Permanent link">&para;</a></h3>
+<p>Checks if the generated answer exactly matches the ground truth.</p>
+<p><strong>Pros</strong></p>
+<ul>
+<li>Simple and interpretable</li>
+<li>Useful for factoid questions</li>
+</ul>
+<p><strong>Cons</strong></p>
+<ul>
+<li>Too strict for natural language generation</li>
+<li>Sensitive to paraphrasing</li>
+</ul>
+<hr />
+<h3 id="42-f1-score">4.2 F1 Score<a class="headerlink" href="#42-f1-score" title="Permanent link">&para;</a></h3>
+<p>Token-level overlap between generated answer and reference.</p>
+<p><strong>Pros</strong></p>
+<ul>
+<li>More flexible than Exact Match</li>
+<li>Widely used in question answering benchmarks</li>
+</ul>
+<p><strong>Cons</strong></p>
+<ul>
+<li>Still surface-level</li>
+<li>Does not capture semantic correctness fully</li>
+</ul>
+<hr />
+<h3 id="43-bleu-and-rouge">4.3 BLEU and ROUGE<a class="headerlink" href="#43-bleu-and-rouge" title="Permanent link">&para;</a></h3>
+<p><strong>Use case</strong></p>
+<ul>
+<li>Longer-form or summarization-style answers</li>
+</ul>
+<p><strong>Limitations</strong></p>
+<ul>
+<li>Correlate poorly with factual correctness</li>
+<li>Can reward fluent but incorrect outputs</li>
+</ul>
+<blockquote>
+<p>Note: These metrics primarily measure fluency, not truthfulness.</p>
+</blockquote>
+<hr />
+<h2 id="5-faithfulness-and-groundedness-evaluation">5. Faithfulness and Groundedness Evaluation<a class="headerlink" href="#5-faithfulness-and-groundedness-evaluation" title="Permanent link">&para;</a></h2>
+<p>A core risk in RAG is hallucination, where the model generates content not supported by retrieved documents.</p>
+<h3 id="51-faithfulness">5.1 Faithfulness<a class="headerlink" href="#51-faithfulness" title="Permanent link">&para;</a></h3>
+<p><strong>Question answered</strong>  </p>
+<p>Is the generated answer supported by the retrieved context?</p>
+<p><strong>Common approaches</strong></p>
+<ul>
+<li>LLM-as-a-judge prompting</li>
+<li>Sentence-level entailment checks</li>
+<li>Context to answer consistency scoring</li>
+</ul>
+<hr />
+<h3 id="52-groundedness">5.2 Groundedness<a class="headerlink" href="#52-groundedness" title="Permanent link">&para;</a></h3>
+<p><strong>Question answered</strong>  </p>
+<p>Does every claim in the answer trace back to a retrieved source?</p>
+<p><strong>Techniques</strong></p>
+<ul>
+<li>Claim extraction followed by source matching</li>
+<li>Evidence coverage metrics</li>
+<li>Citation validation</li>
+</ul>
+<p><strong>Failure mode</strong></p>
+<ul>
+<li>Answers that are correct but unsupported by retrieved documents</li>
+</ul>
+<hr />
+<h2 id="6-llm-based-evaluation">6. LLM-Based Evaluation<a class="headerlink" href="#6-llm-based-evaluation" title="Permanent link">&para;</a></h2>
+<p>Large language models are increasingly used as evaluators.</p>
+<h3 id="use-cases">Use Cases<a class="headerlink" href="#use-cases" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Faithfulness scoring</li>
+<li>Answer correctness evaluation</li>
+<li>Relevance of retrieved passages</li>
+<li>Pairwise comparison of answers</li>
+</ul>
+<h3 id="benefits">Benefits<a class="headerlink" href="#benefits" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Scales without human labels</li>
+<li>Captures semantic nuance beyond lexical overlap</li>
+</ul>
+<h3 id="risks">Risks<a class="headerlink" href="#risks" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Bias toward fluent answers</li>
+<li>Sensitivity to prompt design</li>
+<li>Self-preference when evaluating the same model family</li>
+</ul>
+<p><strong>Best practice</strong></p>
+<ul>
+<li>Use structured rubrics</li>
+<li>Validate against human judgments on a held-out set</li>
+</ul>
+<hr />
+<h2 id="7-human-evaluation-protocols">7. Human Evaluation Protocols<a class="headerlink" href="#7-human-evaluation-protocols" title="Permanent link">&para;</a></h2>
+<p>Human evaluation remains the gold standard for RAG systems.</p>
+<h3 id="common-criteria">Common Criteria<a class="headerlink" href="#common-criteria" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Correctness</li>
+<li>Completeness</li>
+<li>Faithfulness</li>
+<li>Clarity</li>
+<li>Usefulness</li>
+</ul>
+<h3 id="protocol-design">Protocol Design<a class="headerlink" href="#protocol-design" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Blind evaluation</li>
+<li>Multiple annotators per example</li>
+<li>Measurement of inter-annotator agreement</li>
+</ul>
+<h3 id="tradeoffs">Tradeoffs<a class="headerlink" href="#tradeoffs" title="Permanent link">&para;</a></h3>
+<ul>
+<li>High cost</li>
+<li>Low scalability</li>
+<li>Slow iteration cycles</li>
+</ul>
+<hr />
+<h2 id="8-error-analysis-and-failure-modes">8. Error Analysis and Failure Modes<a class="headerlink" href="#8-error-analysis-and-failure-modes" title="Permanent link">&para;</a></h2>
+<p>Effective evaluation includes systematic error analysis.</p>
+<h3 id="common-failure-types">Common Failure Types<a class="headerlink" href="#common-failure-types" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Relevant document not retrieved</li>
+<li>Relevant document retrieved but ignored by the generator</li>
+<li>Partial hallucinations mixed with correct facts</li>
+<li>Over-reliance on parametric knowledge</li>
+<li>Stale, contradictory, or low-quality sources</li>
+</ul>
+<p><strong>Practical tip</strong>  </p>
+<p>Track failures across queries and cluster them by root cause rather than by metric alone.</p>
+<hr />
+<h2 id="9-dataset-construction-for-rag-evaluation">9. Dataset Construction for RAG Evaluation<a class="headerlink" href="#9-dataset-construction-for-rag-evaluation" title="Permanent link">&para;</a></h2>
+<h3 id="key-challenges">Key Challenges<a class="headerlink" href="#key-challenges" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Creating reliable relevance labels</li>
+<li>Defining ground truth answers</li>
+<li>Handling ambiguous or multi-hop queries</li>
+</ul>
+<h3 id="dataset-types">Dataset Types<a class="headerlink" href="#dataset-types" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Synthetic question answering generated from documents</li>
+<li>Human-authored question answer pairs</li>
+<li>Real user queries from production logs</li>
+</ul>
+<hr />
+<h2 id="10-tradeoffs-and-design-choices">10. Tradeoffs and Design Choices<a class="headerlink" href="#10-tradeoffs-and-design-choices" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Design Choice</th>
+<th>Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>High recall retrieval</td>
+<td>Improves answer coverage but increases noise</td>
+</tr>
+<tr>
+<td>Aggressive reranking</td>
+<td>Improves precision but adds latency</td>
+</tr>
+<tr>
+<td>Strict faithfulness constraints</td>
+<td>Reduces hallucinations but may lower answer recall</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="11-what-interviewers-look-for">11. What Interviewers Look For<a class="headerlink" href="#11-what-interviewers-look-for" title="Permanent link">&para;</a></h2>
+<p>Strong candidates can:</p>
+<ul>
+<li>Explain why no single metric is sufficient</li>
+<li>Justify metric choices based on application requirements</li>
+<li>Discuss tradeoffs between faithfulness and usefulness</li>
+<li>Describe how evaluation informs system design decisions</li>
+</ul>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.copy", "mathjax"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

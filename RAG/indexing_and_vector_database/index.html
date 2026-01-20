@@ -1,0 +1,2882 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A technical reference Retrieval Augmented Generation And Context Engineering.">
+      
+      
+        <meta name="author" content="Saurabh Goyal">
+      
+      
+      
+        <link rel="prev" href="../embedding/">
+      
+      
+        <link rel="next" href="../evaluation/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Indexing & Retrieval - RAG & Context Engineering</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#indexing-strategies-vector-databases-and-retrieval-systems-for-rag" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="RAG &amp; Context Engineering" class="md-header__button md-logo" aria-label="RAG & Context Engineering" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RAG & Context Engineering
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Indexing & Retrieval
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-purple"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="lime"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/saurabhiit2007/RAG_And_Context_Engineering" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RAG &amp; Context Engineering" class="md-nav__button md-logo" aria-label="RAG & Context Engineering" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    RAG & Context Engineering
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/saurabhiit2007/RAG_And_Context_Engineering" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Retrival Augmented Generation (RAG)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Retrival Augmented Generation (RAG)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chunking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chunking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../embedding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Embedding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Indexing & Retrieval
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Indexing & Retrieval
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#indexing-strategies-vector-databases-and-retrieval-systems-for-rag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Indexing Strategies, Vector Databases, and Retrieval Systems for RAG
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Indexing Strategies, Vector Databases, and Retrieval Systems for RAG">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-why-indexing-and-retrieval-matter-in-rag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Why Indexing and Retrieval Matter in RAG
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-indexing-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Indexing Strategies
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Indexing Strategies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-flat-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Flat Index
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 Flat Index">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to use
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-approximate-nearest-neighbor-indexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Approximate Nearest Neighbor Indexes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#221-hnsw-hierarchical-navigable-small-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1 HNSW (Hierarchical Navigable Small World)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.1 HNSW (Hierarchical Navigable Small World)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pros_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best for
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-ivf-inverted-file-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2 IVF (Inverted File Index)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pros_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best-for_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best for
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223-product-quantization-pq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3 Product Quantization (PQ)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.3 Product Quantization (PQ)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pros_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typically-used-with" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typically used with
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-sparse-indexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Sparse Indexes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 Sparse Indexes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pros_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common systems
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-hybrid-indexing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Hybrid Indexing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pros_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-vector-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Vector Databases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#31-core-capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Core Capabilities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-popular-vector-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Popular Vector Databases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#faiss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FAISS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#milvus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milvus
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qdrant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qdrant
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pinecone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pinecone
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#33-metadata-filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Metadata Filtering
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3 Metadata Filtering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pros_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-retrieval-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Retrieval Strategies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#41-dense-retrieval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Dense Retrieval
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1 Dense Retrieval">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pros_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-sparse-retrieval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Sparse Retrieval
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 Sparse Retrieval">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common methods:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pros_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-hybrid-retrieval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Hybrid Retrieval
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3 Hybrid Retrieval">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pros_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-multi-stage-retrieval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Multi Stage Retrieval
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#441-two-stage-retrieval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4.1 Two-Stage Retrieval
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#442-cross-encoder-reranking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4.2 Cross-Encoder Reranking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-query-aware-retrieval-techniques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 Query-aware Retrieval Techniques
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#451-query-expansion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5.1 Query Expansion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#452-hypothetical-document-embeddings-hyde" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5.2 Hypothetical Document Embeddings (HyDE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-re-ranking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Re Ranking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#51-cross-encoder-re-ranking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Cross Encoder Re Ranking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1 Cross Encoder Re Ranking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pros_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-llm-based-re-ranking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 LLM Based Re Ranking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 LLM Based Re Ranking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pros_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-retrieval-evaluation-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Retrieval Evaluation Metrics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-system-design-tradeoffs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. System Design Tradeoffs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-common-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Common Failure Modes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../evaluation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Supporting Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Supporting Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../supporting_topics/tf_idf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TF_IDF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../supporting_topics/bm25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BM25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../supporting_topics/splade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Splade
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../supporting_topics/sentence_transformers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sentence Transformer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context Engineering
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Context Engineering
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../context_engineering/ce/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#indexing-strategies-vector-databases-and-retrieval-systems-for-rag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Indexing Strategies, Vector Databases, and Retrieval Systems for RAG
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Indexing Strategies, Vector Databases, and Retrieval Systems for RAG">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-why-indexing-and-retrieval-matter-in-rag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Why Indexing and Retrieval Matter in RAG
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-indexing-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Indexing Strategies
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Indexing Strategies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-flat-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Flat Index
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 Flat Index">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to use
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-approximate-nearest-neighbor-indexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Approximate Nearest Neighbor Indexes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#221-hnsw-hierarchical-navigable-small-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1 HNSW (Hierarchical Navigable Small World)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.1 HNSW (Hierarchical Navigable Small World)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pros_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best for
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-ivf-inverted-file-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2 IVF (Inverted File Index)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pros_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best-for_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best for
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223-product-quantization-pq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3 Product Quantization (PQ)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.3 Product Quantization (PQ)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pros_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typically-used-with" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typically used with
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-sparse-indexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Sparse Indexes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 Sparse Indexes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pros_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common systems
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-hybrid-indexing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Hybrid Indexing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pros_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-vector-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Vector Databases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#31-core-capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Core Capabilities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-popular-vector-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Popular Vector Databases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#faiss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FAISS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#milvus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milvus
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qdrant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qdrant
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pinecone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pinecone
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#33-metadata-filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Metadata Filtering
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3 Metadata Filtering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pros_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-retrieval-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Retrieval Strategies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#41-dense-retrieval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Dense Retrieval
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1 Dense Retrieval">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pros_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-sparse-retrieval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Sparse Retrieval
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 Sparse Retrieval">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common methods:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pros_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-hybrid-retrieval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Hybrid Retrieval
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3 Hybrid Retrieval">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pros_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-multi-stage-retrieval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Multi Stage Retrieval
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#441-two-stage-retrieval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4.1 Two-Stage Retrieval
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#442-cross-encoder-reranking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4.2 Cross-Encoder Reranking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-query-aware-retrieval-techniques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 Query-aware Retrieval Techniques
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#451-query-expansion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5.1 Query Expansion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#452-hypothetical-document-embeddings-hyde" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5.2 Hypothetical Document Embeddings (HyDE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-re-ranking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Re Ranking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#51-cross-encoder-re-ranking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Cross Encoder Re Ranking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1 Cross Encoder Re Ranking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pros_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-llm-based-re-ranking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 LLM Based Re Ranking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 LLM Based Re Ranking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pros_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-retrieval-evaluation-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Retrieval Evaluation Metrics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-system-design-tradeoffs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. System Design Tradeoffs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-common-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Common Failure Modes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Indexing & Retrieval</h1>
+
+<h2 id="indexing-strategies-vector-databases-and-retrieval-systems-for-rag">Indexing Strategies, Vector Databases, and Retrieval Systems for RAG<a class="headerlink" href="#indexing-strategies-vector-databases-and-retrieval-systems-for-rag" title="Permanent link">&para;</a></h2>
+<h3 id="1-why-indexing-and-retrieval-matter-in-rag">1. Why Indexing and Retrieval Matter in RAG<a class="headerlink" href="#1-why-indexing-and-retrieval-matter-in-rag" title="Permanent link">&para;</a></h3>
+<p>In RAG systems, retrieval is the bottleneck for answer quality. If the retriever fails, even the strongest LLM cannot recover.</p>
+<p>Indexing and retrieval determine:
+- What information is even visible to the generator
+- Latency and cost per query
+- Scalability to millions or billions of chunks
+- Robustness to noisy or ambiguous queries</p>
+<p>A typical RAG retrieval pipeline:
+1. Chunk documents
+2. Generate embeddings
+3. Build indexes
+4. Retrieve candidates
+5. Re rank or filter
+6. Construct final context</p>
+<hr />
+<h2 id="2-indexing-strategies">2. Indexing Strategies<a class="headerlink" href="#2-indexing-strategies" title="Permanent link">&para;</a></h2>
+<p>Indexing defines how embeddings or tokens are organized to support fast similarity search.</p>
+<h3 id="21-flat-index">2.1 Flat Index<a class="headerlink" href="#21-flat-index" title="Permanent link">&para;</a></h3>
+<p>A flat index stores all vectors and computes similarity against every vector during search.</p>
+<h4 id="pros">Pros<a class="headerlink" href="#pros" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Exact results</strong>: No approximation is used, so recall is perfect. This makes it a reliable reference for evaluating other indexes.</li>
+<li><strong>Simple implementation</strong>: No clustering, graph construction, or parameter tuning is required.</li>
+<li><strong>Deterministic behavior</strong>: Results are stable across runs, which simplifies debugging.</li>
+</ul>
+<h4 id="cons">Cons<a class="headerlink" href="#cons" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Does not scale</strong>: Search time grows linearly with dataset size, making it unusable beyond small corpora.</li>
+<li><strong>High latency</strong>: Even moderate sized datasets cause unacceptable response times.</li>
+<li><strong>High compute cost</strong>: Requires full distance computation for every query.</li>
+</ul>
+<h4 id="when-to-use">When to use<a class="headerlink" href="#when-to-use" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Small datasets</li>
+<li>Offline evaluation</li>
+<li>Ground truth recall benchmarking</li>
+</ul>
+<hr />
+<h3 id="22-approximate-nearest-neighbor-indexes">2.2 Approximate Nearest Neighbor Indexes<a class="headerlink" href="#22-approximate-nearest-neighbor-indexes" title="Permanent link">&para;</a></h3>
+<p>Approximate methods trade small accuracy loss for large performance gains.</p>
+<hr />
+<h3 id="221-hnsw-hierarchical-navigable-small-world">2.2.1 HNSW (Hierarchical Navigable Small World)<a class="headerlink" href="#221-hnsw-hierarchical-navigable-small-world" title="Permanent link">&para;</a></h3>
+<p>HNSW builds a multi layer graph where each node connects to similar vectors. Search starts at higher layers and progressively refines.</p>
+<h4 id="pros_1">Pros<a class="headerlink" href="#pros_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Very high recall at low latency</strong>: HNSW often achieves near flat index recall with orders of magnitude faster search.</li>
+<li><strong>Fast query performance</strong>: Graph traversal limits the number of distance computations.</li>
+<li><strong>Supports dynamic updates</strong>: New vectors can be inserted without rebuilding the index.</li>
+</ul>
+<h4 id="cons_1">Cons<a class="headerlink" href="#cons_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>High memory usage</strong>: Graph edges add significant overhead compared to raw vectors.</li>
+<li><strong>Slow index construction</strong>: Building the graph is expensive for very large datasets.</li>
+<li><strong>Parameter sensitivity</strong>: Poor tuning can increase memory usage or degrade recall.</li>
+</ul>
+<h3 id="best-for">Best for<a class="headerlink" href="#best-for" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Latency sensitive RAG systems</li>
+<li>Medium to large scale corpora</li>
+<li>Online and frequently updated data</li>
+</ul>
+<hr />
+<h3 id="222-ivf-inverted-file-index">2.2.2 IVF (Inverted File Index)<a class="headerlink" href="#222-ivf-inverted-file-index" title="Permanent link">&para;</a></h3>
+<p>IVF clusters vectors into centroids and searches only within the closest clusters.</p>
+<blockquote>
+<p>Note:
+    In traditional text retrieval, an inverted index maps:
+    (term → list of documents containing that term).
+    This is the opposite of storing documents as sequences of terms, hence the word inverted. At query time, only documents associated with the query terms are examined.</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code><span class="n">In</span><span class="w"> </span><span class="n">IVF</span><span class="p">,</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">mapping</span><span class="w"> </span><span class="nl">becomes:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">centroid</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">vectors</span><span class="w"> </span><span class="n">assigned</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">centroid</span>
+<span class="n">Instead</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">scanning</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="n">vectors</span><span class="p">,</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="nl">system:</span>
+<span class="mf">1.</span><span class="w"> </span><span class="n">Assigns</span><span class="w"> </span><span class="n">each</span><span class="w"> </span><span class="n">vector</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">its</span><span class="w"> </span><span class="n">nearest</span><span class="w"> </span><span class="n">centroid</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">indexing</span>
+<span class="mf">2.</span><span class="w"> </span><span class="n">At</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="kt">time</span><span class="p">,</span><span class="w"> </span><span class="n">finds</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">closest</span><span class="w"> </span><span class="n">centroids</span>
+<span class="mf">3.</span><span class="w"> </span><span class="n">Searches</span><span class="w"> </span><span class="n">only</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">vectors</span><span class="w"> </span><span class="n">stored</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">those</span><span class="w"> </span><span class="n">centroid</span><span class="w"> </span><span class="err">“</span><span class="n">lists</span><span class="err">”</span>
+<span class="n">Each</span><span class="w"> </span><span class="n">centroid</span><span class="w"> </span><span class="n">acts</span><span class="w"> </span><span class="n">like</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">term</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">classical</span><span class="w"> </span><span class="n">inverted</span><span class="w"> </span><span class="n">index</span><span class="p">,</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">each</span><span class="w"> </span><span class="n">posting</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="n">contains</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">vectors</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">belong</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">region</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">vector</span><span class="w"> </span><span class="n">space</span><span class="p">.</span>
+</code></pre></div>
+
+<h3 id="pros_2">Pros<a class="headerlink" href="#pros_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Lower memory overhead</strong>: Does not store large graphs, making it more memory efficient.</li>
+<li><strong>Faster index build</strong>: Clustering is cheaper than graph construction.</li>
+<li><strong>Works well with disk based search</strong>: Suitable for large datasets that do not fit fully in memory.</li>
+</ul>
+<h3 id="cons_2">Cons<a class="headerlink" href="#cons_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Lower recall than HNSW</strong>: If relevant vectors fall outside probed clusters, they are missed.</li>
+<li><strong>Sensitive to clustering quality</strong>: Poor centroids lead to degraded retrieval quality.</li>
+<li><strong>Requires careful tuning</strong>: Number of clusters and probes strongly affect performance.</li>
+</ul>
+<h3 id="best-for_1">Best for<a class="headerlink" href="#best-for_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Very large scale datasets</li>
+<li>Cost constrained systems</li>
+<li>Disk backed vector stores</li>
+</ul>
+<hr />
+<h3 id="223-product-quantization-pq">2.2.3 Product Quantization (PQ)<a class="headerlink" href="#223-product-quantization-pq" title="Permanent link">&para;</a></h3>
+<p>PQ compresses vectors into compact codes and computes approximate distances.</p>
+<h4 id="pros_3">Pros<a class="headerlink" href="#pros_3" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Massive memory reduction</strong>: Enables storage of billions of vectors.</li>
+<li><strong>Lower IO cost</strong>: Smaller representations reduce disk access.</li>
+</ul>
+<h4 id="cons_3">Cons<a class="headerlink" href="#cons_3" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Lossy compression</strong>: Precision drops due to quantization errors.</li>
+<li><strong>Reduced recall</strong>: Fine grained similarity distinctions are lost.</li>
+<li><strong>Harder to debug</strong>: Errors are harder to attribute to specific vectors.</li>
+</ul>
+<h3 id="typically-used-with">Typically used with<a class="headerlink" href="#typically-used-with" title="Permanent link">&para;</a></h3>
+<ul>
+<li>IVF + PQ for extreme scale search</li>
+</ul>
+<hr />
+<h3 id="23-sparse-indexes">2.3 Sparse Indexes<a class="headerlink" href="#23-sparse-indexes" title="Permanent link">&para;</a></h3>
+<p>Sparse indexes represent documents using term based features such as TF IDF or BM25. Each document is a high dimensional vector over a vocabulary, where most dimensions are zero.</p>
+<p>They are implemented using an inverted index, which maps:</p>
+<p>term → list of documents containing that term</p>
+<p>At query time, only documents that share terms with the query are considered, and they are scored using functions like BM25 that account for term frequency, document frequency, and document length.</p>
+<h4 id="pros_4">Pros<a class="headerlink" href="#pros_4" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Strong lexical precision</strong>: Exact matches for keywords, IDs, and entities.</li>
+<li><strong>Interpretable scoring</strong>: Scores can be explained via term frequency and document frequency.</li>
+<li><strong>Handles rare terms well</strong>: Especially important for names, error codes, and identifiers.</li>
+</ul>
+<h4 id="cons_4">Cons<a class="headerlink" href="#cons_4" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Weak semantic understanding</strong>: Cannot match paraphrases or conceptual similarity.</li>
+<li><strong>Vocabulary dependent</strong>: Performance degrades when query wording differs from documents.</li>
+</ul>
+<h3 id="common-systems">Common systems<a class="headerlink" href="#common-systems" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Elasticsearch</li>
+<li>OpenSearch</li>
+<li>Lucene</li>
+</ul>
+<hr />
+<h3 id="24-hybrid-indexing">2.4 Hybrid Indexing<a class="headerlink" href="#24-hybrid-indexing" title="Permanent link">&para;</a></h3>
+<p>Hybrid systems combine dense and sparse indexes to exploit complementary strengths.</p>
+<h3 id="pros_5">Pros<a class="headerlink" href="#pros_5" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Improved recall and precision</strong>: Dense captures semantics, sparse captures exact matches.</li>
+<li><strong>Robust to query variation</strong>: Handles both natural language and keyword heavy queries.</li>
+<li><strong>Production proven</strong>: Widely used in enterprise and legal search.</li>
+</ul>
+<h3 id="cons_5">Cons<a class="headerlink" href="#cons_5" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Increased system complexity</strong>: Requires managing multiple indexes and score fusion.</li>
+<li><strong>Higher latency</strong>: Multiple retrieval paths increase query cost.</li>
+<li><strong>Tuning complexity</strong>: Weighting dense vs sparse scores is non trivial.</li>
+</ul>
+<hr />
+<h3 id="3-vector-databases">3. Vector Databases<a class="headerlink" href="#3-vector-databases" title="Permanent link">&para;</a></h3>
+<p>Vector databases manage embedding storage, indexing, and retrieval at scale.</p>
+<h3 id="31-core-capabilities">3.1 Core Capabilities<a class="headerlink" href="#31-core-capabilities" title="Permanent link">&para;</a></h3>
+<p>A production ready vector database supports:</p>
+<ul>
+<li>Approximate nearest neighbor search</li>
+<li>Metadata filtering</li>
+<li>Index persistence</li>
+<li>Horizontal scaling</li>
+<li>Online updates</li>
+<li>Observability and monitoring</li>
+</ul>
+<hr />
+<h3 id="32-popular-vector-databases">3.2 Popular Vector Databases<a class="headerlink" href="#32-popular-vector-databases" title="Permanent link">&para;</a></h3>
+<h3 id="faiss">FAISS<a class="headerlink" href="#faiss" title="Permanent link">&para;</a></h3>
+<p><strong>Pros</strong></p>
+<ul>
+<li>Extremely flexible</li>
+<li>High performance</li>
+<li>Ideal for research and custom pipelines</li>
+</ul>
+<p><strong>Cons</strong></p>
+<ul>
+<li>Not a full database</li>
+<li>Requires significant engineering for production use</li>
+</ul>
+<hr />
+<h3 id="milvus">Milvus<a class="headerlink" href="#milvus" title="Permanent link">&para;</a></h3>
+<p><strong>Pros</strong></p>
+<ul>
+<li>Distributed and scalable</li>
+<li>Supports multiple index types</li>
+<li>Strong ecosystem</li>
+</ul>
+<p><strong>Cons</strong></p>
+<ul>
+<li>Operational complexity</li>
+<li>Requires careful resource management</li>
+</ul>
+<hr />
+<h3 id="qdrant">Qdrant<a class="headerlink" href="#qdrant" title="Permanent link">&para;</a></h3>
+<p><strong>Pros</strong></p>
+<ul>
+<li>Strong metadata filtering</li>
+<li>Simple operational model</li>
+<li>Optimized for RAG workloads</li>
+</ul>
+<p><strong>Cons</strong></p>
+<ul>
+<li>Less flexible index customization</li>
+<li>Smaller ecosystem compared to FAISS</li>
+</ul>
+<hr />
+<h3 id="pinecone">Pinecone<a class="headerlink" href="#pinecone" title="Permanent link">&para;</a></h3>
+<p><strong>Pros</strong></p>
+<ul>
+<li>Fully managed</li>
+<li>Minimal operational overhead</li>
+<li>Consistent performance</li>
+</ul>
+<p><strong>Cons</strong></p>
+<ul>
+<li>Less control over internals</li>
+<li>Cost can scale quickly</li>
+</ul>
+<hr />
+<h2 id="33-metadata-filtering">3.3 Metadata Filtering<a class="headerlink" href="#33-metadata-filtering" title="Permanent link">&para;</a></h2>
+<p>Metadata filtering restricts retrieval to relevant subsets.</p>
+<h3 id="pros_6">Pros<a class="headerlink" href="#pros_6" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Improves precision</li>
+<li>Enforces access control</li>
+<li>Reduces irrelevant context</li>
+</ul>
+<h3 id="cons_6">Cons<a class="headerlink" href="#cons_6" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Over filtering can reduce recall</li>
+<li>Poor filter design can hide relevant documents</li>
+</ul>
+<p>Filtering can be applied before or after vector search, each with different tradeoffs.</p>
+<hr />
+<h3 id="4-retrieval-strategies">4. Retrieval Strategies<a class="headerlink" href="#4-retrieval-strategies" title="Permanent link">&para;</a></h3>
+<h3 id="41-dense-retrieval">4.1 Dense Retrieval<a class="headerlink" href="#41-dense-retrieval" title="Permanent link">&para;</a></h3>
+<p>Dense retrieval embeds queries and documents into low-dimensional dense vectors using neural encoders.</p>
+<p><strong>Common models:</strong></p>
+<ul>
+<li>Sentence Transformers</li>
+<li>Contriever</li>
+<li>E5</li>
+<li>GTR</li>
+</ul>
+<p>Retrieval is performed using approximate nearest neighbor search.</p>
+<h4 id="pros_7">Pros<a class="headerlink" href="#pros_7" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Captures semantic similarity</li>
+<li>Robust to paraphrasing</li>
+<li>Domain adaptable via fine tuning</li>
+</ul>
+<h4 id="cons_7">Cons<a class="headerlink" href="#cons_7" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Weak for exact values</li>
+<li>Sensitive to embedding quality</li>
+<li>Harder to interpret scores</li>
+</ul>
+<hr />
+<h3 id="42-sparse-retrieval">4.2 Sparse Retrieval<a class="headerlink" href="#42-sparse-retrieval" title="Permanent link">&para;</a></h3>
+<p>Sparse retrieval represents documents and queries using high-dimensional sparse vectors based on term statistics.</p>
+<h4 id="common-methods">Common methods:<a class="headerlink" href="#common-methods" title="Permanent link">&para;</a></h4>
+<ul>
+<li>TF-IDF</li>
+<li>BM25</li>
+<li>Inverted Indexes</li>
+</ul>
+<h4 id="pros_8">Pros<a class="headerlink" href="#pros_8" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Excellent for exact matches</li>
+<li>Strong for structured identifiers</li>
+<li>Interpretable results</li>
+</ul>
+<h4 id="cons_8">Cons<a class="headerlink" href="#cons_8" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Poor semantic recall</li>
+<li>Fails on natural language variation</li>
+</ul>
+<hr />
+<h2 id="43-hybrid-retrieval">4.3 Hybrid Retrieval<a class="headerlink" href="#43-hybrid-retrieval" title="Permanent link">&para;</a></h2>
+<p>Hybrid retrieval combines sparse and dense retrieval signals.</p>
+<p><strong>Common strategies:</strong></p>
+<ul>
+<li>Score fusion</li>
+<li>Result union followed by reranking</li>
+<li>Weighted linear combination</li>
+</ul>
+<h4 id="pros_9">Pros<a class="headerlink" href="#pros_9" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Best overall retrieval quality</li>
+<li>Handles diverse query types</li>
+<li>Reduces failure modes of single retrievers</li>
+</ul>
+<h4 id="cons_9">Cons<a class="headerlink" href="#cons_9" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Higher system complexity</li>
+<li>Increased latency and cost</li>
+</ul>
+<hr />
+<h3 id="44-multi-stage-retrieval">4.4 Multi Stage Retrieval<a class="headerlink" href="#44-multi-stage-retrieval" title="Permanent link">&para;</a></h3>
+<h3 id="441-two-stage-retrieval">4.4.1 Two-Stage Retrieval<a class="headerlink" href="#441-two-stage-retrieval" title="Permanent link">&para;</a></h3>
+<p>Typical pipeline:</p>
+<ol>
+<li>Fast retriever retrieves top K candidates</li>
+<li>Reranker refines the list</li>
+</ol>
+<p>First stage:</p>
+<ul>
+<li>BM25 or dense ANN search</li>
+</ul>
+<p>Second stage:</p>
+<ul>
+<li>Cross-encoder</li>
+<li>LLM-based reranker</li>
+</ul>
+<p><strong>Reasoning</strong></p>
+<ul>
+<li>First stage optimizes recall</li>
+<li>Second stage optimizes precision</li>
+</ul>
+<hr />
+<h3 id="442-cross-encoder-reranking">4.4.2 Cross-Encoder Reranking<a class="headerlink" href="#442-cross-encoder-reranking" title="Permanent link">&para;</a></h3>
+<p>Cross-encoders jointly encode query and document.</p>
+<p><strong>Advantages</strong></p>
+<ul>
+<li>Rich token-level interactions</li>
+<li>Higher ranking accuracy</li>
+</ul>
+<p><strong>Limitations</strong></p>
+<ul>
+<li>Computationally expensive</li>
+<li>Cannot be applied to large corpora directly</li>
+</ul>
+<hr />
+<h3 id="45-query-aware-retrieval-techniques">4.5 Query-aware Retrieval Techniques<a class="headerlink" href="#45-query-aware-retrieval-techniques" title="Permanent link">&para;</a></h3>
+<h3 id="451-query-expansion">4.5.1 Query Expansion<a class="headerlink" href="#451-query-expansion" title="Permanent link">&para;</a></h3>
+<p>Techniques:</p>
+<ul>
+<li>Synonym expansion</li>
+<li>LLM-generated query reformulations</li>
+<li>Multi-query retrieval</li>
+</ul>
+<p><strong>Why it helps</strong></p>
+<ul>
+<li>Improves recall</li>
+<li>Handles ambiguous or underspecified queries</li>
+</ul>
+<p><strong>Risk</strong></p>
+<ul>
+<li>Query drift</li>
+<li>Increased noise</li>
+</ul>
+<hr />
+<h3 id="452-hypothetical-document-embeddings-hyde">4.5.2 Hypothetical Document Embeddings (HyDE)<a class="headerlink" href="#452-hypothetical-document-embeddings-hyde" title="Permanent link">&para;</a></h3>
+<p>HyDE generates a hypothetical answer and embeds it for retrieval.</p>
+<p><strong>Reasoning</strong></p>
+<ul>
+<li>The generated answer is closer to relevant documents than the original query</li>
+<li>Improves semantic alignment</li>
+</ul>
+<p><strong>Failure mode</strong></p>
+<ul>
+<li>Model hallucination propagates into retrieval</li>
+</ul>
+<hr />
+<h3 id="5-re-ranking">5. Re Ranking<a class="headerlink" href="#5-re-ranking" title="Permanent link">&para;</a></h3>
+<h3 id="51-cross-encoder-re-ranking">5.1 Cross Encoder Re Ranking<a class="headerlink" href="#51-cross-encoder-re-ranking" title="Permanent link">&para;</a></h3>
+<h4 id="pros_10">Pros<a class="headerlink" href="#pros_10" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Very high precision</li>
+<li>Strong relevance modeling</li>
+</ul>
+<h3 id="cons_10">Cons<a class="headerlink" href="#cons_10" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Computationally expensive</li>
+<li>Limited to small candidate sets</li>
+</ul>
+<hr />
+<h3 id="52-llm-based-re-ranking">5.2 LLM Based Re Ranking<a class="headerlink" href="#52-llm-based-re-ranking" title="Permanent link">&para;</a></h3>
+<h4 id="pros_11">Pros<a class="headerlink" href="#pros_11" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Flexible reasoning</li>
+<li>Can incorporate task specific instructions</li>
+</ul>
+<h4 id="cons_11">Cons<a class="headerlink" href="#cons_11" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Expensive</li>
+<li>Non deterministic</li>
+<li>Prompt sensitive</li>
+</ul>
+<hr />
+<h3 id="6-retrieval-evaluation-metrics">6. Retrieval Evaluation Metrics<a class="headerlink" href="#6-retrieval-evaluation-metrics" title="Permanent link">&para;</a></h3>
+<p>Common metrics:</p>
+<ul>
+<li>Recall@K</li>
+<li>Precision@K</li>
+<li>MRR</li>
+<li>nDCG</li>
+</ul>
+<p><strong>Key reasoning</strong></p>
+<p>High Recall@K is often more important than precision because the LLM can filter irrelevant context better than it can invent missing information.</p>
+<hr />
+<h3 id="7-system-design-tradeoffs">7. System Design Tradeoffs<a class="headerlink" href="#7-system-design-tradeoffs" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Latency vs Recall</strong>: Deeper search improves recall but increases response time.</li>
+<li><strong>Memory vs Accuracy</strong>: Compression saves memory at the cost of precision.</li>
+<li><strong>Static vs Dynamic Data</strong>: Frequent updates favor graph based indexes.</li>
+</ul>
+<hr />
+<h3 id="8-common-failure-modes">8. Common Failure Modes<a class="headerlink" href="#8-common-failure-modes" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Poor chunking leading to partial context</li>
+<li>Embedding mismatch between query and corpus</li>
+<li>Over aggressive filtering</li>
+<li>High recall but low precision hurting generation</li>
+<li>Untuned index parameters</li>
+</ul>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.copy", "mathjax"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

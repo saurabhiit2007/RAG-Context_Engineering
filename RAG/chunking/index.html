@@ -1,0 +1,2726 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A technical reference Retrieval Augmented Generation And Context Engineering.">
+      
+      
+        <meta name="author" content="Saurabh Goyal">
+      
+      
+      
+        <link rel="prev" href="../fundamentals/">
+      
+      
+        <link rel="next" href="../embedding/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Chunking - RAG & Context Engineering</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-overview" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="RAG &amp; Context Engineering" class="md-header__button md-logo" aria-label="RAG & Context Engineering" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RAG & Context Engineering
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chunking
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-purple"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="lime"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/saurabhiit2007/RAG_And_Context_Engineering" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RAG &amp; Context Engineering" class="md-nav__button md-logo" aria-label="RAG & Context Engineering" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    RAG & Context Engineering
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/saurabhiit2007/RAG_And_Context_Engineering" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Retrival Augmented Generation (RAG)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Retrival Augmented Generation (RAG)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chunking
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chunking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-chunking-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Chunking Strategies
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-fixed-size-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Fixed-Size Chunking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 Fixed-Size Chunking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-sentence-based-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Sentence-Based Chunking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 Sentence-Based Chunking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#algorithm_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pros_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-paragraph-based-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Paragraph-Based Chunking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 Paragraph-Based Chunking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#algorithm_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pros_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-recursive-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Recursive Chunking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 Recursive Chunking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#algorithm_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pros_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-context-aware-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Context-Aware Chunking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5 Context-Aware Chunking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#algorithm_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pros_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-sliding-window-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 Sliding Window Chunking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6 Sliding Window Chunking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pros_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chunking-strategy-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chunking Strategy Comparison
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chunking Strategy Comparison">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3-other-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Other Concepts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Other Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-chunk-size-vs-top-k-tradeoffs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Chunk Size vs Top-k Tradeoffs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tradeoff-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tradeoff Matrix
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#failure-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Failure Patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-chunk-overlap-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Chunk Overlap Selection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-overlap-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Overlap Matters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typical-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typical Settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tradeoffs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tradeoffs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insight" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Insight
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-chunk-metadata-and-filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Chunk Metadata and Filtering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-is-chunk-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Is Chunk Metadata?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-metadata-is-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Metadata Is Used
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benefits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insight_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Insight
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-chunking-for-tables-and-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Chunking for Tables and Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#341-chunking-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4.1 Chunking Tables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#342-chunking-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4.2 Chunking Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-adaptive-chunking-based-on-query-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 Adaptive Chunking Based on Query Type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#motivation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Motivation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-query-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Query Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adaptive-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adaptive Strategies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pros_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Takeaways
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../embedding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Embedding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../indexing_and_vector_database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Indexing & Retrieval
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../evaluation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Supporting Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Supporting Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../supporting_topics/tf_idf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TF_IDF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../supporting_topics/bm25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BM25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../supporting_topics/splade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Splade
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../supporting_topics/sentence_transformers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sentence Transformer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context Engineering
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Context Engineering
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../context_engineering/ce/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-chunking-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Chunking Strategies
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-fixed-size-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Fixed-Size Chunking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 Fixed-Size Chunking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-sentence-based-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Sentence-Based Chunking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 Sentence-Based Chunking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#algorithm_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pros_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-paragraph-based-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Paragraph-Based Chunking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 Paragraph-Based Chunking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#algorithm_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pros_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-recursive-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Recursive Chunking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 Recursive Chunking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#algorithm_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pros_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-context-aware-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Context-Aware Chunking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5 Context-Aware Chunking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#algorithm_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pros_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-sliding-window-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 Sliding Window Chunking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6 Sliding Window Chunking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pros_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chunking-strategy-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chunking Strategy Comparison
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chunking Strategy Comparison">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3-other-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Other Concepts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Other Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-chunk-size-vs-top-k-tradeoffs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Chunk Size vs Top-k Tradeoffs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tradeoff-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tradeoff Matrix
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#failure-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Failure Patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-chunk-overlap-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Chunk Overlap Selection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-overlap-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Overlap Matters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typical-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typical Settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tradeoffs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tradeoffs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insight" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Insight
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-chunk-metadata-and-filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Chunk Metadata and Filtering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-is-chunk-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Is Chunk Metadata?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-metadata-is-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Metadata Is Used
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benefits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insight_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Insight
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-chunking-for-tables-and-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Chunking for Tables and Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#341-chunking-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4.1 Chunking Tables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#342-chunking-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4.2 Chunking Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-adaptive-chunking-based-on-query-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 Adaptive Chunking Based on Query Type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#motivation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Motivation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-query-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Query Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adaptive-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adaptive Strategies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pros_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cons
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Takeaways
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Chunking</h1>
+
+<h3 id="1-overview">1. Overview<a class="headerlink" href="#1-overview" title="Permanent link">&para;</a></h3>
+<p>Chunking is the process of splitting documents into smaller units before embedding and indexing. It is a critical design choice in RAG systems because it directly impacts retrieval quality, context relevance, latency, and cost.</p>
+<p>Long documents must be broken down into chunks to:</p>
+<ul>
+<li>Fit model token limits</li>
+<li>Improve retrieval granularity</li>
+<li>Reduce semantic dilution</li>
+<li>Control prompt length and cost</li>
+</ul>
+<p>Poor chunking can cause:</p>
+<ul>
+<li>Retrieval failure</li>
+<li>Loss of context</li>
+<li>Fragmented or incomplete answers</li>
+</ul>
+<h3 id="2-chunking-strategies">2. Chunking Strategies<a class="headerlink" href="#2-chunking-strategies" title="Permanent link">&para;</a></h3>
+<h3 id="21-fixed-size-chunking">2.1 Fixed-Size Chunking<a class="headerlink" href="#21-fixed-size-chunking" title="Permanent link">&para;</a></h3>
+<p>Documents are split into chunks of a fixed token or character length, often with optional overlap.</p>
+<p>Example:</p>
+<ul>
+<li>Chunk size: 512 tokens</li>
+<li>Overlap: 50 tokens</li>
+</ul>
+<h4 id="algorithm">Algorithm<a class="headerlink" href="#algorithm" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Tokenize the document</li>
+<li>Split tokens into consecutive windows of size <code>N</code></li>
+<li>Optionally overlap adjacent windows by <code>M</code> tokens</li>
+</ol>
+<h4 id="pros">Pros<a class="headerlink" href="#pros" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Simple to implement</li>
+<li>Fast and scalable</li>
+<li>Works reasonably well as a baseline</li>
+</ul>
+<h4 id="cons">Cons<a class="headerlink" href="#cons" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Ignores semantic boundaries</li>
+<li>May split sentences or paragraphs</li>
+<li>Important information can be fragmented across chunks</li>
+</ul>
+<h4 id="when-to-use">When to Use<a class="headerlink" href="#when-to-use" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Baseline RAG systems</li>
+<li>Uniform document formats</li>
+<li>Large-scale indexing where simplicity matters</li>
+</ul>
+<hr />
+<h3 id="22-sentence-based-chunking">2.2 Sentence-Based Chunking<a class="headerlink" href="#22-sentence-based-chunking" title="Permanent link">&para;</a></h3>
+<p>Documents are split at sentence boundaries, often grouping multiple sentences into a single chunk until a token limit is reached.</p>
+<h4 id="algorithm_1">Algorithm<a class="headerlink" href="#algorithm_1" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Sentence tokenize the document</li>
+<li>Accumulate sentences until the chunk reaches a size threshold</li>
+<li>Start a new chunk when the threshold is exceeded</li>
+</ol>
+<h4 id="pros_1">Pros<a class="headerlink" href="#pros_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Preserves sentence semantics</li>
+<li>Reduces mid-sentence splits</li>
+<li>Better coherence than fixed-size chunking</li>
+</ul>
+<h4 id="cons_1">Cons<a class="headerlink" href="#cons_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Sentence lengths vary significantly</li>
+<li>Long sentences can exceed limits</li>
+<li>Still ignores higher-level structure</li>
+</ul>
+<h4 id="when-to-use_1">When to Use<a class="headerlink" href="#when-to-use_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Narrative text</li>
+<li>QA over articles or reports</li>
+<li>Medium-length documents</li>
+</ul>
+<hr />
+<h3 id="23-paragraph-based-chunking">2.3 Paragraph-Based Chunking<a class="headerlink" href="#23-paragraph-based-chunking" title="Permanent link">&para;</a></h3>
+<p>Chunks are formed using paragraph boundaries, typically defined by newline separation.</p>
+<h4 id="algorithm_2">Algorithm<a class="headerlink" href="#algorithm_2" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Split document by paragraph delimiters</li>
+<li>Merge small paragraphs until size threshold is met</li>
+<li>Split large paragraphs if needed</li>
+</ol>
+<h4 id="pros_2">Pros<a class="headerlink" href="#pros_2" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Preserves local topical coherence</li>
+<li>Aligns well with human-written structure</li>
+<li>Better retrieval relevance for explanatory text</li>
+</ul>
+<h4 id="cons_2">Cons<a class="headerlink" href="#cons_2" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Paragraph length is highly inconsistent</li>
+<li>Large paragraphs may require further splitting</li>
+<li>Formatting noise can affect quality</li>
+</ul>
+<h4 id="when-to-use_2">When to Use<a class="headerlink" href="#when-to-use_2" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Well-structured documents</li>
+<li>Technical blogs and documentation</li>
+<li>Markdown or HTML content</li>
+</ul>
+<hr />
+<h3 id="24-recursive-chunking">2.4 Recursive Chunking<a class="headerlink" href="#24-recursive-chunking" title="Permanent link">&para;</a></h3>
+<p>Recursive chunking applies a hierarchy of splitting rules, starting with coarse semantic units and progressively falling back to finer ones if size constraints are violated.</p>
+<p>Typical split order:</p>
+<ul>
+<li>Sections</li>
+<li>Subsections</li>
+<li>Paragraphs</li>
+<li>Sentences</li>
+<li>Fixed-size fallback</li>
+</ul>
+<h4 id="algorithm_3">Algorithm<a class="headerlink" href="#algorithm_3" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Attempt to split by highest-level boundary</li>
+<li>If chunk exceeds size limit, split using next level</li>
+<li>Continue recursively until constraints are satisfied</li>
+</ol>
+<h4 id="pros_3">Pros<a class="headerlink" href="#pros_3" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Preserves document structure</li>
+<li>Produces semantically meaningful chunks</li>
+<li>Handles diverse document formats well</li>
+</ul>
+<h4 id="cons_3">Cons<a class="headerlink" href="#cons_3" title="Permanent link">&para;</a></h4>
+<ul>
+<li>More complex to implement</li>
+<li>Requires reliable document parsing</li>
+<li>Slightly higher preprocessing cost</li>
+</ul>
+<h4 id="when-to-use_3">When to Use<a class="headerlink" href="#when-to-use_3" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Enterprise documents</li>
+<li>PDFs with headings</li>
+<li>Mixed-format content</li>
+</ul>
+<hr />
+<h3 id="25-context-aware-chunking">2.5 Context-Aware Chunking<a class="headerlink" href="#25-context-aware-chunking" title="Permanent link">&para;</a></h3>
+<p>Chunks are formed based on semantic similarity rather than fixed boundaries. Adjacent text segments are grouped if they share high semantic coherence.</p>
+<h4 id="algorithm_4">Algorithm<a class="headerlink" href="#algorithm_4" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Compute embeddings for small text units</li>
+<li>Measure semantic similarity between adjacent units</li>
+<li>Merge units until similarity drops or size limit is reached</li>
+</ol>
+<h4 id="pros_4">Pros<a class="headerlink" href="#pros_4" title="Permanent link">&para;</a></h4>
+<ul>
+<li>High semantic coherence</li>
+<li>Reduces context fragmentation</li>
+<li>Improves retrieval precision</li>
+</ul>
+<h4 id="cons_4">Cons<a class="headerlink" href="#cons_4" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Computationally expensive</li>
+<li>Requires embedding during preprocessing</li>
+<li>Sensitive to similarity thresholds</li>
+</ul>
+<h4 id="when-to-use_4">When to Use<a class="headerlink" href="#when-to-use_4" title="Permanent link">&para;</a></h4>
+<ul>
+<li>High-accuracy RAG systems</li>
+<li>Knowledge-intensive QA</li>
+<li>Smaller corpora where quality matters</li>
+</ul>
+<hr />
+<h3 id="26-sliding-window-chunking">2.6 Sliding Window Chunking<a class="headerlink" href="#26-sliding-window-chunking" title="Permanent link">&para;</a></h3>
+<p>Chunks are generated using overlapping windows that slide across the document.</p>
+<p>Example:</p>
+<ul>
+<li>Window size: 512 tokens</li>
+<li>Stride: 256 tokens</li>
+</ul>
+<h4 id="pros_5">Pros<a class="headerlink" href="#pros_5" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Preserves cross-boundary context</li>
+<li>Reduces information loss at chunk edges</li>
+<li>Improves recall</li>
+</ul>
+<h4 id="cons_5">Cons<a class="headerlink" href="#cons_5" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Increased index size</li>
+<li>Higher storage and retrieval cost</li>
+<li>More redundant embeddings</li>
+</ul>
+<h4 id="when-to-use_5">When to Use<a class="headerlink" href="#when-to-use_5" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Long-form documents</li>
+<li>Cases where boundary loss is critical</li>
+<li>Multi-hop reasoning tasks</li>
+</ul>
+<hr />
+<h2 id="chunking-strategy-comparison">Chunking Strategy Comparison<a class="headerlink" href="#chunking-strategy-comparison" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>Semantic Coherence</th>
+<th>Complexity</th>
+<th>Index Size</th>
+<th>Common Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fixed-size</td>
+<td>Low</td>
+<td>Low</td>
+<td>Medium</td>
+<td>Baselines</td>
+</tr>
+<tr>
+<td>Sentence-based</td>
+<td>Medium</td>
+<td>Low</td>
+<td>Medium</td>
+<td>Articles</td>
+</tr>
+<tr>
+<td>Paragraph-based</td>
+<td>Medium</td>
+<td>Low</td>
+<td>Medium</td>
+<td>Documentation</td>
+</tr>
+<tr>
+<td>Recursive</td>
+<td>High</td>
+<td>Medium</td>
+<td>Medium</td>
+<td>Enterprise RAG</td>
+</tr>
+<tr>
+<td>Context-aware</td>
+<td>High</td>
+<td>High</td>
+<td>Low to Medium</td>
+<td>High-precision RAG</td>
+</tr>
+<tr>
+<td>Sliding window</td>
+<td>Medium</td>
+<td>Low</td>
+<td>High</td>
+<td>Long documents</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="3-other-concepts">3. Other Concepts<a class="headerlink" href="#3-other-concepts" title="Permanent link">&para;</a></h3>
+<h4 id="31-chunk-size-vs-top-k-tradeoffs">3.1 Chunk Size vs Top-k Tradeoffs<a class="headerlink" href="#31-chunk-size-vs-top-k-tradeoffs" title="Permanent link">&para;</a></h4>
+<p>Chunk size and top-k retrieval are tightly coupled design parameters in RAG systems. Changing one almost always requires adjusting the other.</p>
+<h4 id="key-intuition">Key Intuition<a class="headerlink" href="#key-intuition" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Smaller chunks increase retrieval granularity but reduce context per chunk</li>
+<li>Larger chunks provide more local context but reduce retrieval precision</li>
+</ul>
+<h4 id="tradeoff-matrix">Tradeoff Matrix<a class="headerlink" href="#tradeoff-matrix" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Chunk Size</th>
+<th>Typical Top-k</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Small (100–300 tokens)</td>
+<td>High (10–20)</td>
+<td>High recall, lower precision</td>
+</tr>
+<tr>
+<td>Medium (300–700 tokens)</td>
+<td>Medium (4–8)</td>
+<td>Balanced retrieval</td>
+</tr>
+<tr>
+<td>Large (700–1500 tokens)</td>
+<td>Low (1–3)</td>
+<td>High precision, risk of misses</td>
+</tr>
+</tbody>
+</table>
+<h4 id="failure-patterns">Failure Patterns<a class="headerlink" href="#failure-patterns" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Small chunks + low top-k → missing required information</li>
+<li>Large chunks + high top-k → context overload</li>
+<li>Large chunks + low top-k → partial coverage</li>
+</ul>
+<hr />
+<h4 id="32-chunk-overlap-selection">3.2 Chunk Overlap Selection<a class="headerlink" href="#32-chunk-overlap-selection" title="Permanent link">&para;</a></h4>
+<p>Overlap determines how much content is shared between adjacent chunks.</p>
+<h4 id="why-overlap-matters">Why Overlap Matters<a class="headerlink" href="#why-overlap-matters" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Prevents information loss at chunk boundaries</li>
+<li>Preserves cross-sentence and cross-paragraph context</li>
+</ul>
+<h4 id="typical-settings">Typical Settings<a class="headerlink" href="#typical-settings" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Fixed-size chunking: 10 to 20 percent overlap</li>
+<li>Sliding window chunking: stride equals 50 percent of window size</li>
+<li>Recursive chunking: overlap often unnecessary</li>
+</ul>
+<h4 id="tradeoffs">Tradeoffs<a class="headerlink" href="#tradeoffs" title="Permanent link">&para;</a></h4>
+<p><strong>Benefits</strong>
+- Improved recall
+- Reduced boundary effects</p>
+<p><strong>Costs</strong>
+- Larger index size
+- Higher storage and retrieval cost
+- More redundant embeddings</p>
+<h4 id="insight">Insight<a class="headerlink" href="#insight" title="Permanent link">&para;</a></h4>
+<p>Overlap helps recall but should be used sparingly. Overlap is a mitigation strategy, not a substitute for good chunking.</p>
+<hr />
+<h4 id="33-chunk-metadata-and-filtering">3.3 Chunk Metadata and Filtering<a class="headerlink" href="#33-chunk-metadata-and-filtering" title="Permanent link">&para;</a></h4>
+<h4 id="what-is-chunk-metadata">What Is Chunk Metadata?<a class="headerlink" href="#what-is-chunk-metadata" title="Permanent link">&para;</a></h4>
+<p>Metadata is structured information attached to each chunk that enables filtering and ranking during retrieval.</p>
+<p><strong>Common metadata fields</strong></p>
+<ul>
+<li>Document ID</li>
+<li>Section or heading</li>
+<li>Timestamp or version</li>
+<li>Author or source</li>
+<li>Content type</li>
+</ul>
+<h4 id="how-metadata-is-used">How Metadata Is Used<a class="headerlink" href="#how-metadata-is-used" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Filter chunks before similarity search</li>
+<li>Re-rank retrieved chunks</li>
+<li>Restrict retrieval to specific document subsets</li>
+</ul>
+<h4 id="benefits">Benefits<a class="headerlink" href="#benefits" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Improves retrieval precision</li>
+<li>Reduces noise</li>
+<li>Enables structured queries</li>
+</ul>
+<h4 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h4>
+<p>Retrieve only:</p>
+<ul>
+<li>Chunks from a specific product version</li>
+<li>Chunks created after a certain date</li>
+<li>Chunks from a trusted source</li>
+</ul>
+<h4 id="insight_1">Insight<a class="headerlink" href="#insight_1" title="Permanent link">&para;</a></h4>
+<p>Metadata filtering is one of the most effective ways to improve vanilla RAG without changing models.</p>
+<hr />
+<h4 id="34-chunking-for-tables-and-code">3.4 Chunking for Tables and Code<a class="headerlink" href="#34-chunking-for-tables-and-code" title="Permanent link">&para;</a></h4>
+<p>Text-centric chunking often fails for structured content such as tables and source code.</p>
+<h4 id="341-chunking-tables">3.4.1 Chunking Tables<a class="headerlink" href="#341-chunking-tables" title="Permanent link">&para;</a></h4>
+<p><strong>Challenges</strong></p>
+<ul>
+<li>Rows and columns encode relationships</li>
+<li>Linear text chunking destroys structure</li>
+</ul>
+<p><strong>Common strategies</strong></p>
+<ul>
+<li>Row-based chunking</li>
+<li>Column-wise chunking for analytical queries</li>
+<li>Table-to-text serialization with schema preservation</li>
+</ul>
+<p><strong>Best practice</strong></p>
+<p>Attach table schema and headers as metadata to every chunk.</p>
+<h4 id="342-chunking-code">3.4.2 Chunking Code<a class="headerlink" href="#342-chunking-code" title="Permanent link">&para;</a></h4>
+<p><strong>Challenges</strong></p>
+<ul>
+<li>Long-range dependencies</li>
+<li>Functions and classes are semantic units</li>
+</ul>
+<p><strong>Common strategies</strong></p>
+<ul>
+<li>Function-level chunking</li>
+<li>Class-level chunking</li>
+<li>File-level chunking for small files</li>
+</ul>
+<p><strong>Best practice</strong></p>
+<p>Never split a function or class across chunks.</p>
+<hr />
+<h4 id="35-adaptive-chunking-based-on-query-type">3.5 Adaptive Chunking Based on Query Type<a class="headerlink" href="#35-adaptive-chunking-based-on-query-type" title="Permanent link">&para;</a></h4>
+<h4 id="motivation">Motivation<a class="headerlink" href="#motivation" title="Permanent link">&para;</a></h4>
+<p>Different queries require different chunking granularity. Static chunking cannot optimally serve all query types.</p>
+<h4 id="common-query-types">Common Query Types<a class="headerlink" href="#common-query-types" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Query Type</th>
+<th>Preferred Chunking</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fact lookup</td>
+<td>Small chunks</td>
+</tr>
+<tr>
+<td>Concept explanation</td>
+<td>Medium chunks</td>
+</tr>
+<tr>
+<td>Procedural steps</td>
+<td>Large chunks</td>
+</tr>
+<tr>
+<td>Multi-hop reasoning</td>
+<td>Overlapping or sliding window chunks</td>
+</tr>
+</tbody>
+</table>
+<h4 id="adaptive-strategies">Adaptive Strategies<a class="headerlink" href="#adaptive-strategies" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Maintain multiple indexes with different chunk sizes</li>
+<li>Dynamically select top-k based on query intent</li>
+<li>Use query classification to select chunking policy</li>
+</ul>
+<h4 id="pros_6">Pros<a class="headerlink" href="#pros_6" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Higher retrieval accuracy</li>
+<li>Better context utilization</li>
+<li>Reduced hallucinations</li>
+</ul>
+<h4 id="cons_6">Cons<a class="headerlink" href="#cons_6" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Increased system complexity</li>
+<li>Higher indexing and storage cost</li>
+<li>Requires query understanding</li>
+</ul>
+<hr />
+<h3 id="4-takeaways">4. Takeaways<a class="headerlink" href="#4-takeaways" title="Permanent link">&para;</a></h3>
+<ul>
+<li>How do you choose the right chunk size?</li>
+<li>The Embedding Model: Some models perform better with short sentences; others can handle long paragraphs.</li>
+<li>User Query Style: If users ask short, specific questions, small chunks are better. If they ask for summaries, larger chunks are needed.</li>
+<li>The "Lost in the Middle" Phenomenon: LLMs struggle to find information buried in the middle of a massive chunk.</li>
+<li>Chunking directly impacts retrieval quality and hallucination rates</li>
+<li>Smaller chunks improve recall, larger chunks improve coherence</li>
+<li>There is no universally optimal chunking strategy</li>
+<li>Recursive and context-aware chunking are commonly used in production</li>
+<li>Chunking should be evaluated jointly with retrieval and prompting</li>
+<li>Chunk size, overlap, and top-k must be tuned jointly</li>
+<li>Metadata filtering often yields large quality gains</li>
+<li>Tables and code require specialized chunking</li>
+<li>Adaptive chunking improves robustness but adds complexity</li>
+</ul>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.copy", "mathjax"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

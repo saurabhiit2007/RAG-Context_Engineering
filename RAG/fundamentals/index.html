@@ -1,0 +1,1806 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A technical reference Retrieval Augmented Generation And Context Engineering.">
+      
+      
+        <meta name="author" content="Saurabh Goyal">
+      
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../chunking/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Fundamentals - RAG & Context Engineering</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#retrival-augmented-generation-rag" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="RAG &amp; Context Engineering" class="md-header__button md-logo" aria-label="RAG & Context Engineering" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RAG & Context Engineering
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Fundamentals
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-purple"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="lime"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/saurabhiit2007/RAG_And_Context_Engineering" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RAG &amp; Context Engineering" class="md-nav__button md-logo" aria-label="RAG & Context Engineering" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    RAG & Context Engineering
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/saurabhiit2007/RAG_And_Context_Engineering" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Retrival Augmented Generation (RAG)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Retrival Augmented Generation (RAG)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#retrival-augmented-generation-rag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retrival Augmented Generation (RAG)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Retrival Augmented Generation (RAG)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-problem-does-rag-solve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Problem Does RAG Solve?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-limitations-of-vanilla-llms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Limitations of Vanilla LLMs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-rag-addresses-these-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How RAG Addresses These Issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-rag-vs-fine-tuning-when-does-rag-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. RAG vs Fine-Tuning: When Does RAG Help?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. RAG vs Fine-Tuning: When Does RAG Help?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-rag-is-the-better-choice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When RAG Is the Better Choice
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-fine-tuning-is-the-better-choice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When Fine-Tuning Is the Better Choice
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-high-level-rag-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. High-Level RAG Pipeline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#31-indexing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Indexing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-retrieval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Retrieval
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retrieval-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retrieval Process
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-augmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Augmentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-augmentation-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Augmentation Strategies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Generation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-failure-modes-of-vanilla-rag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Failure Modes of Vanilla RAG
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Failure Modes of Vanilla RAG">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-retrieval-failures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Retrieval Failures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poor-recall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Poor Recall
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poor-precision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Poor Precision
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-chunking-related-failures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Chunking-Related Failures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#over-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Over-Chunking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#under-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Under-Chunking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-context-window-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Context Window Limitations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-lack-of-reasoning-over-retrieved-evidence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Lack of Reasoning Over Retrieved Evidence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-retrieval-augmentation-mismatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 Retrieval-Augmentation Mismatch
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-static-retrieval-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 Static Retrieval Strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#47-no-verification-or-feedback-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.7 No Verification or Feedback Loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Key Takeaways
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chunking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chunking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../embedding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Embedding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../indexing_and_vector_database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Indexing & Retrieval
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../evaluation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Supporting Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Supporting Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../supporting_topics/tf_idf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TF_IDF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../supporting_topics/bm25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BM25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../supporting_topics/splade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Splade
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../supporting_topics/sentence_transformers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sentence Transformer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context Engineering
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Context Engineering
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../context_engineering/ce/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#retrival-augmented-generation-rag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retrival Augmented Generation (RAG)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Retrival Augmented Generation (RAG)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-problem-does-rag-solve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Problem Does RAG Solve?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-limitations-of-vanilla-llms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Limitations of Vanilla LLMs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-rag-addresses-these-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How RAG Addresses These Issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-rag-vs-fine-tuning-when-does-rag-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. RAG vs Fine-Tuning: When Does RAG Help?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. RAG vs Fine-Tuning: When Does RAG Help?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-rag-is-the-better-choice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When RAG Is the Better Choice
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-fine-tuning-is-the-better-choice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When Fine-Tuning Is the Better Choice
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-high-level-rag-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. High-Level RAG Pipeline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#31-indexing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Indexing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-retrieval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Retrieval
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retrieval-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retrieval Process
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-augmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Augmentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-augmentation-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Augmentation Strategies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Generation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-failure-modes-of-vanilla-rag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Failure Modes of Vanilla RAG
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Failure Modes of Vanilla RAG">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-retrieval-failures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Retrieval Failures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poor-recall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Poor Recall
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poor-precision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Poor Precision
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-chunking-related-failures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Chunking-Related Failures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#over-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Over-Chunking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#under-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Under-Chunking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-context-window-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Context Window Limitations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-lack-of-reasoning-over-retrieved-evidence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Lack of Reasoning Over Retrieved Evidence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-retrieval-augmentation-mismatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 Retrieval-Augmentation Mismatch
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-static-retrieval-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 Static Retrieval Strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#47-no-verification-or-feedback-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.7 No Verification or Feedback Loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Key Takeaways
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Fundamentals</h1>
+
+<h2 id="retrival-augmented-generation-rag">Retrival Augmented Generation (RAG)<a class="headerlink" href="#retrival-augmented-generation-rag" title="Permanent link">&para;</a></h2>
+<h3 id="1-overview">1. Overview<a class="headerlink" href="#1-overview" title="Permanent link">&para;</a></h3>
+<h4 id="what-problem-does-rag-solve">What Problem Does RAG Solve?<a class="headerlink" href="#what-problem-does-rag-solve" title="Permanent link">&para;</a></h4>
+<p>Large Language Models are trained on a fixed snapshot of data and store knowledge implicitly in their parameters. This leads to several limitations:</p>
+<h4 id="key-limitations-of-vanilla-llms">Key Limitations of Vanilla LLMs<a class="headerlink" href="#key-limitations-of-vanilla-llms" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p><strong>Knowledge cutoff</strong><br />
+   Models cannot natively access information created after training.</p>
+</li>
+<li>
+<p><strong>Hallucinations</strong><br />
+   When the model lacks factual knowledge, it may generate fluent but incorrect answers.</p>
+</li>
+<li>
+<p><strong>Poor domain specificity</strong><br />
+   General models struggle with enterprise, proprietary, or niche domain data.</p>
+</li>
+<li>
+<p><strong>Cost of knowledge updates</strong><br />
+   Updating knowledge via retraining or fine-tuning is expensive and slow.</p>
+</li>
+</ol>
+<h4 id="how-rag-addresses-these-issues">How RAG Addresses These Issues<a class="headerlink" href="#how-rag-addresses-these-issues" title="Permanent link">&para;</a></h4>
+<p>RAG decouples <strong>knowledge storage</strong> from <strong>language generation</strong>. Instead of forcing the model to memorize facts, it retrieves relevant external information at inference time and conditions generation on that retrieved context.</p>
+<p>This allows:
+- Up-to-date knowledge access
+- Reduced hallucinations
+- Grounded and explainable outputs
+- Faster and cheaper iteration cycles</p>
+<hr />
+<h3 id="2-rag-vs-fine-tuning-when-does-rag-help">2. RAG vs Fine-Tuning: When Does RAG Help?<a class="headerlink" href="#2-rag-vs-fine-tuning-when-does-rag-help" title="Permanent link">&para;</a></h3>
+<h4 id="when-rag-is-the-better-choice">When RAG Is the Better Choice<a class="headerlink" href="#when-rag-is-the-better-choice" title="Permanent link">&para;</a></h4>
+<p>RAG is preferred when:</p>
+<ul>
+<li>Knowledge changes frequently such as policies, documentation, or news.</li>
+<li>Data is large, unstructured, or proprietary.</li>
+<li>Source grounding and explainability are important.</li>
+<li>You want to avoid frequent retraining costs.</li>
+</ul>
+<p><strong>Common use cases</strong>
+- Enterprise knowledge assistants
+- Question answering over PDFs, wikis, and tickets
+- Customer support bots grounded in internal documents</p>
+<h4 id="when-fine-tuning-is-the-better-choice">When Fine-Tuning Is the Better Choice<a class="headerlink" href="#when-fine-tuning-is-the-better-choice" title="Permanent link">&para;</a></h4>
+<p>Fine-tuning is preferred when:</p>
+<ul>
+<li>You want to change <strong>model behavior</strong>, not just factual knowledge.</li>
+<li>The task requires consistent style, tone, or reasoning patterns.</li>
+<li>The knowledge is stable and relatively small.</li>
+</ul>
+<p><strong>Common use cases</strong>
+- Instruction following improvements
+- Code style adaptation
+- Domain-specific reasoning patterns</p>
+<blockquote>
+<p>In practice, RAG and fine-tuning are often combined. A model may be fine-tuned for instruction following and reasoning, while RAG provides factual grounding.</p>
+</blockquote>
+<hr />
+<h3 id="3-high-level-rag-pipeline">3. High-Level RAG Pipeline<a class="headerlink" href="#3-high-level-rag-pipeline" title="Permanent link">&para;</a></h3>
+<p>A standard RAG system consists of four main stages:</p>
+<ol>
+<li>Indexing  </li>
+<li>Retrieval  </li>
+<li>Augmentation  </li>
+<li>Generation  </li>
+</ol>
+<hr />
+<h3 id="31-indexing">3.1 Indexing<a class="headerlink" href="#31-indexing" title="Permanent link">&para;</a></h3>
+<p>Indexing prepares external knowledge for efficient retrieval at inference time.</p>
+<p><strong>Steps in Indexing</strong></p>
+<ol>
+<li>
+<p><strong>Document Ingestion</strong>:  Load raw documents such as PDFs, HTML, markdown files, logs, or database records.</p>
+</li>
+<li>
+<p><strong>Chunking</strong>: Split documents into smaller passages, typically 200 to 1000 tokens.
+Chunking is necessary because:</p>
+</li>
+<li>Embedding models have fixed input limits</li>
+<li>
+<p>Smaller chunks improve retrieval granularity</p>
+</li>
+<li>
+<p><strong>Embedding</strong>: Each chunk is converted into a dense vector using an embedding model.
+For each document chunk <span class="arithmatex">\(d_i\)</span>:
+$$
+\mathbf{e}<em>i = f</em>{\text{embed}}(d_i)
+$$</p>
+</li>
+<li>
+<p><strong>Storage</strong>: All embeddings are stored in a vector database or approximate nearest neighbor index.</p>
+</li>
+</ol>
+<hr />
+<h3 id="32-retrieval">3.2 Retrieval<a class="headerlink" href="#32-retrieval" title="Permanent link">&para;</a></h3>
+<p>Retrieval happens at query time and selects the most relevant chunks.</p>
+<h3 id="retrieval-process">Retrieval Process<a class="headerlink" href="#retrieval-process" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Embed the user query <span class="arithmatex">\(q\)</span> into a vector <span class="arithmatex">\(\mathbf{e}_q\)</span></li>
+<li>Compute similarity between the query vector and stored document vectors</li>
+<li>Select the top-k most similar chunks</li>
+</ol>
+<p>A common similarity metric is cosine similarity:
+$$
+\text{score}(q, d_i) =
+\frac{\mathbf{e}_q \cdot \mathbf{e}_i}{|\mathbf{e}_q||\mathbf{e}_i|}
+$$</p>
+<blockquote>
+<p>Retrieval quality is often the single most important factor in RAG system performance.</p>
+</blockquote>
+<hr />
+<h3 id="33-augmentation">3.3 Augmentation<a class="headerlink" href="#33-augmentation" title="Permanent link">&para;</a></h3>
+<p>Augmentation injects retrieved content into the model input.</p>
+<h3 id="common-augmentation-strategies">Common Augmentation Strategies<a class="headerlink" href="#common-augmentation-strategies" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Concatenating retrieved chunks before the question</li>
+<li>Adding separators, titles, or metadata</li>
+<li>Structuring context using bullet points or citations</li>
+</ul>
+<hr />
+<h3 id="34-generation">3.4 Generation<a class="headerlink" href="#34-generation" title="Permanent link">&para;</a></h3>
+<p>The LLM generates the final response conditioned on both:</p>
+<ul>
+<li>The user query</li>
+<li>The retrieved external context</li>
+</ul>
+<p>Formally:
+$$
+P(y \mid x) = P(y \mid q, d_{1:k})
+$$</p>
+<p>The model reasons over provided evidence rather than relying solely on its internal parameters.</p>
+<hr />
+<h3 id="4-failure-modes-of-vanilla-rag">4. Failure Modes of Vanilla RAG<a class="headerlink" href="#4-failure-modes-of-vanilla-rag" title="Permanent link">&para;</a></h3>
+<h4 id="41-retrieval-failures">4.1 Retrieval Failures<a class="headerlink" href="#41-retrieval-failures" title="Permanent link">&para;</a></h4>
+<h4 id="poor-recall">Poor Recall<a class="headerlink" href="#poor-recall" title="Permanent link">&para;</a></h4>
+<p>Relevant documents exist in the corpus but are not retrieved.</p>
+<p><strong>Common causes</strong>
+- Weak or misaligned embedding model
+- Poor chunking strategy
+- Query embedding mismatch with document embeddings</p>
+<p><strong>Impact</strong>
+- The model generates answers without the required evidence
+- Hallucinations reappear despite using RAG</p>
+<hr />
+<h4 id="poor-precision">Poor Precision<a class="headerlink" href="#poor-precision" title="Permanent link">&para;</a></h4>
+<p>Retrieved chunks are irrelevant or only loosely related to the query.</p>
+<p><strong>Common causes</strong>
+- Overly large chunks
+- Ambiguous user queries
+- High top-k retrieval without filtering</p>
+<p><strong>Impact</strong>
+- Model is distracted by irrelevant context
+- Answers become vague or incorrect</p>
+<hr />
+<h4 id="42-chunking-related-failures">4.2 Chunking-Related Failures<a class="headerlink" href="#42-chunking-related-failures" title="Permanent link">&para;</a></h4>
+<h4 id="over-chunking">Over-Chunking<a class="headerlink" href="#over-chunking" title="Permanent link">&para;</a></h4>
+<p>Chunks are too small and lose semantic meaning.</p>
+<p><strong>Impact</strong>
+- Missing context
+- Incomplete or misleading information</p>
+<h4 id="under-chunking">Under-Chunking<a class="headerlink" href="#under-chunking" title="Permanent link">&para;</a></h4>
+<p>Chunks are too large and contain multiple unrelated topics.</p>
+<p><strong>Impact</strong>
+- Lower retrieval accuracy
+- Context window pollution</p>
+<blockquote>
+<p>Chunk size is a critical hyperparameter and strongly influences retrieval quality.</p>
+</blockquote>
+<hr />
+<h4 id="43-context-window-limitations">4.3 Context Window Limitations<a class="headerlink" href="#43-context-window-limitations" title="Permanent link">&para;</a></h4>
+<p>Vanilla RAG typically concatenates retrieved chunks directly into the prompt.</p>
+<p><strong>Failure cases</strong>
+- Retrieved context exceeds the model context window
+- Important chunks are truncated
+- Ordering of chunks affects answer quality</p>
+<p><strong>Impact</strong>
+- Loss of critical evidence
+- Inconsistent or incomplete answers</p>
+<hr />
+<h4 id="44-lack-of-reasoning-over-retrieved-evidence">4.4 Lack of Reasoning Over Retrieved Evidence<a class="headerlink" href="#44-lack-of-reasoning-over-retrieved-evidence" title="Permanent link">&para;</a></h4>
+<p>Vanilla RAG assumes the model will correctly use the retrieved context.</p>
+<p><strong>Common issues</strong>
+- Model ignores relevant chunks
+- Model cherry-picks incorrect information
+- Model blends retrieved facts with hallucinated content</p>
+<p><strong>Impact</strong>
+- Answers appear grounded but contain subtle errors</p>
+<hr />
+<h4 id="45-retrieval-augmentation-mismatch">4.5 Retrieval-Augmentation Mismatch<a class="headerlink" href="#45-retrieval-augmentation-mismatch" title="Permanent link">&para;</a></h4>
+<p>The retrieved information may be correct but poorly integrated into the prompt.</p>
+<p><strong>Common causes</strong>
+- No clear separation between context and question
+- Missing instructions to ground answers in retrieved content
+- No citation or reference constraints</p>
+<p><strong>Impact</strong>
+- Model treats retrieved text as optional background
+- Reduced factual consistency</p>
+<hr />
+<h4 id="46-static-retrieval-strategy">4.6 Static Retrieval Strategy<a class="headerlink" href="#46-static-retrieval-strategy" title="Permanent link">&para;</a></h4>
+<p>Vanilla RAG uses a single retrieval step.</p>
+<p><strong>Limitations</strong>
+- Cannot refine or reformulate queries
+- No iterative retrieval based on intermediate reasoning
+- No handling of multi-hop or compositional questions</p>
+<p><strong>Impact</strong>
+- Poor performance on complex queries
+- Failure on questions requiring reasoning across documents</p>
+<hr />
+<h4 id="47-no-verification-or-feedback-loop">4.7 No Verification or Feedback Loop<a class="headerlink" href="#47-no-verification-or-feedback-loop" title="Permanent link">&para;</a></h4>
+<p>Vanilla RAG pipelines usually lack validation of retrieved or generated content.</p>
+<p><strong>Missing components</strong>
+- Answer verification
+- Retrieval confidence estimation
+- Self-correction mechanisms</p>
+<p><strong>Impact</strong>
+- Silent failures
+- Difficult to debug or evaluate system behavior</p>
+<hr />
+<h3 id="5-key-takeaways">5. Key Takeaways<a class="headerlink" href="#5-key-takeaways" title="Permanent link">&para;</a></h3>
+<ul>
+<li>RAG reduces hallucinations but does not eliminate them</li>
+<li>Retrieval quality is the dominant failure point</li>
+<li>Chunking and prompt structure are first-order design choices</li>
+<li>Vanilla RAG struggles with complex, multi-hop reasoning</li>
+<li>Advanced RAG systems add reranking, query rewriting, verification, and feedback loops</li>
+</ul>
+<blockquote>
+<p>Most real-world RAG systems extend vanilla RAG to explicitly address these failure modes.</p>
+</blockquote>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.copy", "mathjax"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
