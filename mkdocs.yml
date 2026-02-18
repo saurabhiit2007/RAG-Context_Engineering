@@ -34,15 +34,17 @@ nav:
       - Fundamentals: ./RAG/fundamentals.md
       - Chunking: ./RAG/chunking.md
       - Embedding: ./RAG/embedding.md
-      - Indexing & Retrieval: ./RAG/indexing_and_vector_database.md
+      - Retrieval Methods: ./RAG/retrieval_methods.md
+      - Indexing Strategies, Vector Databases, and Retrieval Systems for RAG: ./RAG/indexing_and_vector_database.md
+      - Re-Ranking: ./RAG/reranking.md
+      - Advanced RAG: ./RAG/advanced_rag.md
       - Evaluation: ./RAG/evaluation.md
+      - Quick Reference: ./RAG/quick_reference.md
       - Supporting Concepts:
           - TF_IDF: ./RAG/supporting_topics/tf_idf.md
           - BM25: ./RAG/supporting_topics/bm25.md
           - Splade: ./RAG/supporting_topics/splade.md
           - Sentence Transformer: ./RAG/supporting_topics/sentence_transformers.md
-  - Context Engineering:
-      - Context Engineering: ./context_engineering/ce.md
   - References: references.md
 
 markdown_extensions:

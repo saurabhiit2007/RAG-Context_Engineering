@@ -1,499 +1,199 @@
-## Indexing Strategies, Vector Databases, and Retrieval Systems for RAG
+## 1. Overview
 
-### 1. Why Indexing and Retrieval Matter in RAG
-
-In RAG systems, retrieval is the bottleneck for answer quality. If the retriever fails, even the strongest LLM cannot recover.
-
-Indexing and retrieval determine:
-- What information is even visible to the generator
-- Latency and cost per query
-- Scalability to millions or billions of chunks
-- Robustness to noisy or ambiguous queries
-
-A typical RAG retrieval pipeline:
-1. Chunk documents
-2. Generate embeddings
-3. Build indexes
-4. Retrieve candidates
-5. Re rank or filter
-6. Construct final context
+Indexing defines how embeddings are organised for fast similarity search at scale. The right indexing strategy depends on corpus size, latency requirements, update frequency, and memory constraints. If the retriever is the bottleneck for RAG quality, the index is what makes the retriever fast enough to use in production.
 
 ---
 
-## 2. Indexing Strategies
+---
 
-Indexing defines how embeddings or tokens are organized to support fast similarity search.
+## 2. Flat Index (Exact Search)
 
-### 2.1 Flat Index
+Computes similarity against every vector in the database. Recall is perfect by definition — no approximation.
 
-A flat index stores all vectors and computes similarity against every vector during search.
-
-#### Pros
-
-- **Exact results**: No approximation is used, so recall is perfect. This makes it a reliable reference for evaluating other indexes.
-- **Simple implementation**: No clustering, graph construction, or parameter tuning is required.
-- **Deterministic behavior**: Results are stable across runs, which simplifies debugging.
-
-#### Cons
-
-- **Does not scale**: Search time grows linearly with dataset size, making it unusable beyond small corpora.
-- **High latency**: Even moderate sized datasets cause unacceptable response times.
-- **High compute cost**: Requires full distance computation for every query.
-
-#### When to use
-
-- Small datasets
-- Offline evaluation
-- Ground truth recall benchmarking
+- **Pros:** Exact results; simple implementation; deterministic.
+- **Cons:** Linear search time — O(N) per query; unusable in production for large corpora.
+- **Use when:** Small datasets (up to ~100k vectors); offline ground-truth benchmarking; evaluating other indexes.
 
 ---
 
-### 2.2 Approximate Nearest Neighbor Indexes
+---
 
-Approximate methods trade small accuracy loss for large performance gains.
+## 3 Approximate Nearest Neighbor (ANN) Indexes
+
+ANN indexes trade a small accuracy loss for large performance gains. The two dominant approaches are HNSW and IVF.
+
+### HNSW (Hierarchical Navigable Small World)
+
+Builds a multi-layer graph where each node connects to similar vectors. Search starts at higher (coarser) layers and progressively refines through lower (finer) layers. The "navigable small world" property ensures short paths between any two nodes in the graph.
+
+**How it works:**
+
+- During indexing, each new vector is inserted into multiple layers, with connections to its nearest neighbours at each layer.
+- During search, the algorithm enters at the top layer (fewest nodes), greedily navigates to the nearest centroid, then descends layer by layer for increasing refinement.
+
+| | |
+|---|---|
+| **Pros** | Very high recall at low latency; supports dynamic insertion without full rebuild; tunable recall/speed tradeoff |
+| **Cons** | High memory overhead from graph edges (typically 2–8x raw vector storage); slow build on very large datasets |
+| **Best for** | Latency-sensitive RAG; medium-to-large corpora; frequently updated data |
+
+**Key parameters:**
+
+- `M` — number of connections per node. Higher M → better recall, more memory.
+- `ef_construction` — search width during index build. Higher → better index quality, slower build.
+- `ef_search` — search width at query time. Higher → better recall, slower queries.
 
 ---
 
-### 2.2.1 HNSW (Hierarchical Navigable Small World)
+### IVF (Inverted File Index)
 
-HNSW builds a multi layer graph where each node connects to similar vectors. Search starts at higher layers and progressively refines.
+Clusters all vectors into `n_list` centroid clusters at build time. At query time, only the `n_probe` closest cluster centroids are searched.
 
-#### Pros
+**Analogy to classical inverted index:** Instead of `term → documents`, IVF uses `centroid ID → vectors assigned to that centroid`. Only vectors in the probed clusters are evaluated.
 
-- **Very high recall at low latency**: HNSW often achieves near flat index recall with orders of magnitude faster search.
-- **Fast query performance**: Graph traversal limits the number of distance computations.
-- **Supports dynamic updates**: New vectors can be inserted without rebuilding the index.
+| | |
+|---|---|
+| **Pros** | Lower memory than HNSW; faster to build; disk-backed search feasible |
+| **Cons** | Lower recall than HNSW if relevant vectors fall outside probed clusters; sensitive to clustering quality |
+| **Best for** | Very large datasets; cost-constrained or memory-constrained systems |
 
-#### Cons
+**Key parameters:**
 
-- **High memory usage**: Graph edges add significant overhead compared to raw vectors.
-- **Slow index construction**: Building the graph is expensive for very large datasets.
-- **Parameter sensitivity**: Poor tuning can increase memory usage or degrade recall.
-
-### Best for
-
-- Latency sensitive RAG systems
-- Medium to large scale corpora
-- Online and frequently updated data
+- `n_list` — number of clusters. More clusters → higher precision but longer build time.
+- `n_probe` — number of clusters searched at query time. More probes → higher recall, slower queries.
 
 ---
 
-### 2.2.2 IVF (Inverted File Index)
+### Product Quantization (PQ)
 
-IVF clusters vectors into centroids and searches only within the closest clusters.
+Compresses high-dimensional vectors into compact codes by splitting each vector into sub-vectors and quantising each sub-vector independently using a trained codebook.
 
-> Note:
-    In traditional text retrieval, an inverted index maps:
-    (term → list of documents containing that term).
-    This is the opposite of storing documents as sequences of terms, hence the word inverted. At query time, only documents associated with the query terms are examined.
-
-    In IVF, the mapping becomes:
-    - centroid ID → list of vectors assigned to that centroid
-    Instead of scanning all vectors, the system:
-    1. Assigns each vector to its nearest centroid during indexing
-    2. At query time, finds the closest centroids
-    3. Searches only the vectors stored in those centroid “lists”
-    Each centroid acts like a term in a classical inverted index, and each posting list contains the vectors that belong to that region of the vector space.
-
-### Pros
-
-- **Lower memory overhead**: Does not store large graphs, making it more memory efficient.
-- **Faster index build**: Clustering is cheaper than graph construction.
-- **Works well with disk based search**: Suitable for large datasets that do not fit fully in memory.
-
-### Cons
-
-- **Lower recall than HNSW**: If relevant vectors fall outside probed clusters, they are missed.
-- **Sensitive to clustering quality**: Poor centroids lead to degraded retrieval quality.
-- **Requires careful tuning**: Number of clusters and probes strongly affect performance.
-
-### Best for
-
-- Very large scale datasets
-- Cost constrained systems
-- Disk backed vector stores
+- **Pros:** Massive memory reduction — enables storage of billions of vectors; lower I/O cost.
+- **Cons:** Lossy compression — recall drops due to quantisation errors; harder to debug.
+- **Typically combined with:** IVF+PQ for extreme-scale search (e.g., web-scale retrieval).
 
 ---
 
-### 2.2.3 Product Quantization (PQ)
+### ANN Index Comparison
 
-PQ compresses vectors into compact codes and computes approximate distances.
-
-#### Pros
-
-- **Massive memory reduction**: Enables storage of billions of vectors.
-- **Lower IO cost**: Smaller representations reduce disk access.
-
-#### Cons
-
-- **Lossy compression**: Precision drops due to quantization errors.
-- **Reduced recall**: Fine grained similarity distinctions are lost.
-- **Harder to debug**: Errors are harder to attribute to specific vectors.
-
-### Typically used with
-
-- IVF + PQ for extreme scale search
+| Index | Recall | Query Speed | Memory | Update Support | Best For |
+|---|---|---|---|---|---|
+| Flat (exact) | Perfect | Slow (linear) | Low | Easy | Ground truth, small datasets |
+| HNSW | Very high | Very fast | High | Easy (dynamic) | Production RAG, latency-sensitive |
+| IVF | High | Fast | Medium | Requires rebuild | Large scale, memory-constrained |
+| IVF+PQ | Moderate | Very fast | Very low | Requires rebuild | Billion-scale search |
+| Sparse (BM25) | High (lexical) | Very fast | Low | Easy | Keyword search, hybrid RAG |
 
 ---
 
-### 2.3 Sparse Indexes
+---
 
-Sparse indexes represent documents using term based features such as TF IDF or BM25. Each document is a high dimensional vector over a vocabulary, where most dimensions are zero.
+## 4. Sparse Indexes
 
-They are implemented using an inverted index, which maps:
+Sparse indexes use term-based inverted indexes mapping `term → posting list of documents`. Standard infrastructure for BM25 and SPLADE. Implemented in Elasticsearch, OpenSearch, and Lucene.
 
-term → list of documents containing that term
-
-At query time, only documents that share terms with the query are considered, and they are scored using functions like BM25 that account for term frequency, document frequency, and document length.
-
-#### Pros
-
-- **Strong lexical precision**: Exact matches for keywords, IDs, and entities.
-- **Interpretable scoring**: Scores can be explained via term frequency and document frequency.
-- **Handles rare terms well**: Especially important for names, error codes, and identifiers.
-
-#### Cons
-
-- **Weak semantic understanding**: Cannot match paraphrases or conceptual similarity.
-- **Vocabulary dependent**: Performance degrades when query wording differs from documents.
-
-### Common systems
-
-- Elasticsearch
-- OpenSearch
-- Lucene
+- **Excellent for:** Lexical retrieval; exact keyword matches; rare terms and identifiers.
+- **Cannot do:** Semantic similarity; paraphrase matching.
 
 ---
 
-### 2.4 Hybrid Indexing
+---
 
-Hybrid systems combine dense and sparse indexes to exploit complementary strengths.
+## 5. Hybrid Indexing
 
-### Pros
+Hybrid systems maintain both a dense vector index and a sparse inverted index. Retrieval runs in parallel across both, and results are merged (typically with Reciprocal Rank Fusion).
 
-- **Improved recall and precision**: Dense captures semantics, sparse captures exact matches.
-- **Robust to query variation**: Handles both natural language and keyword heavy queries.
-- **Production proven**: Widely used in enterprise and legal search.
-
-### Cons
-
-- **Increased system complexity**: Requires managing multiple indexes and score fusion.
-- **Higher latency**: Multiple retrieval paths increase query cost.
-- **Tuning complexity**: Weighting dense vs sparse scores is non trivial.
+- **Pros:** Improved recall and precision; robust to diverse query types; production-proven.
+- **Cons:** Increased system complexity; higher latency (two retrieval paths); requires score fusion tuning.
 
 ---
 
-### 3. Vector Databases
+---
 
-Vector databases manage embedding storage, indexing, and retrieval at scale.
+## 6. Vector Databases
 
-### 3.1 Core Capabilities
+Vector databases manage embedding storage, indexing, ANN search, metadata filtering, and scaling in a unified system. Key selection criteria: index type support, metadata filtering capabilities, update model, latency guarantees, and operational overhead.
 
-A production ready vector database supports:
-
-- Approximate nearest neighbor search
-- Metadata filtering
-- Index persistence
-- Horizontal scaling
-- Online updates
-- Observability and monitoring
+| Database | Key Strength | Consideration |
+|---|---|---|
+| FAISS (Meta) | Extremely flexible, high-performance, research standard | Not a full DB — needs extra engineering for production |
+| Milvus | Distributed, scalable, multiple index types | High operational complexity |
+| Qdrant | Strong metadata filtering, RAG-optimised, simple to operate | Less ecosystem than FAISS |
+| Pinecone | Fully managed, zero ops overhead, consistent performance | Limited internal control; cost scales quickly |
+| Weaviate | Strong hybrid search (dense + BM25 built-in) | More complex query interface |
+| pgvector | Postgres extension — no new infrastructure needed | Lower performance at large scale |
 
 ---
 
-### 3.2 Popular Vector Databases
+---
 
-### FAISS
+## 7. Metadata Filtering
 
-**Pros**
+Metadata filtering restricts retrieval to relevant subsets before (pre-filtering) or after (post-filtering) vector search.
 
-- Extremely flexible
-- High performance
-- Ideal for research and custom pipelines
+**Pre-filtering** (filter first, then search the smaller set):
 
-**Cons**
+- Faster — ANN search runs on a smaller index.
+- Risk: over-filtering can hurt recall if filters are too strict.
 
-- Not a full database
-- Requires significant engineering for production use
+**Post-filtering** (search first, then discard irrelevant results):
+
+- Better recall — the full index is searched.
+- Wastes compute on candidates that will be filtered out.
+
+**Common metadata filters:**
+
+- Document type or source
+- Timestamp / version (retrieve only recent documents)
+- Author or department
+- Access permissions / tenant ID (multi-tenant RAG)
+- Content type (prose vs. table vs. code)
+
+> Metadata filtering is one of the highest-ROI improvements in a vanilla RAG system — it narrows the search space without changing the embedding model or retraining anything.
 
 ---
 
-### Milvus
+---
 
-**Pros**
+## 8. Multi-Tenant RAG and Access Control
 
-- Distributed and scalable
-- Supports multiple index types
-- Strong ecosystem
+In enterprise systems, different users should only retrieve from their permitted document subset. Two main approaches:
 
-**Cons**
-
-- Operational complexity
-- Requires careful resource management
+1. **Namespace / collection isolation:** Each tenant's documents live in a separate index namespace. Cleanest isolation but higher infrastructure cost.
+2. **Metadata-based filtering:** All documents share one index; retrieval filters on a `tenant_id` metadata field. More efficient but relies on the vector DB correctly enforcing filters.
 
 ---
 
-### Qdrant
+---
 
-**Pros**
+## 9. Interview Questions
 
-- Strong metadata filtering
-- Simple operational model
-- Optimized for RAG workloads
+**Q: What is the key trade-off between HNSW and IVF?**
 
-**Cons**
-
-- Less flexible index customization
-- Smaller ecosystem compared to FAISS
+A: HNSW gives higher recall and faster queries but uses significantly more memory (graph edges) and is slower to build. IVF uses less memory and builds faster but can miss relevant vectors that fall outside the probed clusters, giving lower recall. For latency-sensitive RAG with frequent updates, HNSW is usually preferred. For very large datasets where memory is a constraint, IVF (often with PQ compression) is used.
 
 ---
 
-### Pinecone
+**Q: When would you re-index your vector database?**
 
-**Pros**
-
-- Fully managed
-- Minimal operational overhead
-- Consistent performance
-
-**Cons**
-
-- Less control over internals
-- Cost can scale quickly
+A: You must re-index whenever you change the embedding model — vectors from different models live in different vector spaces and cannot be compared. You should also re-index when the corpus changes significantly (documents added/deleted), when chunk size or preprocessing changes, or when switching to an index type that requires a full rebuild (like IVF).
 
 ---
 
-## 3.3 Metadata Filtering
+**Q: How does metadata filtering interact with ANN search?**
 
-Metadata filtering restricts retrieval to relevant subsets.
-
-### Pros
-
-- Improves precision
-- Enforces access control
-- Reduces irrelevant context
-
-### Cons
-
-- Over filtering can reduce recall
-- Poor filter design can hide relevant documents
-
-Filtering can be applied before or after vector search, each with different tradeoffs.
+A: Pre-filtering (filter before ANN search) is faster because you search a smaller set, but can hurt recall if filters are too aggressive. Post-filtering (run ANN then filter results) preserves recall but wastes compute. Some vector databases (like Qdrant) support segment-level filtering that approximates pre-filtering without the recall penalty.
 
 ---
 
-### 4. Retrieval Strategies
+**Q: What are the main operational differences between FAISS and a managed vector DB like Pinecone?**
 
-### 4.1 Dense Retrieval
-
-Dense retrieval embeds queries and documents into low-dimensional dense vectors using neural encoders.
-
-**Common models:**
-
-- Sentence Transformers
-- Contriever
-- E5
-- GTR
-
-Retrieval is performed using approximate nearest neighbor search.
-
-#### Pros
-
-- Captures semantic similarity
-- Robust to paraphrasing
-- Domain adaptable via fine tuning
-
-#### Cons
-
-- Weak for exact values
-- Sensitive to embedding quality
-- Harder to interpret scores
+A: FAISS is a library — extremely flexible and high-performance, but you are responsible for persistence, serving, scaling, replication, and monitoring. Pinecone is a fully managed service with consistent performance, automatic scaling, and no operational overhead, but you have less control over internals (index type, tuning parameters) and costs scale quickly with data volume. For research or highly custom pipelines, FAISS is better. For product teams that want to ship quickly, managed databases like Pinecone or Qdrant are preferable.
 
 ---
 
-### 4.2 Sparse Retrieval
+**Q: How would you design a RAG system for a multi-tenant SaaS application where each customer should only retrieve their own documents?**
 
-Sparse retrieval represents documents and queries using high-dimensional sparse vectors based on term statistics.
-
-#### Common methods:
-
-- TF-IDF
-- BM25
-- Inverted Indexes
-
-#### Pros
-
-- Excellent for exact matches
-- Strong for structured identifiers
-- Interpretable results
-
-#### Cons
-
-- Poor semantic recall
-- Fails on natural language variation
-
----
-
-## 4.3 Hybrid Retrieval
-
-Hybrid retrieval combines sparse and dense retrieval signals.
-
-**Common strategies:**
-
-- Score fusion
-- Result union followed by reranking
-- Weighted linear combination
-
-#### Pros
-
-- Best overall retrieval quality
-- Handles diverse query types
-- Reduces failure modes of single retrievers
-
-#### Cons
-
-- Higher system complexity
-- Increased latency and cost
-
----
-
-### 4.4 Multi Stage Retrieval
-
-### 4.4.1 Two-Stage Retrieval
-
-Typical pipeline:
-
-1. Fast retriever retrieves top K candidates
-2. Reranker refines the list
-
-First stage:
-
-- BM25 or dense ANN search
-
-Second stage:
-
-- Cross-encoder
-- LLM-based reranker
-
-**Reasoning**
-
-- First stage optimizes recall
-- Second stage optimizes precision
-
----
-
-### 4.4.2 Cross-Encoder Reranking
-
-Cross-encoders jointly encode query and document.
-
-**Advantages**
-
-- Rich token-level interactions
-- Higher ranking accuracy
-
-**Limitations**
-
-- Computationally expensive
-- Cannot be applied to large corpora directly
-
----
-
-### 4.5 Query-aware Retrieval Techniques
-
-### 4.5.1 Query Expansion
-
-Techniques:
-
-- Synonym expansion
-- LLM-generated query reformulations
-- Multi-query retrieval
-
-**Why it helps**
-
-- Improves recall
-- Handles ambiguous or underspecified queries
-
-**Risk**
-
-- Query drift
-- Increased noise
-
----
-
-### 4.5.2 Hypothetical Document Embeddings (HyDE)
-
-HyDE generates a hypothetical answer and embeds it for retrieval.
-
-**Reasoning**
-
-- The generated answer is closer to relevant documents than the original query
-- Improves semantic alignment
-
-**Failure mode**
-
-- Model hallucination propagates into retrieval
-
----
-
-### 5. Re Ranking
-
-### 5.1 Cross Encoder Re Ranking
-
-#### Pros
-
-- Very high precision
-- Strong relevance modeling
-
-### Cons
-
-- Computationally expensive
-- Limited to small candidate sets
-
----
-
-### 5.2 LLM Based Re Ranking
-
-#### Pros
-
-- Flexible reasoning
-- Can incorporate task specific instructions
-
-#### Cons
-
-- Expensive
-- Non deterministic
-- Prompt sensitive
-
----
-
-### 6. Retrieval Evaluation Metrics
-
-Common metrics:
-
-- Recall@K
-- Precision@K
-- MRR
-- nDCG
-
-**Key reasoning**
-
-High Recall@K is often more important than precision because the LLM can filter irrelevant context better than it can invent missing information.
-
----
-
-### 7. System Design Tradeoffs
-
-- **Latency vs Recall**: Deeper search improves recall but increases response time.
-- **Memory vs Accuracy**: Compression saves memory at the cost of precision.
-- **Static vs Dynamic Data**: Frequent updates favor graph based indexes.
-
----
-
-### 8. Common Failure Modes
-
-- Poor chunking leading to partial context
-- Embedding mismatch between query and corpus
-- Over aggressive filtering
-- High recall but low precision hurting generation
-- Untuned index parameters
+A: Two main options: (1) Namespace isolation — each customer gets a separate collection/namespace in the vector DB. Strong security guarantees, but higher cost at large customer counts. (2) Metadata filtering — store all documents in one index with a `tenant_id` field, and always filter on tenant_id at query time. More efficient, but you must trust the vector DB's filter enforcement and ensure no metadata leakage. For high-security requirements (e.g., healthcare, finance), namespace isolation is safer.
 
 ---

@@ -1,311 +1,247 @@
-## Evaluation of Retrieval-Augmented Generation (RAG) Systems
+## 1. Overview
 
-Evaluation is one of the hardest and most important aspects of Retrieval-Augmented Generation systems. A RAG pipeline combines multiple components such as retrieval, reranking, and generation, each of which can fail in different ways. As a result, evaluation must be multi-dimensional, covering both component-level and end-to-end behavior.
+Evaluation is one of the hardest aspects of RAG. The system has multiple interacting components, no single ground-truth output, and can fail silently — generating fluent but incorrect answers. Effective evaluation requires multiple layers covering retrieval quality, generation quality, and faithfulness.
 
 ---
 
-## 1. Why RAG Evaluation Is Hard
+---
+
+## 2. Why RAG Evaluation Is Hard
 
 Unlike traditional NLP tasks, RAG systems:
-- Do not have a single ground-truth output
-- Depend on external knowledge sources
-- Can fail silently by generating fluent but incorrect answers
-- Have multiple interacting components
 
-Because of this, no single metric is sufficient. Effective evaluation requires layered evaluation across retrieval quality, generation quality, and faithfulness to sources.
+- Do not have a single ground-truth output (multiple valid answers may exist).
+- Depend on external knowledge sources that can be wrong, stale, or irrelevant.
+- Can fail silently — generating fluent but factually wrong answers.
+- Have multiple interacting components: a failure in retrieval causes a failure in generation, but this is hard to detect end-to-end.
+
+No single metric is sufficient. Effective evaluation requires layered coverage.
 
 ---
 
-## 2. Component-Level vs End-to-End Evaluation
+---
+
+## 3. Component vs. End-to-End Evaluation
 
 ### Component-Level Evaluation
 
-Each module is evaluated independently.
+Each module is tested independently.
 
-**Retrieval**
+- **Retrieval:** Are relevant documents retrieved? Are they ranked correctly?
+- **Generation:** Given perfect context, can the model answer correctly?
 
-- Are relevant documents retrieved?
-- Are they ranked correctly?
-
-**Generation**
-
-- Given perfect context, can the model answer correctly?
-
-**Pros**
-
-- Easier to debug failures
-- Clear attribution of errors
-- Allows offline benchmarking
-
-**Cons**
-
-- Does not capture compounding errors
-- May overestimate real-world performance
+| | |
+|---|---|
+| **Pros** | Easier to debug failures; clear error attribution; fast offline iteration |
+| **Cons** | Does not capture compounding errors; may overestimate real-world performance |
 
 ---
 
 ### End-to-End Evaluation
 
-The full pipeline is evaluated from user query to final answer.
+The full pipeline is tested from user query to final answer.
 
-**Pros**
+| | |
+|---|---|
+| **Pros** | Reflects real user experience; captures interaction effects between components |
+| **Cons** | Hard to diagnose root causes; more expensive and noisy |
 
-- Reflects real user experience
-- Captures interaction effects between components
-
-**Cons**
-
-- Hard to diagnose root causes
-- More expensive and noisy
-
-> Note: Strong systems use both, starting with component-level evaluation during development and end-to-end evaluation before deployment.
+> Strong systems use both — component evaluation during development, end-to-end evaluation before deployment.
 
 ---
 
-## 3. Retrieval Evaluation Metrics
+---
 
-Retrieval metrics measure whether the system is able to fetch relevant context.
+## 4. Retrieval Metrics
 
-### 3.1 Recall@k
+### Recall@k
 
 Fraction of queries for which at least one relevant document appears in the top-k retrieved results.
 
-**Why it matters**
-
-- If recall is low, generation cannot recover
-- Especially critical for factual question answering
-
-**Limitations**
-
-- Does not consider ranking within top-k
-- Binary notion of relevance
+- **Why it matters:** If recall is low, generation cannot recover. Especially critical for factual QA.
+- **Limitation:** Binary notion of relevance; does not consider ranking quality within top-k.
 
 ---
 
-### 3.2 Mean Reciprocal Rank (MRR)
+### Mean Reciprocal Rank (MRR)
 
-MRR measures how early the first relevant document appears in the ranked list, giving higher scores when the system retrieves a useful document closer to the top.
+Measures how early the first relevant document appears in the ranked list. Score = average of 1/rank across queries.
 
-**Why it matters**
-
-- Rewards systems that rank relevant documents earlier
-- Useful when only one document is needed
-
-**Limitations**
-
-- Ignores multiple relevant documents
+- **Why it matters:** Rewards systems that rank relevant documents earlier; useful when only one document is needed.
+- **Limitation:** Ignores multiple relevant documents.
 
 ---
 
-### 3.3 Normalized Discounted Cumulative Gain (nDCG)
+### nDCG (Normalised Discounted Cumulative Gain)
 
-nDCG measures how well the system orders documents by relevance, rewarding highly relevant documents appearing early in the ranking and smoothly penalizing them as they appear lower.
+Measures quality of the full ranked list using graded relevance, penalising relevant documents that appear lower.
 
-**Why it matters**
-
-- More realistic for multi-document relevance
-- Penalizes relevant documents appearing lower in the list
-
-**Limitations**
-
-- Requires graded relevance labels
-- More complex to compute and interpret
+- **Why it matters:** More realistic for multi-document relevance; handles graded (not just binary) relevance labels.
+- **Limitation:** Requires graded relevance annotations; more complex to compute and interpret.
 
 ---
 
-## 4. Generation Quality Metrics
+### Precision@k
 
-Generation metrics evaluate the textual quality of the final answer.
+Fraction of top-k retrieved documents that are relevant.
 
-### 4.1 Exact Match (EM)
+- **Why it matters:** Complements recall — high precision means less noisy context for the LLM.
+- **Limitation:** Must be considered alongside recall; a system can have high precision@3 with low recall.
 
-Checks if the generated answer exactly matches the ground truth.
-
-**Pros**
-
-- Simple and interpretable
-- Useful for factoid questions
-
-**Cons**
-
-- Too strict for natural language generation
-- Sensitive to paraphrasing
+> High Recall@k is often more critical than precision in RAG retrieval, because the LLM can filter irrelevant context — but it cannot invent missing information.
 
 ---
 
-### 4.2 F1 Score
+---
 
-Token-level overlap between generated answer and reference.
+## 5. Generation Quality Metrics
 
-**Pros**
+| Metric | What It Measures | Limitation |
+|---|---|---|
+| Exact Match (EM) | Exact string match with reference answer | Too strict for NL generation; penalises valid paraphrasing |
+| F1 Score (token overlap) | Token-level overlap with reference | Surface-level; misses semantic equivalence |
+| BLEU / ROUGE | N-gram overlap with reference text | Poorly correlates with factual correctness; rewards fluency |
+| BERTScore | Semantic similarity via contextual embeddings | Better than n-gram but still not factuality-aware |
 
-- More flexible than Exact Match
-- Widely used in question answering benchmarks
-
-**Cons**
-
-- Still surface-level
-- Does not capture semantic correctness fully
+> These metrics primarily measure fluency and surface similarity, not truthfulness. A hallucinated answer can score well if it is fluent and partially overlaps with the reference.
 
 ---
 
-### 4.3 BLEU and ROUGE
+---
 
-**Use case**
+## 6. Faithfulness and Groundedness
 
-- Longer-form or summarization-style answers
+The most critical RAG-specific evaluation dimension. A system can score well on generation metrics while still hallucinating — generating correct-sounding text not supported by the retrieved documents.
 
-**Limitations**
+### Faithfulness
+**Question:** Is every claim in the answer supported by the retrieved context?
 
-- Correlate poorly with factual correctness
-- Can reward fluent but incorrect outputs
-
-> Note: These metrics primarily measure fluency, not truthfulness.
+- Measured by sentence-level entailment checks or LLM-as-a-judge prompting.
+- Failure mode: Correct-sounding claims that are not in any retrieved document.
 
 ---
 
-## 5. Faithfulness and Groundedness Evaluation
+### Groundedness
+**Question:** Does every specific claim in the answer trace back to a retrieved source?
 
-A core risk in RAG is hallucination, where the model generates content not supported by retrieved documents.
-
-### 5.1 Faithfulness
-
-**Question answered**  
-
-Is the generated answer supported by the retrieved context?
-
-**Common approaches**
-
-- LLM-as-a-judge prompting
-- Sentence-level entailment checks
-- Context to answer consistency scoring
+- Measured by claim extraction followed by source matching or citation validation.
+- Failure mode: Answers that are correct (by coincidence or parametric knowledge) but unsupported by retrieved text.
 
 ---
 
-### 5.2 Groundedness
+### Answer Relevance
+**Question:** Does the answer actually address the original question?
 
-**Question answered**  
-
-Does every claim in the answer trace back to a retrieved source?
-
-**Techniques**
-
-- Claim extraction followed by source matching
-- Evidence coverage metrics
-- Citation validation
-
-**Failure mode**
-
-- Answers that are correct but unsupported by retrieved documents
+- Measured by LLM-as-a-judge or semantic similarity between answer and query.
 
 ---
 
-## 6. LLM-Based Evaluation
+### Context Relevance
+**Question:** Were the retrieved documents actually relevant to the query?
 
-Large language models are increasingly used as evaluators.
-
-### Use Cases
-
-- Faithfulness scoring
-- Answer correctness evaluation
-- Relevance of retrieved passages
-- Pairwise comparison of answers
-
-### Benefits
-
-- Scales without human labels
-- Captures semantic nuance beyond lexical overlap
-
-### Risks
-
-- Bias toward fluent answers
-- Sensitivity to prompt design
-- Self-preference when evaluating the same model family
-
-**Best practice**
-
-- Use structured rubrics
-- Validate against human judgments on a held-out set
+- Measured by LLM-based relevance scoring per retrieved chunk.
 
 ---
 
-## 7. Human Evaluation Protocols
+## 7. LLM-as-a-Judge (RAGAS Framework)
+
+Using an LLM to evaluate RAG outputs is increasingly the standard approach. **RAGAS** is a widely-used framework evaluating four dimensions without requiring ground-truth labels for generation:
+
+| Dimension | Question Answered |
+|---|---|
+| Faithfulness | Are all claims in the answer supported by retrieved context? |
+| Answer Relevance | Is the answer on-topic for the original query? |
+| Context Recall | Does the retrieved context contain what's needed to answer? (Needs reference answer) |
+| Context Precision | Are retrieved documents relevant, or is there noise? |
+
+**Benefits:** Scales without human labelling; captures semantic nuance beyond lexical overlap.
+
+**Risks:**
+
+- Bias towards fluent answers — LLM judges may reward well-written hallucinations.
+- Sensitivity to prompt design — scoring rubrics matter significantly.
+- Self-preference bias — models tend to rate outputs from similar architectures more favourably.
+
+**Best practice:** Validate LLM-as-a-judge scores against human judgments on a held-out set before trusting them for production decisions.
+
+---
+
+---
+
+## 8. Human Evaluation Protocols
 
 Human evaluation remains the gold standard for RAG systems.
 
-### Common Criteria
+**Common criteria:** Correctness, completeness, faithfulness, clarity, usefulness.
 
-- Correctness
-- Completeness
-- Faithfulness
-- Clarity
-- Usefulness
+**Protocol design:**
 
-### Protocol Design
+- Blind evaluation (evaluators don't know which system produced which answer).
+- Multiple annotators per example (typically 3).
+- Measure inter-annotator agreement (Cohen's Kappa).
 
-- Blind evaluation
-- Multiple annotators per example
-- Measurement of inter-annotator agreement
-
-### Tradeoffs
-
-- High cost
-- Low scalability
-- Slow iteration cycles
+**Tradeoffs:** High cost; low scalability; slow iteration — but irreplaceable for final validation.
 
 ---
 
-## 8. Error Analysis and Failure Modes
+---
 
-Effective evaluation includes systematic error analysis.
+## 9. Common RAG Failure Types and Root Causes
 
-### Common Failure Types
-
-- Relevant document not retrieved
-- Relevant document retrieved but ignored by the generator
-- Partial hallucinations mixed with correct facts
-- Over-reliance on parametric knowledge
-- Stale, contradictory, or low-quality sources
-
-**Practical tip**  
-
-Track failures across queries and cluster them by root cause rather than by metric alone.
+| Failure Type | Diagnosis | Fix |
+|---|---|---|
+| Relevant doc not retrieved | Low Recall@k | Improve embeddings; use hybrid retrieval; adjust chunk size |
+| Retrieved but not used by LLM | Good recall, low faithfulness | Improve prompt; citation constraints; rerank more aggressively |
+| Partial hallucinations | Mixed faithful + invented claims | Faithfulness scoring; instruction-tune with grounding |
+| Over-reliance on parametric knowledge | Model ignores retrieved context | Explicit grounding instructions; Self-RAG |
+| Stale or contradictory sources | Corpus not updated | Add timestamps; filter by recency; update index |
 
 ---
 
-## 9. Dataset Construction for RAG Evaluation
+---
 
-### Key Challenges
+## 10. Building an Evaluation Dataset
 
-- Creating reliable relevance labels
-- Defining ground truth answers
-- Handling ambiguous or multi-hop queries
+**Challenge:** Creating reliable ground-truth labels for RAG is expensive.
 
-### Dataset Types
+**Approaches:**
 
-- Synthetic question answering generated from documents
-- Human-authored question answer pairs
-- Real user queries from production logs
+1. **Synthetic generation:** Use an LLM to generate questions from your document corpus, creating question–context–answer triples. Fast and free, but synthetic questions may not match real user queries.
+2. **Production logging:** Sample real user queries and have humans label relevant documents and correct answers. Most realistic, but requires live traffic.
+3. **Expert annotation:** For high-stakes domains (medical, legal), pay subject matter experts to create a gold-standard test set. Expensive but highest quality.
 
 ---
 
-## 10. Tradeoffs and Design Choices
+---
 
-| Design Choice | Impact |
-|--------------|--------|
-| High recall retrieval | Improves answer coverage but increases noise |
-| Aggressive reranking | Improves precision but adds latency |
-| Strict faithfulness constraints | Reduces hallucinations but may lower answer recall |
+## 11. Interview Questions
+
+**Q: Why is no single metric sufficient to evaluate a RAG system?**
+
+A: RAG has multiple failure modes that different metrics capture: retrieval metrics (recall, nDCG) measure whether the right documents are found; generation metrics (EM, F1) measure answer quality given perfect context; faithfulness metrics measure whether the answer is grounded in retrieved text; end-to-end metrics capture the combined effect. A system can have high recall but low faithfulness (retrieves well, then hallucinates). You need all layers to diagnose root causes.
 
 ---
 
-## 11. What Interviewers Look For
+**Q: What is the difference between faithfulness and answer correctness?**
 
-Strong candidates can:
+A: Faithfulness measures whether the answer is supported by retrieved context — an answer can be wrong if the retrieved context is wrong, but still be "faithful". Answer correctness measures whether the answer matches a known ground truth — an answer can be correct but use parametric knowledge rather than retrieved context. Ideally you want both: correct and grounded in retrieved text.
 
-- Explain why no single metric is sufficient
-- Justify metric choices based on application requirements
-- Discuss tradeoffs between faithfulness and usefulness
-- Describe how evaluation informs system design decisions
+---
+
+**Q: How would you build an evaluation set for a new RAG system with no existing labelled data?**
+
+A: Three approaches: (1) Synthetic generation — use an LLM to generate questions from your corpus, creating question-context-answer triples; (2) production logging — sample real user queries and have humans label relevant documents and correct answers; (3) expert annotation — for high-stakes domains, pay subject matter experts to create a gold-standard test set. Start with synthetic data for fast iteration and refine with human annotations before deployment.
+
+---
+
+**Q: What are the risks of using LLM-as-a-judge for evaluation?**
+
+A: Three main risks: (1) Fluency bias — LLMs tend to prefer well-written answers even if they are less factually accurate; (2) Prompt sensitivity — the scoring rubric significantly affects scores and must be carefully designed; (3) Self-preference — when the same model family is used for generation and evaluation, it tends to rate its own outputs more favourably. Mitigate by using a different model family for judging than for generation, and always validate against human judgments on a held-out set.
+
+---
+
+**Q: How do you diagnose whether a RAG quality problem is in retrieval or generation?**
+
+A: Run an oracle experiment: manually find the correct document and inject it directly into the prompt, bypassing retrieval entirely. If the model produces a correct answer with the oracle document, the problem is in retrieval. If the model still fails with the correct document in context, the problem is in generation (prompting, model reasoning, or context integration). This isolates the failure mode clearly.
 
 ---
