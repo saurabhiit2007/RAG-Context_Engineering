@@ -16,7 +16,7 @@
         <link rel="prev" href="../chunking/">
       
       
-        <link rel="next" href="../indexing_and_vector_database/">
+        <link rel="next" href="../retrieval_methods/">
       
       
         
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#1-what-are-embeddings-in-rag" class="md-skip">
+        <a href="#1-overview" class="md-skip">
           Skip to content
         </a>
       
@@ -445,10 +445,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-what-are-embeddings-in-rag" class="md-nav__link">
+  <a href="#1-overview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. What Are Embeddings in RAG
+        1. Overview
       
     </span>
   </a>
@@ -456,10 +456,171 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-dense-vs-sparse-vs-hybrid-embeddings" class="md-nav__link">
+  <a href="#2-dense-sparse-and-hybrid-embeddings" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Dense vs Sparse vs Hybrid Embeddings
+        2. Dense, Sparse, and Hybrid Embeddings
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Dense, Sparse, and Hybrid Embeddings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dense-embeddings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dense Embeddings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sparse-embeddings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sparse Embeddings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hybrid-embeddings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hybrid Embeddings
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-bi-encoders-vs-cross-encoders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Bi-Encoders vs. Cross-Encoders
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Bi-Encoders vs. Cross-Encoders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bi-encoders-dual-encoders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bi-Encoders (Dual Encoders)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-encoders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-Encoders
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#late-interaction-colbert" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Late Interaction — ColBERT
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-embedding-training-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Embedding Training Objectives
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Embedding Training Objectives">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contrastive-learning-infonce-mnr-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contrastive Learning (InfoNCE / MNR Loss)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supervised-retrieval-fine-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supervised Retrieval Fine-tuning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#matryoshka-representation-learning-mrl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Matryoshka Representation Learning (MRL)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instruction-tuned-embeddings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instruction-Tuned Embeddings
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-domain-adaptation-the-cold-start-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Domain Adaptation (The "Cold Start" Problem)
       
     </span>
   </a>
@@ -467,10 +628,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#21-dense-embeddings" class="md-nav__link">
+  <a href="#6-distance-metrics" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.1 Dense Embeddings
+        6. Distance Metrics
       
     </span>
   </a>
@@ -478,10 +639,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#22-sparse-embeddings" class="md-nav__link">
+  <a href="#7-common-failure-modes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.2 Sparse Embeddings
+        7. Common Failure Modes
       
     </span>
   </a>
@@ -489,10 +650,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#23-hybrid-embeddings" class="md-nav__link">
+  <a href="#8-evaluation-of-embeddings" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.3 Hybrid Embeddings
+        8. Evaluation of Embeddings
       
     </span>
   </a>
@@ -500,274 +661,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-sentence-document-and-chunk-level-embeddings" class="md-nav__link">
+  <a href="#9-interview-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Sentence, Document, and Chunk Level Embeddings
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#31-sentence-level-embeddings" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.1 Sentence Level Embeddings
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#32-document-level-embeddings" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.2 Document Level Embeddings
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#33-chunk-level-embeddings" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.3 Chunk Level Embeddings
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-bi-encoders-vs-cross-encoders" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Bi Encoders vs Cross Encoders
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#41-bi-encoders" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.1 Bi Encoders
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#42-cross-encoders" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.2 Cross Encoders
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#43-late-interaction-eg-colbert" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.3 Late Interaction (e.g., ColBERT)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-embedding-training-objectives" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Embedding Training Objectives
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#51-contrastive-learning" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5.1 Contrastive Learning
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#52-supervised-retrieval-objectives" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5.2 Supervised Retrieval Objectives
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#53-in-batch-negatives" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5.3 In Batch Negatives
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#54-instruction-tuning-for-embeddings" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5.4 Instruction Tuning for Embeddings
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#55-matryoshka-representation-learning-mrl" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5.5 Matryoshka Representation Learning (MRL)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#56-instruction-tuned-embeddings" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5.6 Instruction-Tuned Embeddings
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-domain-adaptation-the-cold-start-problem-for-embeddings" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. Domain Adaptation (The "Cold Start" Problem) for Embeddings
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#7-distance-metrics-and-vector-normalization" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. Distance Metrics and Vector Normalization
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#common-metrics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Common Metrics
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#8-multilingual-and-cross-lingual-embeddings" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8. Multilingual and Cross Lingual Embeddings
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#9-common-failure-modes-mitigations" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9. Common Failure Modes &amp; Mitigations
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#10-evaluation-of-embeddings-in-rag" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        10. Evaluation of Embeddings in RAG
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#offline-metrics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Offline Metrics
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#end-to-end-metrics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        End to End Metrics
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#11-high-frequency-questions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        11. High-Frequency Questions
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#12-practical-design-pattern-the-gold-standard-pipeline" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        12. Practical Design Pattern: The "Gold Standard" Pipeline
+        9. Interview Questions
       
     </span>
   </a>
@@ -790,6 +687,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../retrieval_methods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Retrieval Methods
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../indexing_and_vector_database/" class="md-nav__link">
         
   
@@ -797,7 +722,63 @@
   <span class="md-ellipsis">
     
   
-    Indexing & Retrieval
+    Indexing Strategies, Vector Databases, and Retrieval Systems for RAG
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reranking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Re-Ranking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced_rag/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced RAG
   
 
     
@@ -845,6 +826,34 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../quick_reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
     
@@ -856,10 +865,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_6" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_10" >
         
           
-          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_10" id="__nav_2_10_label" tabindex="0">
             
   
   
@@ -877,8 +886,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_10">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1021,90 +1030,6 @@
   
   
   
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
-        
-          
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Context Engineering
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Context Engineering
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../context_engineering/ce/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Context Engineering
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
     <li class="md-nav__item">
       <a href="../../references/" class="md-nav__link">
         
@@ -1151,10 +1076,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-what-are-embeddings-in-rag" class="md-nav__link">
+  <a href="#1-overview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. What Are Embeddings in RAG
+        1. Overview
       
     </span>
   </a>
@@ -1162,10 +1087,171 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-dense-vs-sparse-vs-hybrid-embeddings" class="md-nav__link">
+  <a href="#2-dense-sparse-and-hybrid-embeddings" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Dense vs Sparse vs Hybrid Embeddings
+        2. Dense, Sparse, and Hybrid Embeddings
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Dense, Sparse, and Hybrid Embeddings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dense-embeddings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dense Embeddings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sparse-embeddings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sparse Embeddings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hybrid-embeddings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hybrid Embeddings
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-bi-encoders-vs-cross-encoders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Bi-Encoders vs. Cross-Encoders
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Bi-Encoders vs. Cross-Encoders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bi-encoders-dual-encoders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bi-Encoders (Dual Encoders)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-encoders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-Encoders
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#late-interaction-colbert" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Late Interaction — ColBERT
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-embedding-training-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Embedding Training Objectives
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Embedding Training Objectives">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contrastive-learning-infonce-mnr-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contrastive Learning (InfoNCE / MNR Loss)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supervised-retrieval-fine-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supervised Retrieval Fine-tuning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#matryoshka-representation-learning-mrl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Matryoshka Representation Learning (MRL)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instruction-tuned-embeddings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instruction-Tuned Embeddings
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-domain-adaptation-the-cold-start-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Domain Adaptation (The "Cold Start" Problem)
       
     </span>
   </a>
@@ -1173,10 +1259,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#21-dense-embeddings" class="md-nav__link">
+  <a href="#6-distance-metrics" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.1 Dense Embeddings
+        6. Distance Metrics
       
     </span>
   </a>
@@ -1184,10 +1270,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#22-sparse-embeddings" class="md-nav__link">
+  <a href="#7-common-failure-modes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.2 Sparse Embeddings
+        7. Common Failure Modes
       
     </span>
   </a>
@@ -1195,10 +1281,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#23-hybrid-embeddings" class="md-nav__link">
+  <a href="#8-evaluation-of-embeddings" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.3 Hybrid Embeddings
+        8. Evaluation of Embeddings
       
     </span>
   </a>
@@ -1206,274 +1292,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-sentence-document-and-chunk-level-embeddings" class="md-nav__link">
+  <a href="#9-interview-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Sentence, Document, and Chunk Level Embeddings
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#31-sentence-level-embeddings" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.1 Sentence Level Embeddings
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#32-document-level-embeddings" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.2 Document Level Embeddings
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#33-chunk-level-embeddings" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.3 Chunk Level Embeddings
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-bi-encoders-vs-cross-encoders" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Bi Encoders vs Cross Encoders
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#41-bi-encoders" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.1 Bi Encoders
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#42-cross-encoders" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.2 Cross Encoders
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#43-late-interaction-eg-colbert" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.3 Late Interaction (e.g., ColBERT)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-embedding-training-objectives" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Embedding Training Objectives
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#51-contrastive-learning" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5.1 Contrastive Learning
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#52-supervised-retrieval-objectives" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5.2 Supervised Retrieval Objectives
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#53-in-batch-negatives" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5.3 In Batch Negatives
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#54-instruction-tuning-for-embeddings" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5.4 Instruction Tuning for Embeddings
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#55-matryoshka-representation-learning-mrl" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5.5 Matryoshka Representation Learning (MRL)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#56-instruction-tuned-embeddings" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5.6 Instruction-Tuned Embeddings
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-domain-adaptation-the-cold-start-problem-for-embeddings" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. Domain Adaptation (The "Cold Start" Problem) for Embeddings
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#7-distance-metrics-and-vector-normalization" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. Distance Metrics and Vector Normalization
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#common-metrics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Common Metrics
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#8-multilingual-and-cross-lingual-embeddings" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8. Multilingual and Cross Lingual Embeddings
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#9-common-failure-modes-mitigations" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9. Common Failure Modes &amp; Mitigations
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#10-evaluation-of-embeddings-in-rag" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        10. Evaluation of Embeddings in RAG
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#offline-metrics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Offline Metrics
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#end-to-end-metrics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        End to End Metrics
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#11-high-frequency-questions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        11. High-Frequency Questions
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#12-practical-design-pattern-the-gold-standard-pipeline" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        12. Practical Design Pattern: The "Gold Standard" Pipeline
+        9. Interview Questions
       
     </span>
   </a>
@@ -1502,380 +1324,217 @@
 
   <h1>Embedding</h1>
 
-<h3 id="1-what-are-embeddings-in-rag">1. What Are Embeddings in RAG<a class="headerlink" href="#1-what-are-embeddings-in-rag" title="Permanent link">&para;</a></h3>
-<p>Embeddings are fixed length vector representations of text that encode semantic meaning.</p>
-<p>In a RAG pipeline, embeddings are used to:
-- Represent user queries
-- Represent documents or chunks stored in a vector index
-- Enable similarity based retrieval using cosine similarity, dot product, or Euclidean distance</p>
+<h2 id="1-overview">1. Overview<a class="headerlink" href="#1-overview" title="Permanent link">&para;</a></h2>
+<p>Embeddings are fixed-length dense vectors that encode the semantic meaning of text. In RAG, embeddings are generated for both document chunks (at index time) and user queries (at retrieval time), and similarity between those vectors determines what gets retrieved.</p>
 <hr />
-<h3 id="2-dense-vs-sparse-vs-hybrid-embeddings">2. Dense vs Sparse vs Hybrid Embeddings<a class="headerlink" href="#2-dense-vs-sparse-vs-hybrid-embeddings" title="Permanent link">&para;</a></h3>
-<h3 id="21-dense-embeddings">2.1 Dense Embeddings<a class="headerlink" href="#21-dense-embeddings" title="Permanent link">&para;</a></h3>
-<p>Dense embeddings map text into low dimensional continuous vectors, typically 256 to 4096 dimensions.</p>
-<p><strong>Examples</strong></p>
+<hr />
+<h2 id="2-dense-sparse-and-hybrid-embeddings">2. Dense, Sparse, and Hybrid Embeddings<a class="headerlink" href="#2-dense-sparse-and-hybrid-embeddings" title="Permanent link">&para;</a></h2>
+<h3 id="dense-embeddings">Dense Embeddings<a class="headerlink" href="#dense-embeddings" title="Permanent link">&para;</a></h3>
+<p>Text is mapped into a continuous low-dimensional vector space (typically 256–4096 dimensions) using a neural encoder. Similar texts end up near each other regardless of exact word overlap.</p>
 <ul>
-<li>Sentence BERT</li>
-<li>E5, GTE, Instructor models</li>
-<li>OpenAI text embedding models</li>
-</ul>
-<p><strong>Pros</strong></p>
-<ul>
-<li>Capture semantic similarity beyond exact token overlap</li>
-<li>Handle paraphrases and natural language queries well</li>
-<li>Efficient approximate nearest neighbor search</li>
-</ul>
-<p><strong>Cons</strong></p>
-<ul>
-<li>Weak at exact keyword matching</li>
-<li>Less interpretable</li>
-<li>Sensitive to domain shift</li>
+<li><strong>Pros:</strong> Captures paraphrases and semantic equivalence; efficient ANN search; handles natural language queries well.</li>
+<li><strong>Cons:</strong> Weak at exact keyword matching; sensitive to domain shift; less interpretable.</li>
+<li><strong>Examples:</strong> Sentence-BERT, E5, GTE, OpenAI text-embedding models.</li>
 </ul>
 <hr />
-<h3 id="22-sparse-embeddings">2.2 Sparse Embeddings<a class="headerlink" href="#22-sparse-embeddings" title="Permanent link">&para;</a></h3>
-<p>Sparse embeddings represent text as high dimensional sparse vectors aligned with vocabulary terms.</p>
-<p><strong>Examples</strong></p>
+<h3 id="sparse-embeddings">Sparse Embeddings<a class="headerlink" href="#sparse-embeddings" title="Permanent link">&para;</a></h3>
+<p>Text is represented as a high-dimensional sparse vector over a vocabulary (most dimensions are zero). Non-zero weights correspond to terms that appear in the document or query.</p>
 <ul>
-<li>TF-IDF</li>
-<li>BM25</li>
-<li>SPLADE</li>
-</ul>
-<p><strong>Pros</strong></p>
-<ul>
-<li>Strong lexical matching</li>
-<li>Interpretable scores</li>
-<li>Robust for rare terms, IDs, and numbers</li>
-</ul>
-<p><strong>Cons</strong></p>
-<ul>
-<li>Poor semantic generalization</li>
-<li>Vocabulary dependent</li>
-<li>Large memory footprint</li>
+<li><strong>Pros:</strong> Excellent exact-match recall for keywords, IDs, product codes; interpretable; robust for rare terms.</li>
+<li><strong>Cons:</strong> No semantic generalisation; fails on paraphrases; vocabulary-dependent.</li>
+<li><strong>Examples:</strong> TF-IDF, BM25, SPLADE.</li>
 </ul>
 <hr />
-<h3 id="23-hybrid-embeddings">2.3 Hybrid Embeddings<a class="headerlink" href="#23-hybrid-embeddings" title="Permanent link">&para;</a></h3>
-<p>Hybrid approaches combine dense and sparse signals.</p>
-<p><strong>Common strategies</strong></p>
+<h3 id="hybrid-embeddings">Hybrid Embeddings<a class="headerlink" href="#hybrid-embeddings" title="Permanent link">&para;</a></h3>
+<p>Hybrid approaches combine both signals. Three common strategies:</p>
 <ul>
-<li><strong>Late fusion of dense and BM25 scores:</strong> In this approach, you run two separate searches—one using semantic vectors (dense) and one using keyword matching (BM25)—and then combine their results using a ranking algorithm like Reciprocal Rank Fusion (RRF). It is called "late" fusion because the merging happens only after both independent retrieval processes are complete.</li>
-<li><strong>Two stage retrieval with sparse recall and dense reranking:</strong> This strategy uses a fast, keyword-based search (sparse) to quickly narrow down millions of documents to a few hundred candidates, which are then re-scored by a more expensive semantic model (dense). This balances efficiency and accuracy by using the dense model only on a small, pre-filtered subset of data.</li>
-<li><strong>Joint dense sparse representations:</strong> This involves using a single model or index that generates vectors containing both semantic signals and lexical "importance" weights (like SPLADE). Instead of running two separate searches, you perform one "unified" search that recognizes both the meaning of the sentence and the specific importance of the words within it.</li>
+<li><strong>Late fusion (RRF):</strong> Run dense and sparse search independently, then merge ranked lists using Reciprocal Rank Fusion. Called "late" because merging happens after both retrievals complete.</li>
+<li><strong>Two-stage retrieval:</strong> Sparse search narrows millions of documents to a few hundred candidates; a dense model re-scores that shortlist. Balances efficiency and accuracy.</li>
+<li><strong>Joint sparse-dense (SPLADE-style):</strong> A single model produces vectors containing both semantic signals and lexical importance weights — one unified search.</li>
 </ul>
 <hr />
-<h3 id="3-sentence-document-and-chunk-level-embeddings">3. Sentence, Document, and Chunk Level Embeddings<a class="headerlink" href="#3-sentence-document-and-chunk-level-embeddings" title="Permanent link">&para;</a></h3>
-<h3 id="31-sentence-level-embeddings">3.1 Sentence Level Embeddings<a class="headerlink" href="#31-sentence-level-embeddings" title="Permanent link">&para;</a></h3>
-<p>Each sentence is embedded independently.</p>
-<p><strong>Use cases</strong></p>
+<hr />
+<h2 id="3-bi-encoders-vs-cross-encoders">3. Bi-Encoders vs. Cross-Encoders<a class="headerlink" href="#3-bi-encoders-vs-cross-encoders" title="Permanent link">&para;</a></h2>
+<p>This is the most important architectural distinction in embedding-based retrieval and a near-universal interview topic.</p>
+<h3 id="bi-encoders-dual-encoders">Bi-Encoders (Dual Encoders)<a class="headerlink" href="#bi-encoders-dual-encoders" title="Permanent link">&para;</a></h3>
+<p>Query and document are encoded <strong>independently</strong> into vectors. Similarity is a dot product or cosine distance. Because document embeddings are pre-computed and stored, retrieval is O(log N) with ANN indexes.</p>
+<div class="highlight"><pre><span></span><code>s(q, d) = ⟨f(q), g(d)⟩
+</code></pre></div>
 <ul>
-<li>FAQ style retrieval</li>
-<li>Short factual queries</li>
-</ul>
-<p><strong>Limitations</strong></p>
-<ul>
-<li>Loses broader context</li>
-<li>Sensitive to sentence segmentation errors</li>
+<li><strong>Strengths:</strong> Extremely fast at scale; indexable; supports millions of documents.</li>
+<li><strong>Weakness:</strong> No cross-attention between query and document — limited relevance modelling.</li>
+<li><strong>Used for:</strong> First-stage retrieval (recall-optimised).</li>
 </ul>
 <hr />
-<h3 id="32-document-level-embeddings">3.2 Document Level Embeddings<a class="headerlink" href="#32-document-level-embeddings" title="Permanent link">&para;</a></h3>
-<p>Entire documents are embedded as a single vector.</p>
-<p><strong>Use cases</strong></p>
+<h3 id="cross-encoders">Cross-Encoders<a class="headerlink" href="#cross-encoders" title="Permanent link">&para;</a></h3>
+<p>Query and document are <strong>concatenated</strong> and passed through a transformer together. Full self-attention across both texts allows every query token to attend to every document token.</p>
+<div class="highlight"><pre><span></span><code>s(q, d) = h([q ; d])
+</code></pre></div>
 <ul>
-<li>Small documents</li>
-<li>Metadata driven retrieval</li>
-</ul>
-<p><strong>Limitations</strong></p>
-<ul>
-<li>Poor recall for long documents</li>
-<li>Information dilution</li>
-</ul>
-<hr />
-<h3 id="33-chunk-level-embeddings">3.3 Chunk Level Embeddings<a class="headerlink" href="#33-chunk-level-embeddings" title="Permanent link">&para;</a></h3>
-<p>Documents are split into chunks, often with overlap, and each chunk is embedded.</p>
-<p><strong>Why chunking dominates in RAG</strong></p>
-<ul>
-<li>Preserves local context</li>
-<li>Improves recall</li>
-<li>Scales to long documents</li>
+<li><strong>Strengths:</strong> Rich token-level interactions; substantially more accurate relevance scoring.</li>
+<li><strong>Weakness:</strong> Cannot be pre-computed or indexed — one full forward pass per query-document pair. Too slow for large corpora.</li>
+<li><strong>Used for:</strong> Second-stage reranking over a small candidate set (precision-optimised).</li>
 </ul>
 <blockquote>
-<p>Note: Chunking strategy and embedding strategy must be designed together.</p>
+<p><strong>Bi-encoders maximise recall at scale. Cross-encoders maximise precision on a shortlist. Production systems use both in sequence.</strong></p>
 </blockquote>
 <hr />
-<h3 id="4-bi-encoders-vs-cross-encoders">4. Bi Encoders vs Cross Encoders<a class="headerlink" href="#4-bi-encoders-vs-cross-encoders" title="Permanent link">&para;</a></h3>
-<h3 id="41-bi-encoders">4.1 Bi Encoders<a class="headerlink" href="#41-bi-encoders" title="Permanent link">&para;</a></h3>
-<p>Query and document are encoded independently.</p>
-<div class="arithmatex">\[
-s(q, d) = \langle f(q), g(d) \rangle
-\]</div>
-<p>where:</p>
+<h3 id="late-interaction-colbert">Late Interaction — ColBERT<a class="headerlink" href="#late-interaction-colbert" title="Permanent link">&para;</a></h3>
+<p>A middle ground between bi- and cross-encoders:</p>
 <ul>
-<li><span class="arithmatex">\(s(q, d)\)</span>: The similarity score between a Query (<span class="arithmatex">\(q\)</span>) and a Document (<span class="arithmatex">\(d\)</span>).</li>
-<li><span class="arithmatex">\(f(q)\)</span>: The embedding vector of the Query, produced by an encoder model <span class="arithmatex">\(f\)</span>.</li>
-<li><span class="arithmatex">\(g(d)\)</span>: The embedding vector of the Document, produced by an encoder model <span class="arithmatex">\(g\)</span> (often the same model as <span class="arithmatex">\(f\)</span>).</li>
-<li><span class="arithmatex">\(\langle \dots, \dots \rangle\)</span>: This symbol denotes the Dot Product (or inner product) between the two vectors.</li>
-</ul>
-<p>This formula highlights the independence of the encoding process. Because <span class="arithmatex">\(f(q)\)</span> and <span class="arithmatex">\(g(d)\)</span> are calculated separately, you can pre-calculate <span class="arithmatex">\(g(d)\)</span> for millions of documents and store them in a database. When a user asks a question, you only need to calculate <span class="arithmatex">\(f(q)\)</span> once and then perform a fast matrix multiplication to find the best match.</p>
-<p><strong>Pros</strong></p>
-<ul>
-<li><strong>Fast retrieval:</strong> Pre-computed document embeddings allow query matching via simple math (dot product) rather than a full model pass.</li>
-<li><strong>Scales to millions of documents:</strong> Retrieval time grows logarithmically rather than linearly because you only encode the query once.</li>
-<li><strong>Enables vector indexing:</strong> Compatibility with Approximate Nearest Neighbor (ANN) algorithms allows for high-speed searching across massive datasets.</li>
-</ul>
-<p><strong>Cons</strong></p>
-<ul>
-<li><strong>Limited query document interaction:</strong> Because query and document are encoded in isolation, the model cannot perform "cross-attention" to see how specific words in the query relate to specific words in the document.</li>
-</ul>
-<p><strong>Used in</strong></p>
-<ul>
-<li><strong>First-stage retrieval:</strong> Acts as a high-speed "filter" to quickly narrow down a massive library of documents to a small candidate set (e.g., the top 100).</li>
+<li>Stores a vector per <strong>token</strong> in each document (more memory than bi-encoders).</li>
+<li>Uses a <strong>MaxSim</strong> operation at retrieval: the score for a query token is the maximum similarity across all document token vectors.</li>
+<li>Achieves near cross-encoder accuracy at bi-encoder speed.</li>
 </ul>
 <hr />
-<h3 id="42-cross-encoders">4.2 Cross Encoders<a class="headerlink" href="#42-cross-encoders" title="Permanent link">&para;</a></h3>
-<p>Query and document are encoded jointly.</p>
-<div class="arithmatex">\[
-s(q, d) = h([q; d])
-\]</div>
-<p>where:</p>
+<hr />
+<h2 id="4-embedding-training-objectives">4. Embedding Training Objectives<a class="headerlink" href="#4-embedding-training-objectives" title="Permanent link">&para;</a></h2>
+<h3 id="contrastive-learning-infonce-mnr-loss">Contrastive Learning (InfoNCE / MNR Loss)<a class="headerlink" href="#contrastive-learning-infonce-mnr-loss" title="Permanent link">&para;</a></h3>
+<p>Positive pairs (query + relevant document) are pulled closer in vector space; negative examples (other documents in the batch) are pushed apart.</p>
+<p><strong>InfoNCE Loss:</strong></p>
+<div class="highlight"><pre><span></span><code>L = -log [ exp(sim(q, d+)) / (exp(sim(q, d+)) + Σ exp(sim(q, d-))) ]
+</code></pre></div>
 <ul>
-<li><span class="arithmatex">\([q; d]\)</span>: This represents concatenation. The Query and Document are joined together into a single long sequence of text (usually separated by a special token like [SEP]).</li>
-<li><span class="arithmatex">\(h(\dots)\)</span>: This is the Transformer model. The entire joined sequence is passed through all layers of the model at once.</li>
-<li><span class="arithmatex">\(s(q, d)\)</span>: The final similarity score is typically the value of the "Classification" head (the [CLS] token) at the very end of the model.</li>
+<li><strong>Temperature τ:</strong> Scales similarity scores before softmax. Low τ → model focuses heavily on hardest negatives. High τ → smooths the distribution.</li>
 </ul>
-<p><strong>Pros</strong></p>
+<p><strong>Multiple Negatives Ranking (MNR) Loss:</strong> The standard in Sentence-Transformers. In a batch of K pairs, each document serves as a negative for all other queries in the batch — providing K–1 negatives per query "for free" without manual labelling.</p>
+<hr />
+<h3 id="supervised-retrieval-fine-tuning">Supervised Retrieval Fine-tuning<a class="headerlink" href="#supervised-retrieval-fine-tuning" title="Permanent link">&para;</a></h3>
+<p>Models are fine-tuned on human-labelled query-document relevance datasets.</p>
 <ul>
-<li><strong>Strong relevance modeling:</strong> The model views the query and document simultaneously, allowing it to capture the complex relationship between the user's intent and the content.</li>
-<li><strong>Fine-grained token interactions:</strong> Every word in the query can directly compare itself to every word in the document via the Transformer's self-attention mechanism.</li>
+<li><strong>MS MARCO:</strong> The gold standard — real Bing queries paired with human-judged relevant passages. Most production embedding models (BGE, GTE, E5) are trained on MS MARCO.</li>
+<li><strong>Pairwise loss:</strong> Model is given (q, d+, d-) and penalised if d- scores higher than d+.</li>
+<li><strong>Listwise loss:</strong> Model optimises the entire ranked list at once. More accurate for ranking (directly optimises nDCG) but more expensive to train.</li>
 </ul>
-<p><strong>Cons</strong></p>
-<ul>
-<li><strong>Computationally expensive:</strong> Every query-document pair requires a full forward pass through a deep Transformer, leading to high latency and high GPU costs.</li>
-<li><strong>Cannot be indexed:</strong> Because the score depends on the specific combination of query and document, you cannot pre-calculate or store results in a vector database for fast lookup.</li>
-</ul>
-<p><strong>Used in</strong></p>
-<ul>
-<li><strong>Reranking top-K retrieved chunks:</strong> Cross-Encoders are virtually never used for initial search, it acts as a "high-precision filter" that re-evaluates a small number of candidates (usually 10–100) provided by a faster first-stage retriever.</li>
-</ul>
+<hr />
+<h3 id="matryoshka-representation-learning-mrl">Matryoshka Representation Learning (MRL)<a class="headerlink" href="#matryoshka-representation-learning-mrl" title="Permanent link">&para;</a></h3>
+<p>Training embeds information hierarchically so the first N dimensions contain the most important features. This enables <strong>vector truncation</strong> — you can store 1536-dimensional vectors but query only the first 256 dimensions to save storage and compute with minimal accuracy loss.</p>
+<hr />
+<h3 id="instruction-tuned-embeddings">Instruction-Tuned Embeddings<a class="headerlink" href="#instruction-tuned-embeddings" title="Permanent link">&para;</a></h3>
+<p>Models like Instructor and BGE accept a natural-language task prefix:</p>
 <blockquote>
-<p>Note: Bi encoders maximize recall, cross encoders maximize precision.</p>
+<p>"Represent this query for retrieving legal documents"</p>
 </blockquote>
-<h3 id="43-late-interaction-eg-colbert">4.3 Late Interaction (e.g., ColBERT)<a class="headerlink" href="#43-late-interaction-eg-colbert" title="Permanent link">&para;</a></h3>
-<p>The "middle ground" between Bi and Cross encoders.</p>
-<ul>
-<li><strong>Mechanism:</strong> Stores a vector for <em>every token</em> in a document. Retrieval uses a "MaxSim" operation.</li>
-<li><strong>Benefit:</strong> Achieves Cross-encoder accuracy while remaining much faster for search.</li>
-</ul>
+<p>This lets a single model adapt its embedding space to different tasks — retrieval vs. clustering vs. classification — without separate models.</p>
 <hr />
-<h3 id="5-embedding-training-objectives">5. Embedding Training Objectives<a class="headerlink" href="#5-embedding-training-objectives" title="Permanent link">&para;</a></h3>
-<p>Embedding Training Objectives refers to the mathematical strategy used to "teach" a model how to place similar items close together and dissimilar items far apart in a vector space.</p>
-<h3 id="51-contrastive-learning">5.1 Contrastive Learning<a class="headerlink" href="#51-contrastive-learning" title="Permanent link">&para;</a></h3>
-<p>Positive pairs are pulled closer while negatives are pushed apart.</p>
-<div class="arithmatex">\[
-\mathcal{L} = -\log \frac{\exp(sim(q, d^+))}{\exp(sim(q, d^+)) + \sum \exp(sim(q, d^-))}
-\]</div>
-<p>where:</p>
-<ul>
-<li><span class="arithmatex">\(\mathcal{L}\)</span>: The InfoNCE Loss value. The InfoNCE loss is the negative log-likelihood of the model correctly identifying the single positive document among a set of negatives; minimizing this forces the model to pull relevant pairs together and push irrelevant pairs apart in the vector space."</li>
-<li><span class="arithmatex">\(q\)</span>: The Query (or Anchor) vector.</li>
-<li><span class="arithmatex">\(d^+\)</span>: The Positive Document vector (the ground-truth relevant document).</li>
-<li><span class="arithmatex">\(d^-\)</span>: The Negative Document vectors (irrelevant documents in the batch).</li>
-<li><span class="arithmatex">\(sim(u, v)\)</span>: The Similarity Function, usually Cosine Similarity or Dot Product, which measures how close two vectors are.</li>
-<li><span class="arithmatex">\(\exp(\dots)\)</span>: The Exponential Function, used to ensure all similarity scores are positive and to amplify the difference between the highest and lowest scores.</li>
-<li><span class="arithmatex">\(\sum\)</span>: The Summation over all negative samples in the batch.</li>
-</ul>
-<blockquote>
-<p>Note: In practice, you will often see a <span class="arithmatex">\(\tau\)</span> (tau) symbol in this equation: <span class="arithmatex">\(\exp(sim(q, d) / \tau)\)</span>.
-- <span class="arithmatex">\(\tau\)</span> (Temperature): A hyperparameter that scales the similarity scores.
-- Why it matters: A low temperature makes the model more "opinionated," focusing heavily on the hardest negatives, while a high temperature smooths the distribution.</p>
-</blockquote>
-<p><strong>Example Losses used</strong></p>
-<ul>
-<li><strong>Information Noise-Contrastive Estimation (InfoNCE)</strong>: Described above</li>
-<li><strong>Multiple negatives ranking (MNR) loss</strong>: MNR Loss is a specific implementation of contrastive learning that is the "bread and butter" of the Sentence-Transformers library.<ul>
-<li>What it means: It is a framework designed for efficient training. Instead of manually finding <span class="arithmatex">\(100\)</span> "wrong" documents for every question, it uses In-Batch Negatives.</li>
-<li>How it works: In a batch of <span class="arithmatex">\(K\)</span> pairs <span class="arithmatex">\(\{(q_1, d_1), (q_2, d_2), \dots, (q_K, d_K)\}\)</span>, the model assumes <span class="arithmatex">\(d_1\)</span> is the only correct answer for <span class="arithmatex">\(q_1\)</span>. It then treats all other documents in that same batch (7<span class="arithmatex">\(d_2, d_3, \dots, d_K\)</span>) as negative examples for 8<span class="arithmatex">\(q_1\)</span>.</li>
-<li>Why it's popular: It allows you to train on millions of pairs without ever needing to label "negative" data. You only need <span class="arithmatex">\((query, +ve\_document)\)</span> pairs.</li>
-</ul>
-</li>
-</ul>
 <hr />
-<h3 id="52-supervised-retrieval-objectives">5.2 Supervised Retrieval Objectives<a class="headerlink" href="#52-supervised-retrieval-objectives" title="Permanent link">&para;</a></h3>
-<p>Refers to the final stage of training where you move beyond general semantic similarity and "teach" the model to follow human-labeled preferences for specific queries.
-Uses labeled query document relevance data.</p>
-<p><strong>Examples</strong></p>
-<ul>
-<li><strong>MS MARCO style datasets:</strong> Named after Microsoft’s MAchine Reading COmprehension dataset, these are the "gold standard" for training RAG retrievers.</li>
-<li>The Structure: It consists of real-world anonymized Bing queries paired with web passages that were manually marked as "relevant" or "irrelevant" by human judges.</li>
-<li>
-<p>Why it matters: Most embedding models (like BGE, GTE, or E5) are fine-tuned on MS MARCO because it teaches the model the "behavior" of a search engine: identifying specific passages that directly answer a natural language question.</p>
-</li>
-<li>
-<p><strong>Pairwise and listwise losses</strong>: Once you have these labeled datasets, you need a mathematical "rule" to update the model. These two methods differ in how many documents they compare at once.</p>
-</li>
-<li><strong>Pairwise Loss (Comparing Two)</strong><ul>
-<li>The Logic: The model is given a query (<span class="arithmatex">\(q\)</span>), a positive document (<span class="arithmatex">\(d^+\)</span>), and a negative document (<span class="arithmatex">\(d^-\)</span>). The loss function penalizes the model if the score for <span class="arithmatex">\(d^-\)</span> is higher than (or too close to) the score for <span class="arithmatex">\(d^+\)</span>.</li>
-<li>Analogy: A "Head-to-Head" tournament. The model only needs to know that A is better than B.</li>
-<li>Example: RankNet or Triplet Loss.</li>
-</ul>
-</li>
-<li><strong>Listwise Loss (Comparing the Whole List)</strong><ul>
-<li>The Logic: The model takes a query and a whole list of <span class="arithmatex">\(N\)</span> documents. It attempts to optimize the entire ranking order simultaneously, rather than just looking at pairs. It is designed to directly improve metrics like NDCG (Normalized Discounted Cumulative Gain).</li>
-<li>Analogy: A "Leaderboard." The model tries to get the entire top-10 in the correct order.</li>
-<li>Example: ListNet or LambdaMART.</li>
-<li>Pros/Cons: Listwise is more accurate for ranking but much more computationally expensive and complex to implement than pairwise.</li>
-</ul>
-</li>
-</ul>
-<hr />
-<h3 id="53-in-batch-negatives">5.3 In Batch Negatives<a class="headerlink" href="#53-in-batch-negatives" title="Permanent link">&para;</a></h3>
-<p>The Concept: For every query-document pair in a training batch, all other documents in that same batch are automatically treated as "negative" examples for that query.</p>
-<p><strong>Why it matters</strong></p>
-<ul>
-<li><strong>Efficient:</strong> It provides a massive number of negative samples "for free" without the need to manually label or load additional data from disk.</li>
-<li><strong>Scales well:</strong> Increasing the batch size mathematically increases the number of distractors per query (<span class="arithmatex">\(Batch\ Size - 1\)</span>), directly sharpening the model's discriminative power.</li>
-<li><strong>Common in modern embedding training:</strong> It is the standard mechanism for high-performance models (like BGE, E5, and OpenAI) to learn robust representations at a massive scale.</li>
-</ul>
-<hr />
-<h3 id="54-instruction-tuning-for-embeddings">5.4 Instruction Tuning for Embeddings<a class="headerlink" href="#54-instruction-tuning-for-embeddings" title="Permanent link">&para;</a></h3>
-<p>Instruction tuning for embeddings involves training models to generate vector representations that dynamically adapt based on natural language task descriptions.</p>
-<p><strong>Example</strong></p>
-<ul>
-<li>"Represent the question for retrieving relevant passages"</li>
-</ul>
-<p><strong>Benefits</strong></p>
-<ul>
-<li><strong>Better zero shot generalization:</strong> Enables models to handle novel retrieval or classification tasks they weren't explicitly trained on by interpreting the provided instruction.</li>
-<li><strong>Improved alignment across tasks:</strong> Ensures that a single model can produce distinct, context-aware embeddings for the same text depending on whether the goal is clustering, similarity, or domain-specific search.</li>
-</ul>
-<h3 id="55-matryoshka-representation-learning-mrl">5.5 Matryoshka Representation Learning (MRL)<a class="headerlink" href="#55-matryoshka-representation-learning-mrl" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>What it is:</strong> Nesting information so that the first <span class="arithmatex">\(N\)</span> dimensions of a vector contain the most important features.</li>
-<li><strong>Why it matters:</strong> Allows for <strong>vector truncation</strong>. You can store a 1536-dim vector but only query the first 256 dimensions to save on storage and compute with minimal accuracy loss.</li>
-</ul>
-<h3 id="56-instruction-tuned-embeddings">5.6 Instruction-Tuned Embeddings<a class="headerlink" href="#56-instruction-tuned-embeddings" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>Concept:</strong> Models like <code>Instructor</code> or <code>BGE</code> that take a prefix (e.g., <em>"Represent this query for retrieving medical research papers"</em>).</li>
-<li><strong>Benefit:</strong> Allows a single model to behave differently across specialized tasks (Search vs. Clustering vs. Classification).</li>
-</ul>
-<hr />
-<h3 id="6-domain-adaptation-the-cold-start-problem-for-embeddings">6. Domain Adaptation (The "Cold Start" Problem) for Embeddings<a class="headerlink" href="#6-domain-adaptation-the-cold-start-problem-for-embeddings" title="Permanent link">&para;</a></h3>
-<p>When generic embeddings (OpenAI/Cohere) fail on specialized data (Legal, Medical, Code):</p>
+<h2 id="5-domain-adaptation-the-cold-start-problem">5. Domain Adaptation (The "Cold Start" Problem)<a class="headerlink" href="#5-domain-adaptation-the-cold-start-problem" title="Permanent link">&para;</a></h2>
+<p>Generic embeddings underperform on specialist domains (medical, legal, code). Adaptation options in increasing cost order:</p>
 <ol>
-<li><strong>Continued Pre-training:</strong> Run Masked Language Modeling (MLM) on your private corpus.</li>
-<li><strong>Fine-tuning (Contrastive Loss):</strong> Use query-document pairs to "pull" relevant items closer.</li>
-<li><strong>GPL (Generative Pseudo-Labeling):</strong> Use an LLM to generate synthetic questions for your unlabeled documents, then train the embedding model on these synthetic pairs.</li>
-<li><strong>Adapter based tuning</strong></li>
+<li><strong>Continued pre-training:</strong> Run Masked Language Modeling (MLM) on your private corpus to teach the model domain vocabulary.</li>
+<li><strong>Contrastive fine-tuning:</strong> Use domain-specific query-document pairs with contrastive loss to pull relevant items closer.</li>
+<li><strong>Generative Pseudo-Labeling (GPL):</strong> Use an LLM to generate synthetic questions for each unlabeled document, then train the embedding model on these synthetic pairs. Effective with zero labeled data.</li>
+<li><strong>Adapter-based tuning:</strong> Insert lightweight adapter layers and fine-tune only those, leaving base model weights frozen.</li>
 </ol>
-<hr />
-<h3 id="7-distance-metrics-and-vector-normalization">7. Distance Metrics and Vector Normalization<a class="headerlink" href="#7-distance-metrics-and-vector-normalization" title="Permanent link">&para;</a></h3>
-<h3 id="common-metrics">Common Metrics<a class="headerlink" href="#common-metrics" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>Cosine similarity:</strong> Measures the cosine of the angle between two vectors, focusing on directional orientation rather than magnitude.</li>
-<li><strong>Dot product:</strong> Calculates the sum of the products of corresponding components, reflecting both the angle and the combined magnitudes of the vectors.</li>
-<li><strong>Euclidean distance:</strong> Computes the straight-line distance between two points in space, sensitive to absolute coordinate values.</li>
-</ul>
 <blockquote>
-<p>Note:
-1. Cosine similarity with L2 normalized vectors is equivalent to dot product.
-Since L2 normalization sets all vector magnitudes to 1, the denominator in the cosine formula (<span class="arithmatex">\(||A|| \times ||B||\)</span>) becomes 1, leaving only the dot product.
-2. L2 normalization stabilizes similarity scores and improves ANN search behavior. By projecting all vectors onto a unit hypersphere, normalization removes length-based bias and ensures that approximate search algorithms (like HNSW or LSH) focus purely on semantic direction.</p>
+<p><strong>Critical:</strong> If you change the embedding model, you must re-index the entire corpus. Vectors from different models are not comparable.</p>
 </blockquote>
 <hr />
-<h3 id="8-multilingual-and-cross-lingual-embeddings">8. Multilingual and Cross Lingual Embeddings<a class="headerlink" href="#8-multilingual-and-cross-lingual-embeddings" title="Permanent link">&para;</a></h3>
-<p><strong>Goal</strong>
-Retrieve documents written in a different language than the query.</p>
-<p><strong>Approaches</strong>
-- Joint multilingual training
-- Translation based supervision</p>
-<p><strong>Challenges</strong>
-- Language imbalance
-- Script level differences</p>
 <hr />
-<h3 id="9-common-failure-modes-mitigations">9. Common Failure Modes &amp; Mitigations<a class="headerlink" href="#9-common-failure-modes-mitigations" title="Permanent link">&para;</a></h3>
+<h2 id="6-distance-metrics">6. Distance Metrics<a class="headerlink" href="#6-distance-metrics" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Failure Mode</th>
-<th style="text-align: left;">Root Cause</th>
-<th style="text-align: left;">Mitigation</th>
+<th>Metric</th>
+<th>What It Measures</th>
+<th>Note</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>Semantic Drift</strong></td>
-<td style="text-align: left;">Retrieved chunks are topically related but irrelevant.</td>
-<td style="text-align: left;">Use a Cross-encoder reranker.</td>
+<td>Cosine similarity</td>
+<td>Angle between vectors (ignores magnitude)</td>
+<td>Most common for text; equivalent to dot product on L2-normalised vectors</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Lost in the Middle</strong></td>
-<td style="text-align: left;">LLM ignores context in long prompts.</td>
-<td style="text-align: left;">Parent-Document Retrieval (retrieve small chunks, provide large context).</td>
+<td>Dot product</td>
+<td>Projection of one vector onto another</td>
+<td>Faster; rewards both direction and magnitude</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Out-of-Vocabulary</strong></td>
-<td style="text-align: left;">Search for product IDs or rare part numbers.</td>
-<td style="text-align: left;">Implement Hybrid Search (BM25).</td>
+<td>Euclidean distance</td>
+<td>Straight-line distance in vector space</td>
+<td>Sensitive to vector magnitude; less common for text</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong> Cosine similarity with L2-normalised vectors is equivalent to dot product. L2 normalisation stabilises similarity scores and improves ANN search behaviour by projecting all vectors onto a unit hypersphere.</p>
+<hr />
+<hr />
+<h2 id="7-common-failure-modes">7. Common Failure Modes<a class="headerlink" href="#7-common-failure-modes" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Failure Mode</th>
+<th>Root Cause</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Semantic drift</td>
+<td>Retrieved chunks are topically related but not relevant</td>
+<td>Add cross-encoder reranker</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Intent Mismatch</strong></td>
-<td style="text-align: left;">Procedural query retrieves descriptive content.</td>
-<td style="text-align: left;">Use HyDE (Hypothetical Document Embeddings).</td>
+<td>Out-of-vocabulary</td>
+<td>Search for product IDs or rare part numbers fails</td>
+<td>Add hybrid search (BM25 or SPLADE)</td>
+</tr>
+<tr>
+<td>Intent mismatch</td>
+<td>Procedural query retrieves descriptive content</td>
+<td>Use HyDE (hypothetical document embeddings)</td>
+</tr>
+<tr>
+<td>Domain mismatch</td>
+<td>Generic model underperforms on specialist text</td>
+<td>Fine-tune or domain-adapt the embedding model</td>
+</tr>
+<tr>
+<td>Lost in the middle</td>
+<td>LLM ignores context deep in the prompt</td>
+<td>Parent-Document Retrieval; reorder chunks</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h3 id="10-evaluation-of-embeddings-in-rag">10. Evaluation of Embeddings in RAG<a class="headerlink" href="#10-evaluation-of-embeddings-in-rag" title="Permanent link">&para;</a></h3>
-<h3 id="offline-metrics">Offline Metrics<a class="headerlink" href="#offline-metrics" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Recall at K</li>
-<li>Mean reciprocal rank</li>
-<li>nDCG</li>
-</ul>
 <hr />
-<h3 id="end-to-end-metrics">End to End Metrics<a class="headerlink" href="#end-to-end-metrics" title="Permanent link">&para;</a></h3>
+<h2 id="8-evaluation-of-embeddings">8. Evaluation of Embeddings<a class="headerlink" href="#8-evaluation-of-embeddings" title="Permanent link">&para;</a></h2>
+<p><strong>Offline (retrieval-level):</strong></p>
 <ul>
-<li>Answer correctness</li>
-<li>Faithfulness</li>
-<li>Latency and cost</li>
+<li>Recall@k — is the relevant document in the top k?</li>
+<li>MRR — how early does the first relevant document appear?</li>
+<li>nDCG — quality of the full ranked list using graded relevance.</li>
 </ul>
-<p><strong>Key insight</strong>
-Better retrieval does not always lead to better generation without proper prompting and context selection.</p>
-<hr />
-<h3 id="11-high-frequency-questions">11. High-Frequency Questions<a class="headerlink" href="#11-high-frequency-questions" title="Permanent link">&para;</a></h3>
-<ol>
-<li><strong>Q: Why not use an LLM for retrieval directly?</strong><ul>
-<li><em>A:</em> Context window limits and <span class="arithmatex">\(O(N^2)\)</span> attention complexity make it impossible to "read" millions of docs per query. Embeddings provide <span class="arithmatex">\(O(\log N)\)</span> search.</li>
-</ul>
-</li>
-<li><strong>Q: Does increasing embedding dimensions always improve performance?</strong><ul>
-<li><em>A:</em> Not necessarily. It can lead to the "Curse of Dimensionality" where distance metrics become less meaningful and latency increases.</li>
-</ul>
-</li>
-<li><strong>Q: What is HyDE?</strong><ul>
-<li><em>A:</em> Hypothetical Document Embeddings. You use an LLM to write a "fake" answer to the query, then embed that fake answer to find real documents. This aligns the query more closely with the document's vector space.</li>
-</ul>
-</li>
-<li>
-<p><strong>Q: When should you re-index your Vector DB?</strong></p>
+<p><strong>End-to-end:</strong></p>
 <ul>
-<li><em>A:</em> Any time you change the <strong>Embedding Model</strong>. You cannot compare vectors generated by Model A with those from Model B.</li>
+<li>Answer correctness, faithfulness, latency, and cost.</li>
 </ul>
-</li>
-<li>
-<p>When do dense embeddings outperform BM25</p>
-</li>
-<li>When should sparse retrieval be preferred</li>
-<li>Why use bi encoders instead of cross encoders for retrieval</li>
-<li>How would you adapt embeddings to a new domain with no labels</li>
-<li>How do you debug poor retrieval in a RAG system</li>
-</ol>
+<blockquote>
+<p>Better retrieval does not always lead to better generation without proper prompting and context selection.</p>
+</blockquote>
 <hr />
-<h3 id="12-practical-design-pattern-the-gold-standard-pipeline">12. Practical Design Pattern: The "Gold Standard" Pipeline<a class="headerlink" href="#12-practical-design-pattern-the-gold-standard-pipeline" title="Permanent link">&para;</a></h3>
-<ol>
-<li><strong>Query Expansion:</strong> Use an LLM to rewrite the query or generate a HyDE response.</li>
-<li><strong>Hybrid Retrieval:</strong> Parallel search using Dense (Vector) and Sparse (BM25).</li>
-<li><strong>Reciprocal Rank Fusion (RRF):</strong> Combine scores from different search methods.</li>
-<li><strong>Reranking:</strong> Pass top 50 results through a Cross-encoder.</li>
-<li><strong>Context Selection:</strong> Pass top 5-10 results to the LLM for final generation.</li>
-</ol>
+<hr />
+<h2 id="9-interview-questions">9. Interview Questions<a class="headerlink" href="#9-interview-questions" title="Permanent link">&para;</a></h2>
+<p><strong>Q: Why can't you use an LLM directly for retrieval over millions of documents?</strong></p>
+<p>A: Two reasons: (1) LLMs have a fixed context window and cannot "read" millions of documents in one pass; (2) attention is O(N²) in sequence length, making it computationally infeasible. Embeddings provide O(log N) search via ANN indexes.</p>
+<hr />
+<p><strong>Q: What is HyDE and when would you use it?</strong></p>
+<p>A: Hypothetical Document Embeddings — use an LLM to generate a "fake" ideal answer to the query, embed that answer, and retrieve real documents similar to it. This bridges the vocabulary gap between a short query and longer document text. Use it when standard retrieval misses relevant documents because the query uses different wording than the documents. Risk: if the LLM hallucinates, the hallucinated text is embedded and may retrieve wrong documents.</p>
+<hr />
+<p><strong>Q: When do dense embeddings outperform BM25, and when does BM25 win?</strong></p>
+<p>A: Dense embeddings win on semantic search, paraphrase matching, and natural language queries where exact document wording differs from the query. BM25 wins when queries contain rare terms, product codes, identifiers, or exact strings where lexical matching is what matters. Hybrid systems combine both to cover both failure modes.</p>
+<hr />
+<p><strong>Q: Does increasing embedding dimensionality always improve performance?</strong></p>
+<p>A: No. Higher dimensions increase memory, index size, and ANN search latency. Beyond a point, the "curse of dimensionality" makes distance metrics less meaningful. MRL allows trading off dimensionality versus accuracy dynamically at query time.</p>
+<hr />
+<p><strong>Q: When should you re-index your vector database?</strong></p>
+<p>A: Whenever you change the embedding model — you cannot compare vectors generated by Model A with those from Model B. Also re-index when the corpus changes significantly, when chunk size or preprocessing changes, or when switching to an index type that requires a full rebuild (like IVF).</p>
+<hr />
+<p><strong>Q: How do bi-encoders and cross-encoders differ in how they handle relevance?</strong></p>
+<p>A: Bi-encoders encode query and document independently so they cannot model interaction between the two at encoding time — they rely on global semantic similarity. Cross-encoders concatenate query and document and process them jointly, so every token in the query can attend to every token in the document. This produces much richer relevance signals but cannot be pre-computed, making it unsuitable for large-scale first-stage retrieval.</p>
+<hr />
 
 
 

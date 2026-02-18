@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#retrival-augmented-generation-rag" class="md-skip">
+        <a href="#1-overview-what-is-rag-and-why-does-it-exist" class="md-skip">
           Skip to content
         </a>
       
@@ -389,334 +389,68 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#retrival-augmented-generation-rag" class="md-nav__link">
+  <a href="#1-overview-what-is-rag-and-why-does-it-exist" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Retrival Augmented Generation (RAG)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Retrival Augmented Generation (RAG)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Overview
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="1. Overview">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#what-problem-does-rag-solve" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What Problem Does RAG Solve?
+        1. Overview — What Is RAG and Why Does It Exist?
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#key-limitations-of-vanilla-llms" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#2-the-core-rag-loop" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Key Limitations of Vanilla LLMs
+        2. The Core RAG Loop
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#how-rag-addresses-these-issues" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#3-rag-vs-fine-tuning-choosing-the-right-tool" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How RAG Addresses These Issues
+        3. RAG vs. Fine-Tuning — Choosing the Right Tool
       
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-rag-vs-fine-tuning-when-does-rag-help" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#4-high-level-rag-pipeline" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. RAG vs Fine-Tuning: When Does RAG Help?
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. RAG vs Fine-Tuning: When Does RAG Help?">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#when-rag-is-the-better-choice" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When RAG Is the Better Choice
+        4. High-Level RAG Pipeline
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#when-fine-tuning-is-the-better-choice" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#5-key-failure-modes-of-vanilla-rag" class="md-nav__link">
     <span class="md-ellipsis">
       
-        When Fine-Tuning Is the Better Choice
+        5. Key Failure Modes of Vanilla RAG
       
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-high-level-rag-pipeline" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#6-interview-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. High-Level RAG Pipeline
+        6. Interview Questions
       
     </span>
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#31-indexing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.1 Indexing
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#32-retrieval" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.2 Retrieval
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#retrieval-process" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Retrieval Process
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#33-augmentation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.3 Augmentation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#common-augmentation-strategies" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Common Augmentation Strategies
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#34-generation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.4 Generation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-failure-modes-of-vanilla-rag" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Failure Modes of Vanilla RAG
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. Failure Modes of Vanilla RAG">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#41-retrieval-failures" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.1 Retrieval Failures
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#poor-recall" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Poor Recall
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#poor-precision" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Poor Precision
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#42-chunking-related-failures" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.2 Chunking-Related Failures
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#over-chunking" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Over-Chunking
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#under-chunking" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Under-Chunking
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#43-context-window-limitations" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.3 Context Window Limitations
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#44-lack-of-reasoning-over-retrieved-evidence" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.4 Lack of Reasoning Over Retrieved Evidence
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#45-retrieval-augmentation-mismatch" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.5 Retrieval-Augmentation Mismatch
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#46-static-retrieval-strategy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.6 Static Retrieval Strategy
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#47-no-verification-or-feedback-loop" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.7 No Verification or Feedback Loop
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-key-takeaways" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Key Takeaways
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -792,6 +526,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../retrieval_methods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Retrieval Methods
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../indexing_and_vector_database/" class="md-nav__link">
         
   
@@ -799,7 +561,63 @@
   <span class="md-ellipsis">
     
   
-    Indexing & Retrieval
+    Indexing Strategies, Vector Databases, and Retrieval Systems for RAG
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reranking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Re-Ranking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced_rag/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced RAG
   
 
     
@@ -847,6 +665,34 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../quick_reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
     
@@ -858,10 +704,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_6" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_10" >
         
           
-          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_10" id="__nav_2_10_label" tabindex="0">
             
   
   
@@ -879,8 +725,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_10">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1023,90 +869,6 @@
   
   
   
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
-        
-          
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Context Engineering
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Context Engineering
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../context_engineering/ce/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Context Engineering
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
     <li class="md-nav__item">
       <a href="../../references/" class="md-nav__link">
         
@@ -1153,334 +915,68 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#retrival-augmented-generation-rag" class="md-nav__link">
+  <a href="#1-overview-what-is-rag-and-why-does-it-exist" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Retrival Augmented Generation (RAG)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Retrival Augmented Generation (RAG)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Overview
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="1. Overview">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#what-problem-does-rag-solve" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What Problem Does RAG Solve?
+        1. Overview — What Is RAG and Why Does It Exist?
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#key-limitations-of-vanilla-llms" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#2-the-core-rag-loop" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Key Limitations of Vanilla LLMs
+        2. The Core RAG Loop
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#how-rag-addresses-these-issues" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#3-rag-vs-fine-tuning-choosing-the-right-tool" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How RAG Addresses These Issues
+        3. RAG vs. Fine-Tuning — Choosing the Right Tool
       
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-rag-vs-fine-tuning-when-does-rag-help" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#4-high-level-rag-pipeline" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. RAG vs Fine-Tuning: When Does RAG Help?
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. RAG vs Fine-Tuning: When Does RAG Help?">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#when-rag-is-the-better-choice" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When RAG Is the Better Choice
+        4. High-Level RAG Pipeline
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#when-fine-tuning-is-the-better-choice" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#5-key-failure-modes-of-vanilla-rag" class="md-nav__link">
     <span class="md-ellipsis">
       
-        When Fine-Tuning Is the Better Choice
+        5. Key Failure Modes of Vanilla RAG
       
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-high-level-rag-pipeline" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#6-interview-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. High-Level RAG Pipeline
+        6. Interview Questions
       
     </span>
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#31-indexing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.1 Indexing
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#32-retrieval" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.2 Retrieval
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#retrieval-process" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Retrieval Process
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#33-augmentation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.3 Augmentation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#common-augmentation-strategies" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Common Augmentation Strategies
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#34-generation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.4 Generation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-failure-modes-of-vanilla-rag" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Failure Modes of Vanilla RAG
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. Failure Modes of Vanilla RAG">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#41-retrieval-failures" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.1 Retrieval Failures
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#poor-recall" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Poor Recall
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#poor-precision" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Poor Precision
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#42-chunking-related-failures" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.2 Chunking-Related Failures
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#over-chunking" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Over-Chunking
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#under-chunking" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Under-Chunking
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#43-context-window-limitations" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.3 Context Window Limitations
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#44-lack-of-reasoning-over-retrieved-evidence" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.4 Lack of Reasoning Over Retrieved Evidence
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#45-retrieval-augmentation-mismatch" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.5 Retrieval-Augmentation Mismatch
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#46-static-retrieval-strategy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.6 Static Retrieval Strategy
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#47-no-verification-or-feedback-loop" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.7 No Verification or Feedback Loop
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-key-takeaways" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Key Takeaways
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1506,236 +1002,130 @@
 
   <h1>Fundamentals</h1>
 
-<h2 id="retrival-augmented-generation-rag">Retrival Augmented Generation (RAG)<a class="headerlink" href="#retrival-augmented-generation-rag" title="Permanent link">&para;</a></h2>
-<h3 id="1-overview">1. Overview<a class="headerlink" href="#1-overview" title="Permanent link">&para;</a></h3>
-<h4 id="what-problem-does-rag-solve">What Problem Does RAG Solve?<a class="headerlink" href="#what-problem-does-rag-solve" title="Permanent link">&para;</a></h4>
-<p>Large Language Models are trained on a fixed snapshot of data and store knowledge implicitly in their parameters. This leads to several limitations:</p>
-<h4 id="key-limitations-of-vanilla-llms">Key Limitations of Vanilla LLMs<a class="headerlink" href="#key-limitations-of-vanilla-llms" title="Permanent link">&para;</a></h4>
-<ol>
-<li>
-<p><strong>Knowledge cutoff</strong><br />
-   Models cannot natively access information created after training.</p>
-</li>
-<li>
-<p><strong>Hallucinations</strong><br />
-   When the model lacks factual knowledge, it may generate fluent but incorrect answers.</p>
-</li>
-<li>
-<p><strong>Poor domain specificity</strong><br />
-   General models struggle with enterprise, proprietary, or niche domain data.</p>
-</li>
-<li>
-<p><strong>Cost of knowledge updates</strong><br />
-   Updating knowledge via retraining or fine-tuning is expensive and slow.</p>
-</li>
-</ol>
-<h4 id="how-rag-addresses-these-issues">How RAG Addresses These Issues<a class="headerlink" href="#how-rag-addresses-these-issues" title="Permanent link">&para;</a></h4>
-<p>RAG decouples <strong>knowledge storage</strong> from <strong>language generation</strong>. Instead of forcing the model to memorize facts, it retrieves relevant external information at inference time and conditions generation on that retrieved context.</p>
-<p>This allows:
-- Up-to-date knowledge access
-- Reduced hallucinations
-- Grounded and explainable outputs
-- Faster and cheaper iteration cycles</p>
+<h2 id="1-overview-what-is-rag-and-why-does-it-exist">1. Overview — What Is RAG and Why Does It Exist?<a class="headerlink" href="#1-overview-what-is-rag-and-why-does-it-exist" title="Permanent link">&para;</a></h2>
+<p>Large Language Models are trained on a fixed snapshot of data; knowledge is baked into model weights and cannot change without retraining. This creates three hard problems: a <strong>knowledge cutoff</strong> (no access to post-training events), <strong>hallucinations</strong> (the model generates plausible-sounding but wrong answers when it lacks a fact), and <strong>poor domain specificity</strong> for proprietary or niche corpora.</p>
+<p><strong>Retrieval-Augmented Generation (RAG)</strong> decouples knowledge storage from language generation. Instead of forcing the model to memorise facts, it retrieves relevant external documents at inference time and conditions generation on that retrieved context.</p>
 <hr />
-<h3 id="2-rag-vs-fine-tuning-when-does-rag-help">2. RAG vs Fine-Tuning: When Does RAG Help?<a class="headerlink" href="#2-rag-vs-fine-tuning-when-does-rag-help" title="Permanent link">&para;</a></h3>
-<h4 id="when-rag-is-the-better-choice">When RAG Is the Better Choice<a class="headerlink" href="#when-rag-is-the-better-choice" title="Permanent link">&para;</a></h4>
-<p>RAG is preferred when:</p>
-<ul>
-<li>Knowledge changes frequently such as policies, documentation, or news.</li>
-<li>Data is large, unstructured, or proprietary.</li>
-<li>Source grounding and explainability are important.</li>
-<li>You want to avoid frequent retraining costs.</li>
-</ul>
-<p><strong>Common use cases</strong>
-- Enterprise knowledge assistants
-- Question answering over PDFs, wikis, and tickets
-- Customer support bots grounded in internal documents</p>
-<h4 id="when-fine-tuning-is-the-better-choice">When Fine-Tuning Is the Better Choice<a class="headerlink" href="#when-fine-tuning-is-the-better-choice" title="Permanent link">&para;</a></h4>
-<p>Fine-tuning is preferred when:</p>
-<ul>
-<li>You want to change <strong>model behavior</strong>, not just factual knowledge.</li>
-<li>The task requires consistent style, tone, or reasoning patterns.</li>
-<li>The knowledge is stable and relatively small.</li>
-</ul>
-<p><strong>Common use cases</strong>
-- Instruction following improvements
-- Code style adaptation
-- Domain-specific reasoning patterns</p>
-<blockquote>
-<p>In practice, RAG and fine-tuning are often combined. A model may be fine-tuned for instruction following and reasoning, while RAG provides factual grounding.</p>
-</blockquote>
 <hr />
-<h3 id="3-high-level-rag-pipeline">3. High-Level RAG Pipeline<a class="headerlink" href="#3-high-level-rag-pipeline" title="Permanent link">&para;</a></h3>
-<p>A standard RAG system consists of four main stages:</p>
+<h2 id="2-the-core-rag-loop">2. The Core RAG Loop<a class="headerlink" href="#2-the-core-rag-loop" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Indexing  </li>
-<li>Retrieval  </li>
-<li>Augmentation  </li>
-<li>Generation  </li>
+<li>User submits a query.</li>
+<li>A retriever searches an external knowledge base and returns the top-k most relevant chunks.</li>
+<li>Retrieved chunks are injected into the prompt as context.</li>
+<li>The LLM generates an answer grounded in that context.</li>
 </ol>
 <hr />
-<h3 id="31-indexing">3.1 Indexing<a class="headerlink" href="#31-indexing" title="Permanent link">&para;</a></h3>
-<p>Indexing prepares external knowledge for efficient retrieval at inference time.</p>
-<p><strong>Steps in Indexing</strong></p>
+<hr />
+<h2 id="3-rag-vs-fine-tuning-choosing-the-right-tool">3. RAG vs. Fine-Tuning — Choosing the Right Tool<a class="headerlink" href="#3-rag-vs-fine-tuning-choosing-the-right-tool" title="Permanent link">&para;</a></h2>
+<p>This is one of the most common conceptual interview questions. The short answer: <strong>use RAG when the problem is about knowledge access; use fine-tuning when the problem is about model behaviour.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>RAG</th>
+<th>Fine-Tuning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Knowledge type</td>
+<td>Dynamic, large, frequently changing</td>
+<td>Stable, compact</td>
+</tr>
+<tr>
+<td>Primary goal</td>
+<td>Access external facts at inference time</td>
+<td>Change reasoning style or output format</td>
+</tr>
+<tr>
+<td>Cost to update</td>
+<td>Re-index documents (cheap)</td>
+<td>Retrain or fine-tune model (expensive)</td>
+</tr>
+<tr>
+<td>Explainability</td>
+<td>Citations traceable to source chunks</td>
+<td>Opaque — knowledge in weights</td>
+</tr>
+<tr>
+<td>Hallucination risk</td>
+<td>Reduced (grounded in retrieved text)</td>
+<td>Not directly addressed</td>
+</tr>
+<tr>
+<td>Common use case</td>
+<td>Enterprise Q&amp;A, support bots, doc search</td>
+<td>Instruction following, code style, tone</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>In practice RAG and fine-tuning are complementary.</strong> A model may be fine-tuned for instruction following, while RAG supplies factual grounding at runtime.</p>
+</blockquote>
+<hr />
+<hr />
+<h2 id="4-high-level-rag-pipeline">4. High-Level RAG Pipeline<a class="headerlink" href="#4-high-level-rag-pipeline" title="Permanent link">&para;</a></h2>
+<p>A standard RAG system has four stages:</p>
 <ol>
-<li>
-<p><strong>Document Ingestion</strong>:  Load raw documents such as PDFs, HTML, markdown files, logs, or database records.</p>
-</li>
-<li>
-<p><strong>Chunking</strong>: Split documents into smaller passages, typically 200 to 1000 tokens.
-Chunking is necessary because:</p>
-</li>
-<li>Embedding models have fixed input limits</li>
-<li>
-<p>Smaller chunks improve retrieval granularity</p>
-</li>
-<li>
-<p><strong>Embedding</strong>: Each chunk is converted into a dense vector using an embedding model.
-For each document chunk <span class="arithmatex">\(d_i\)</span>:
-$$
-\mathbf{e}<em>i = f</em>{\text{embed}}(d_i)
-$$</p>
-</li>
-<li>
-<p><strong>Storage</strong>: All embeddings are stored in a vector database or approximate nearest neighbor index.</p>
-</li>
+<li><strong>Indexing</strong> — documents are chunked, embedded, and stored in a vector index.</li>
+<li><strong>Retrieval</strong> — the user query is embedded and the most similar chunks are fetched.</li>
+<li><strong>Augmentation</strong> — retrieved chunks are injected into the prompt alongside the query.</li>
+<li><strong>Generation</strong> — the LLM generates a grounded answer conditioned on query + context.</li>
 </ol>
 <hr />
-<h3 id="32-retrieval">3.2 Retrieval<a class="headerlink" href="#32-retrieval" title="Permanent link">&para;</a></h3>
-<p>Retrieval happens at query time and selects the most relevant chunks.</p>
-<h3 id="retrieval-process">Retrieval Process<a class="headerlink" href="#retrieval-process" title="Permanent link">&para;</a></h3>
-<ol>
-<li>Embed the user query <span class="arithmatex">\(q\)</span> into a vector <span class="arithmatex">\(\mathbf{e}_q\)</span></li>
-<li>Compute similarity between the query vector and stored document vectors</li>
-<li>Select the top-k most similar chunks</li>
-</ol>
-<p>A common similarity metric is cosine similarity:
-$$
-\text{score}(q, d_i) =
-\frac{\mathbf{e}_q \cdot \mathbf{e}_i}{|\mathbf{e}_q||\mathbf{e}_i|}
-$$</p>
+<hr />
+<h2 id="5-key-failure-modes-of-vanilla-rag">5. Key Failure Modes of Vanilla RAG<a class="headerlink" href="#5-key-failure-modes-of-vanilla-rag" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Failure Mode</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Poor recall</td>
+<td>Relevant documents exist but are not retrieved</td>
+</tr>
+<tr>
+<td>Poor precision</td>
+<td>Retrieved documents are irrelevant or noisy</td>
+</tr>
+<tr>
+<td>Chunking errors</td>
+<td>Semantic meaning is fragmented across chunk boundaries</td>
+</tr>
+<tr>
+<td>Context overflow</td>
+<td>Retrieved context exceeds the model's context window</td>
+</tr>
+<tr>
+<td>Model ignores context</td>
+<td>LLM falls back on parametric knowledge despite good retrieval</td>
+</tr>
+<tr>
+<td>No verification</td>
+<td>System produces fluent but wrong answers with no detection</td>
+</tr>
+</tbody>
+</table>
 <blockquote>
-<p>Retrieval quality is often the single most important factor in RAG system performance.</p>
+<p>Most real-world RAG systems extend vanilla RAG to explicitly address these failure modes by adding reranking, query rewriting, verification, and feedback loops.</p>
 </blockquote>
 <hr />
-<h3 id="33-augmentation">3.3 Augmentation<a class="headerlink" href="#33-augmentation" title="Permanent link">&para;</a></h3>
-<p>Augmentation injects retrieved content into the model input.</p>
-<h3 id="common-augmentation-strategies">Common Augmentation Strategies<a class="headerlink" href="#common-augmentation-strategies" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Concatenating retrieved chunks before the question</li>
-<li>Adding separators, titles, or metadata</li>
-<li>Structuring context using bullet points or citations</li>
-</ul>
 <hr />
-<h3 id="34-generation">3.4 Generation<a class="headerlink" href="#34-generation" title="Permanent link">&para;</a></h3>
-<p>The LLM generates the final response conditioned on both:</p>
-<ul>
-<li>The user query</li>
-<li>The retrieved external context</li>
-</ul>
-<p>Formally:
-$$
-P(y \mid x) = P(y \mid q, d_{1:k})
-$$</p>
-<p>The model reasons over provided evidence rather than relying solely on its internal parameters.</p>
+<h2 id="6-interview-questions">6. Interview Questions<a class="headerlink" href="#6-interview-questions" title="Permanent link">&para;</a></h2>
+<p><strong>Q: What problem does RAG solve that fine-tuning does not?</strong></p>
+<p>A: RAG solves the knowledge access problem — it lets the model use information that wasn't in the training set, or that changes frequently. Fine-tuning changes how the model behaves (style, reasoning, format) but does not give it a way to look things up. A fine-tuned model still hallucinates when asked about facts outside its training data.</p>
 <hr />
-<h3 id="4-failure-modes-of-vanilla-rag">4. Failure Modes of Vanilla RAG<a class="headerlink" href="#4-failure-modes-of-vanilla-rag" title="Permanent link">&para;</a></h3>
-<h4 id="41-retrieval-failures">4.1 Retrieval Failures<a class="headerlink" href="#41-retrieval-failures" title="Permanent link">&para;</a></h4>
-<h4 id="poor-recall">Poor Recall<a class="headerlink" href="#poor-recall" title="Permanent link">&para;</a></h4>
-<p>Relevant documents exist in the corpus but are not retrieved.</p>
-<p><strong>Common causes</strong>
-- Weak or misaligned embedding model
-- Poor chunking strategy
-- Query embedding mismatch with document embeddings</p>
-<p><strong>Impact</strong>
-- The model generates answers without the required evidence
-- Hallucinations reappear despite using RAG</p>
+<p><strong>Q: Can you use RAG and fine-tuning together?</strong></p>
+<p>A: Yes, and this is common in production. A model might be fine-tuned for instruction following or a specific output format, and RAG provides the factual grounding at query time. Fine-tuning handles "how to respond"; RAG handles "what to respond with".</p>
 <hr />
-<h4 id="poor-precision">Poor Precision<a class="headerlink" href="#poor-precision" title="Permanent link">&para;</a></h4>
-<p>Retrieved chunks are irrelevant or only loosely related to the query.</p>
-<p><strong>Common causes</strong>
-- Overly large chunks
-- Ambiguous user queries
-- High top-k retrieval without filtering</p>
-<p><strong>Impact</strong>
-- Model is distracted by irrelevant context
-- Answers become vague or incorrect</p>
+<p><strong>Q: What are the main failure modes in a vanilla RAG system?</strong></p>
+<p>A: The biggest failure is retrieval failure — the right document exists but isn't retrieved (poor recall) or irrelevant documents are retrieved (poor precision). Other failures include chunking errors that fragment context, context window overflow, the model ignoring or hallucinating over retrieved text, and the lack of any verification step.</p>
 <hr />
-<h4 id="42-chunking-related-failures">4.2 Chunking-Related Failures<a class="headerlink" href="#42-chunking-related-failures" title="Permanent link">&para;</a></h4>
-<h4 id="over-chunking">Over-Chunking<a class="headerlink" href="#over-chunking" title="Permanent link">&para;</a></h4>
-<p>Chunks are too small and lose semantic meaning.</p>
-<p><strong>Impact</strong>
-- Missing context
-- Incomplete or misleading information</p>
-<h4 id="under-chunking">Under-Chunking<a class="headerlink" href="#under-chunking" title="Permanent link">&para;</a></h4>
-<p>Chunks are too large and contain multiple unrelated topics.</p>
-<p><strong>Impact</strong>
-- Lower retrieval accuracy
-- Context window pollution</p>
-<blockquote>
-<p>Chunk size is a critical hyperparameter and strongly influences retrieval quality.</p>
-</blockquote>
-<hr />
-<h4 id="43-context-window-limitations">4.3 Context Window Limitations<a class="headerlink" href="#43-context-window-limitations" title="Permanent link">&para;</a></h4>
-<p>Vanilla RAG typically concatenates retrieved chunks directly into the prompt.</p>
-<p><strong>Failure cases</strong>
-- Retrieved context exceeds the model context window
-- Important chunks are truncated
-- Ordering of chunks affects answer quality</p>
-<p><strong>Impact</strong>
-- Loss of critical evidence
-- Inconsistent or incomplete answers</p>
-<hr />
-<h4 id="44-lack-of-reasoning-over-retrieved-evidence">4.4 Lack of Reasoning Over Retrieved Evidence<a class="headerlink" href="#44-lack-of-reasoning-over-retrieved-evidence" title="Permanent link">&para;</a></h4>
-<p>Vanilla RAG assumes the model will correctly use the retrieved context.</p>
-<p><strong>Common issues</strong>
-- Model ignores relevant chunks
-- Model cherry-picks incorrect information
-- Model blends retrieved facts with hallucinated content</p>
-<p><strong>Impact</strong>
-- Answers appear grounded but contain subtle errors</p>
-<hr />
-<h4 id="45-retrieval-augmentation-mismatch">4.5 Retrieval-Augmentation Mismatch<a class="headerlink" href="#45-retrieval-augmentation-mismatch" title="Permanent link">&para;</a></h4>
-<p>The retrieved information may be correct but poorly integrated into the prompt.</p>
-<p><strong>Common causes</strong>
-- No clear separation between context and question
-- Missing instructions to ground answers in retrieved content
-- No citation or reference constraints</p>
-<p><strong>Impact</strong>
-- Model treats retrieved text as optional background
-- Reduced factual consistency</p>
-<hr />
-<h4 id="46-static-retrieval-strategy">4.6 Static Retrieval Strategy<a class="headerlink" href="#46-static-retrieval-strategy" title="Permanent link">&para;</a></h4>
-<p>Vanilla RAG uses a single retrieval step.</p>
-<p><strong>Limitations</strong>
-- Cannot refine or reformulate queries
-- No iterative retrieval based on intermediate reasoning
-- No handling of multi-hop or compositional questions</p>
-<p><strong>Impact</strong>
-- Poor performance on complex queries
-- Failure on questions requiring reasoning across documents</p>
-<hr />
-<h4 id="47-no-verification-or-feedback-loop">4.7 No Verification or Feedback Loop<a class="headerlink" href="#47-no-verification-or-feedback-loop" title="Permanent link">&para;</a></h4>
-<p>Vanilla RAG pipelines usually lack validation of retrieved or generated content.</p>
-<p><strong>Missing components</strong>
-- Answer verification
-- Retrieval confidence estimation
-- Self-correction mechanisms</p>
-<p><strong>Impact</strong>
-- Silent failures
-- Difficult to debug or evaluate system behavior</p>
-<hr />
-<h3 id="5-key-takeaways">5. Key Takeaways<a class="headerlink" href="#5-key-takeaways" title="Permanent link">&para;</a></h3>
-<ul>
-<li>RAG reduces hallucinations but does not eliminate them</li>
-<li>Retrieval quality is the dominant failure point</li>
-<li>Chunking and prompt structure are first-order design choices</li>
-<li>Vanilla RAG struggles with complex, multi-hop reasoning</li>
-<li>Advanced RAG systems add reranking, query rewriting, verification, and feedback loops</li>
-</ul>
-<blockquote>
-<p>Most real-world RAG systems extend vanilla RAG to explicitly address these failure modes.</p>
-</blockquote>
+<p><strong>Q: Formally, how does RAG change the generation objective?</strong></p>
+<p>A: Vanilla LLM generation is P(y | q) — the answer depends only on the query. RAG conditions generation on both the query and retrieved documents: P(y | q, d₁:k). The model reasons over provided evidence rather than relying solely on its internal parameters.</p>
 <hr />
 
 

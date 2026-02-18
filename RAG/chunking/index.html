@@ -428,10 +428,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-chunking-strategies" class="md-nav__link">
+  <a href="#2-why-chunks-must-be-sized-carefully" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Chunking Strategies
+        2 Why Chunks Must Be Sized Carefully
       
     </span>
   </a>
@@ -439,22 +439,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#21-fixed-size-chunking" class="md-nav__link">
+  <a href="#3-chunking-strategies" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.1 Fixed-Size Chunking
+        3. Chunking Strategies
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2.1 Fixed-Size Chunking">
+    <nav class="md-nav" aria-label="3. Chunking Strategies">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#algorithm" class="md-nav__link">
+  <a href="#fixed-size-chunking" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Algorithm
+        Fixed-Size Chunking
       
     </span>
   </a>
@@ -462,10 +462,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#pros" class="md-nav__link">
+  <a href="#sentence-based-chunking" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Pros
+        Sentence-Based Chunking
       
     </span>
   </a>
@@ -473,10 +473,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cons" class="md-nav__link">
+  <a href="#paragraph-based-chunking" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Cons
+        Paragraph-Based Chunking
       
     </span>
   </a>
@@ -484,38 +484,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#when-to-use" class="md-nav__link">
+  <a href="#recursive-chunking" class="md-nav__link">
     <span class="md-ellipsis">
       
-        When to Use
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#22-sentence-based-chunking" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2.2 Sentence-Based Chunking
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2.2 Sentence-Based Chunking">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#algorithm_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Algorithm
+        Recursive Chunking
       
     </span>
   </a>
@@ -523,10 +495,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#pros_1" class="md-nav__link">
+  <a href="#semantic-context-aware-chunking" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Pros
+        Semantic / Context-Aware Chunking
       
     </span>
   </a>
@@ -534,21 +506,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cons_1" class="md-nav__link">
+  <a href="#sliding-window-chunking" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Cons
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#when-to-use_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When to Use
+        Sliding Window Chunking
       
     </span>
   </a>
@@ -561,544 +522,68 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#23-paragraph-based-chunking" class="md-nav__link">
+  <a href="#4-chunk-size-and-top-k-are-coupled" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.3 Paragraph-Based Chunking
+        4 Chunk Size and Top-k Are Coupled
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="2.3 Paragraph-Based Chunking">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#algorithm_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Algorithm
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pros_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pros
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cons_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Cons
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#when-to-use_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When to Use
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#24-recursive-chunking" class="md-nav__link">
+  <a href="#5-chunk-overlap" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.4 Recursive Chunking
+        5 Chunk Overlap
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="2.4 Recursive Chunking">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#algorithm_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Algorithm
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pros_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pros
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cons_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Cons
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#when-to-use_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When to Use
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#25-context-aware-chunking" class="md-nav__link">
+  <a href="#6-chunk-metadata-and-filtering" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.5 Context-Aware Chunking
+        6 Chunk Metadata and Filtering
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="2.5 Context-Aware Chunking">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#algorithm_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Algorithm
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pros_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pros
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cons_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Cons
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#when-to-use_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When to Use
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#26-sliding-window-chunking" class="md-nav__link">
+  <a href="#7-special-cases-tables-and-code" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.6 Sliding Window Chunking
+        7 Special Cases: Tables and Code
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="2.6 Sliding Window Chunking">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pros_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pros
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cons_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Cons
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#when-to-use_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When to Use
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#chunking-strategy-comparison" class="md-nav__link">
+  <a href="#8-adaptive-chunking" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Chunking Strategy Comparison
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Chunking Strategy Comparison">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#3-other-concepts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Other Concepts
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. Other Concepts">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#31-chunk-size-vs-top-k-tradeoffs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.1 Chunk Size vs Top-k Tradeoffs
+        8 Adaptive Chunking
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#key-intuition" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#9-interview-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Key Intuition
+        9 Interview Questions
       
     </span>
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#tradeoff-matrix" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Tradeoff Matrix
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#failure-patterns" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Failure Patterns
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#32-chunk-overlap-selection" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.2 Chunk Overlap Selection
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#why-overlap-matters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why Overlap Matters
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#typical-settings" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Typical Settings
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#tradeoffs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Tradeoffs
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#insight" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Insight
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#33-chunk-metadata-and-filtering" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.3 Chunk Metadata and Filtering
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#what-is-chunk-metadata" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What Is Chunk Metadata?
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#how-metadata-is-used" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How Metadata Is Used
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#benefits" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Benefits
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Example
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#insight_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Insight
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#34-chunking-for-tables-and-code" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.4 Chunking for Tables and Code
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#341-chunking-tables" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.4.1 Chunking Tables
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#342-chunking-code" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.4.2 Chunking Code
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#35-adaptive-chunking-based-on-query-type" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.5 Adaptive Chunking Based on Query Type
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#motivation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Motivation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#common-query-types" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Common Query Types
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#adaptive-strategies" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Adaptive Strategies
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pros_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pros
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cons_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Cons
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-takeaways" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Takeaways
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1146,6 +631,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../retrieval_methods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Retrieval Methods
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../indexing_and_vector_database/" class="md-nav__link">
         
   
@@ -1153,7 +666,63 @@
   <span class="md-ellipsis">
     
   
-    Indexing & Retrieval
+    Indexing Strategies, Vector Databases, and Retrieval Systems for RAG
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reranking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Re-Ranking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced_rag/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced RAG
   
 
     
@@ -1201,6 +770,34 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../quick_reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
     
@@ -1212,10 +809,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_6" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_10" >
         
           
-          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_10" id="__nav_2_10_label" tabindex="0">
             
   
   
@@ -1233,8 +830,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_10">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1377,90 +974,6 @@
   
   
   
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
-        
-          
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Context Engineering
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Context Engineering
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../context_engineering/ce/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Context Engineering
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
     <li class="md-nav__item">
       <a href="../../references/" class="md-nav__link">
         
@@ -1518,10 +1031,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-chunking-strategies" class="md-nav__link">
+  <a href="#2-why-chunks-must-be-sized-carefully" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Chunking Strategies
+        2 Why Chunks Must Be Sized Carefully
       
     </span>
   </a>
@@ -1529,22 +1042,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#21-fixed-size-chunking" class="md-nav__link">
+  <a href="#3-chunking-strategies" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.1 Fixed-Size Chunking
+        3. Chunking Strategies
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2.1 Fixed-Size Chunking">
+    <nav class="md-nav" aria-label="3. Chunking Strategies">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#algorithm" class="md-nav__link">
+  <a href="#fixed-size-chunking" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Algorithm
+        Fixed-Size Chunking
       
     </span>
   </a>
@@ -1552,10 +1065,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#pros" class="md-nav__link">
+  <a href="#sentence-based-chunking" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Pros
+        Sentence-Based Chunking
       
     </span>
   </a>
@@ -1563,10 +1076,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cons" class="md-nav__link">
+  <a href="#paragraph-based-chunking" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Cons
+        Paragraph-Based Chunking
       
     </span>
   </a>
@@ -1574,38 +1087,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#when-to-use" class="md-nav__link">
+  <a href="#recursive-chunking" class="md-nav__link">
     <span class="md-ellipsis">
       
-        When to Use
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#22-sentence-based-chunking" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2.2 Sentence-Based Chunking
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2.2 Sentence-Based Chunking">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#algorithm_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Algorithm
+        Recursive Chunking
       
     </span>
   </a>
@@ -1613,10 +1098,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#pros_1" class="md-nav__link">
+  <a href="#semantic-context-aware-chunking" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Pros
+        Semantic / Context-Aware Chunking
       
     </span>
   </a>
@@ -1624,21 +1109,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cons_1" class="md-nav__link">
+  <a href="#sliding-window-chunking" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Cons
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#when-to-use_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When to Use
+        Sliding Window Chunking
       
     </span>
   </a>
@@ -1651,544 +1125,68 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#23-paragraph-based-chunking" class="md-nav__link">
+  <a href="#4-chunk-size-and-top-k-are-coupled" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.3 Paragraph-Based Chunking
+        4 Chunk Size and Top-k Are Coupled
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="2.3 Paragraph-Based Chunking">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#algorithm_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Algorithm
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pros_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pros
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cons_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Cons
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#when-to-use_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When to Use
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#24-recursive-chunking" class="md-nav__link">
+  <a href="#5-chunk-overlap" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.4 Recursive Chunking
+        5 Chunk Overlap
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="2.4 Recursive Chunking">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#algorithm_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Algorithm
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pros_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pros
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cons_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Cons
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#when-to-use_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When to Use
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#25-context-aware-chunking" class="md-nav__link">
+  <a href="#6-chunk-metadata-and-filtering" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.5 Context-Aware Chunking
+        6 Chunk Metadata and Filtering
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="2.5 Context-Aware Chunking">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#algorithm_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Algorithm
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pros_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pros
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cons_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Cons
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#when-to-use_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When to Use
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#26-sliding-window-chunking" class="md-nav__link">
+  <a href="#7-special-cases-tables-and-code" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.6 Sliding Window Chunking
+        7 Special Cases: Tables and Code
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="2.6 Sliding Window Chunking">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pros_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pros
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cons_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Cons
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#when-to-use_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When to Use
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#chunking-strategy-comparison" class="md-nav__link">
+  <a href="#8-adaptive-chunking" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Chunking Strategy Comparison
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Chunking Strategy Comparison">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#3-other-concepts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Other Concepts
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. Other Concepts">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#31-chunk-size-vs-top-k-tradeoffs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.1 Chunk Size vs Top-k Tradeoffs
+        8 Adaptive Chunking
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#key-intuition" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#9-interview-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Key Intuition
+        9 Interview Questions
       
     </span>
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#tradeoff-matrix" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Tradeoff Matrix
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#failure-patterns" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Failure Patterns
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#32-chunk-overlap-selection" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.2 Chunk Overlap Selection
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#why-overlap-matters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why Overlap Matters
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#typical-settings" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Typical Settings
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#tradeoffs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Tradeoffs
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#insight" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Insight
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#33-chunk-metadata-and-filtering" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.3 Chunk Metadata and Filtering
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#what-is-chunk-metadata" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What Is Chunk Metadata?
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#how-metadata-is-used" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How Metadata Is Used
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#benefits" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Benefits
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Example
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#insight_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Insight
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#34-chunking-for-tables-and-code" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.4 Chunking for Tables and Code
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#341-chunking-tables" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.4.1 Chunking Tables
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#342-chunking-code" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.4.2 Chunking Code
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#35-adaptive-chunking-based-on-query-type" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.5 Adaptive Chunking Based on Query Type
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#motivation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Motivation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#common-query-types" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Common Query Types
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#adaptive-strategies" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Adaptive Strategies
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pros_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pros
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cons_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Cons
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-takeaways" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Takeaways
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -2214,387 +1212,152 @@
 
   <h1>Chunking</h1>
 
-<h3 id="1-overview">1. Overview<a class="headerlink" href="#1-overview" title="Permanent link">&para;</a></h3>
-<p>Chunking is the process of splitting documents into smaller units before embedding and indexing. It is a critical design choice in RAG systems because it directly impacts retrieval quality, context relevance, latency, and cost.</p>
-<p>Long documents must be broken down into chunks to:</p>
+<h2 id="1-overview">1. Overview<a class="headerlink" href="#1-overview" title="Permanent link">&para;</a></h2>
+<p>Chunking splits documents into smaller units before embedding and indexing. It is a critical design choice because it directly determines retrieval granularity, context relevance, latency, and cost. Poor chunking is one of the easiest ways to silently break a RAG system.</p>
+<hr />
+<hr />
+<h2 id="2-why-chunks-must-be-sized-carefully">2 Why Chunks Must Be Sized Carefully<a class="headerlink" href="#2-why-chunks-must-be-sized-carefully" title="Permanent link">&para;</a></h2>
+<p>Embedding models have fixed input limits (typically 512 to 8192 tokens), so documents must be split. But chunk size affects quality in both directions:</p>
 <ul>
-<li>Fit model token limits</li>
-<li>Improve retrieval granularity</li>
-<li>Reduce semantic dilution</li>
-<li>Control prompt length and cost</li>
-</ul>
-<p>Poor chunking can cause:</p>
-<ul>
-<li>Retrieval failure</li>
-<li>Loss of context</li>
-<li>Fragmented or incomplete answers</li>
-</ul>
-<h3 id="2-chunking-strategies">2. Chunking Strategies<a class="headerlink" href="#2-chunking-strategies" title="Permanent link">&para;</a></h3>
-<h3 id="21-fixed-size-chunking">2.1 Fixed-Size Chunking<a class="headerlink" href="#21-fixed-size-chunking" title="Permanent link">&para;</a></h3>
-<p>Documents are split into chunks of a fixed token or character length, often with optional overlap.</p>
-<p>Example:</p>
-<ul>
-<li>Chunk size: 512 tokens</li>
-<li>Overlap: 50 tokens</li>
-</ul>
-<h4 id="algorithm">Algorithm<a class="headerlink" href="#algorithm" title="Permanent link">&para;</a></h4>
-<ol>
-<li>Tokenize the document</li>
-<li>Split tokens into consecutive windows of size <code>N</code></li>
-<li>Optionally overlap adjacent windows by <code>M</code> tokens</li>
-</ol>
-<h4 id="pros">Pros<a class="headerlink" href="#pros" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Simple to implement</li>
-<li>Fast and scalable</li>
-<li>Works reasonably well as a baseline</li>
-</ul>
-<h4 id="cons">Cons<a class="headerlink" href="#cons" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Ignores semantic boundaries</li>
-<li>May split sentences or paragraphs</li>
-<li>Important information can be fragmented across chunks</li>
-</ul>
-<h4 id="when-to-use">When to Use<a class="headerlink" href="#when-to-use" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Baseline RAG systems</li>
-<li>Uniform document formats</li>
-<li>Large-scale indexing where simplicity matters</li>
+<li><strong>Too small:</strong> Chunks lose semantic meaning; retrieval returns fragments that don't fully answer the question.</li>
+<li><strong>Too large:</strong> Chunks contain multiple unrelated topics; embedding quality degrades; context window fills with noise.</li>
 </ul>
 <hr />
-<h3 id="22-sentence-based-chunking">2.2 Sentence-Based Chunking<a class="headerlink" href="#22-sentence-based-chunking" title="Permanent link">&para;</a></h3>
-<p>Documents are split at sentence boundaries, often grouping multiple sentences into a single chunk until a token limit is reached.</p>
-<h4 id="algorithm_1">Algorithm<a class="headerlink" href="#algorithm_1" title="Permanent link">&para;</a></h4>
-<ol>
-<li>Sentence tokenize the document</li>
-<li>Accumulate sentences until the chunk reaches a size threshold</li>
-<li>Start a new chunk when the threshold is exceeded</li>
-</ol>
-<h4 id="pros_1">Pros<a class="headerlink" href="#pros_1" title="Permanent link">&para;</a></h4>
+<hr />
+<h2 id="3-chunking-strategies">3. Chunking Strategies<a class="headerlink" href="#3-chunking-strategies" title="Permanent link">&para;</a></h2>
+<h3 id="fixed-size-chunking">Fixed-Size Chunking<a class="headerlink" href="#fixed-size-chunking" title="Permanent link">&para;</a></h3>
+<p>Documents are split into consecutive windows of N tokens with optional overlap. Simple and fast, but ignores semantic boundaries.</p>
+<p><strong>Algorithm:</strong>
+1. Tokenise the document.
+2. Split into consecutive windows of size N.
+3. Optionally overlap adjacent windows by M tokens.</p>
 <ul>
-<li>Preserves sentence semantics</li>
-<li>Reduces mid-sentence splits</li>
-<li>Better coherence than fixed-size chunking</li>
-</ul>
-<h4 id="cons_1">Cons<a class="headerlink" href="#cons_1" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Sentence lengths vary significantly</li>
-<li>Long sentences can exceed limits</li>
-<li>Still ignores higher-level structure</li>
-</ul>
-<h4 id="when-to-use_1">When to Use<a class="headerlink" href="#when-to-use_1" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Narrative text</li>
-<li>QA over articles or reports</li>
-<li>Medium-length documents</li>
+<li><strong>Pros:</strong> Simple to implement; fast and scalable; good baseline.</li>
+<li><strong>Cons:</strong> Ignores semantic boundaries; may split sentences mid-thought.</li>
+<li><strong>Use when:</strong> Baseline systems; uniform document formats; large-scale indexing where simplicity matters.</li>
 </ul>
 <hr />
-<h3 id="23-paragraph-based-chunking">2.3 Paragraph-Based Chunking<a class="headerlink" href="#23-paragraph-based-chunking" title="Permanent link">&para;</a></h3>
-<p>Chunks are formed using paragraph boundaries, typically defined by newline separation.</p>
-<h4 id="algorithm_2">Algorithm<a class="headerlink" href="#algorithm_2" title="Permanent link">&para;</a></h4>
-<ol>
-<li>Split document by paragraph delimiters</li>
-<li>Merge small paragraphs until size threshold is met</li>
-<li>Split large paragraphs if needed</li>
-</ol>
-<h4 id="pros_2">Pros<a class="headerlink" href="#pros_2" title="Permanent link">&para;</a></h4>
+<h3 id="sentence-based-chunking">Sentence-Based Chunking<a class="headerlink" href="#sentence-based-chunking" title="Permanent link">&para;</a></h3>
+<p>Documents are split at sentence boundaries, accumulating sentences until a token threshold is reached.</p>
 <ul>
-<li>Preserves local topical coherence</li>
-<li>Aligns well with human-written structure</li>
-<li>Better retrieval relevance for explanatory text</li>
-</ul>
-<h4 id="cons_2">Cons<a class="headerlink" href="#cons_2" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Paragraph length is highly inconsistent</li>
-<li>Large paragraphs may require further splitting</li>
-<li>Formatting noise can affect quality</li>
-</ul>
-<h4 id="when-to-use_2">When to Use<a class="headerlink" href="#when-to-use_2" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Well-structured documents</li>
-<li>Technical blogs and documentation</li>
-<li>Markdown or HTML content</li>
+<li><strong>Pros:</strong> Preserves sentence semantics; reduces mid-sentence splits.</li>
+<li><strong>Cons:</strong> Sentence lengths vary; ignores higher-level document structure.</li>
+<li><strong>Use when:</strong> Narrative text; QA over articles or reports.</li>
 </ul>
 <hr />
-<h3 id="24-recursive-chunking">2.4 Recursive Chunking<a class="headerlink" href="#24-recursive-chunking" title="Permanent link">&para;</a></h3>
-<p>Recursive chunking applies a hierarchy of splitting rules, starting with coarse semantic units and progressively falling back to finer ones if size constraints are violated.</p>
-<p>Typical split order:</p>
+<h3 id="paragraph-based-chunking">Paragraph-Based Chunking<a class="headerlink" href="#paragraph-based-chunking" title="Permanent link">&para;</a></h3>
+<p>Chunks are formed at paragraph boundaries and merged if small; large paragraphs are split further if needed.</p>
 <ul>
-<li>Sections</li>
-<li>Subsections</li>
-<li>Paragraphs</li>
-<li>Sentences</li>
-<li>Fixed-size fallback</li>
-</ul>
-<h4 id="algorithm_3">Algorithm<a class="headerlink" href="#algorithm_3" title="Permanent link">&para;</a></h4>
-<ol>
-<li>Attempt to split by highest-level boundary</li>
-<li>If chunk exceeds size limit, split using next level</li>
-<li>Continue recursively until constraints are satisfied</li>
-</ol>
-<h4 id="pros_3">Pros<a class="headerlink" href="#pros_3" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Preserves document structure</li>
-<li>Produces semantically meaningful chunks</li>
-<li>Handles diverse document formats well</li>
-</ul>
-<h4 id="cons_3">Cons<a class="headerlink" href="#cons_3" title="Permanent link">&para;</a></h4>
-<ul>
-<li>More complex to implement</li>
-<li>Requires reliable document parsing</li>
-<li>Slightly higher preprocessing cost</li>
-</ul>
-<h4 id="when-to-use_3">When to Use<a class="headerlink" href="#when-to-use_3" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Enterprise documents</li>
-<li>PDFs with headings</li>
-<li>Mixed-format content</li>
+<li><strong>Pros:</strong> Preserves local topical coherence; aligns with human-written structure.</li>
+<li><strong>Cons:</strong> Paragraph length is highly inconsistent; formatting noise can affect quality.</li>
+<li><strong>Use when:</strong> Well-structured documentation; markdown or HTML content.</li>
 </ul>
 <hr />
-<h3 id="25-context-aware-chunking">2.5 Context-Aware Chunking<a class="headerlink" href="#25-context-aware-chunking" title="Permanent link">&para;</a></h3>
-<p>Chunks are formed based on semantic similarity rather than fixed boundaries. Adjacent text segments are grouped if they share high semantic coherence.</p>
-<h4 id="algorithm_4">Algorithm<a class="headerlink" href="#algorithm_4" title="Permanent link">&para;</a></h4>
-<ol>
-<li>Compute embeddings for small text units</li>
-<li>Measure semantic similarity between adjacent units</li>
-<li>Merge units until similarity drops or size limit is reached</li>
-</ol>
-<h4 id="pros_4">Pros<a class="headerlink" href="#pros_4" title="Permanent link">&para;</a></h4>
+<h3 id="recursive-chunking">Recursive Chunking<a class="headerlink" href="#recursive-chunking" title="Permanent link">&para;</a></h3>
+<p>Applies a hierarchy of split rules — sections → paragraphs → sentences → fixed-size fallback — only falling back to finer splits when the chunk exceeds the size limit.</p>
 <ul>
-<li>High semantic coherence</li>
-<li>Reduces context fragmentation</li>
-<li>Improves retrieval precision</li>
-</ul>
-<h4 id="cons_4">Cons<a class="headerlink" href="#cons_4" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Computationally expensive</li>
-<li>Requires embedding during preprocessing</li>
-<li>Sensitive to similarity thresholds</li>
-</ul>
-<h4 id="when-to-use_4">When to Use<a class="headerlink" href="#when-to-use_4" title="Permanent link">&para;</a></h4>
-<ul>
-<li>High-accuracy RAG systems</li>
-<li>Knowledge-intensive QA</li>
-<li>Smaller corpora where quality matters</li>
+<li><strong>Pros:</strong> Preserves document structure; produces semantically meaningful chunks; handles diverse formats.</li>
+<li><strong>Cons:</strong> More complex to implement; requires reliable document parsing.</li>
+<li><strong>Use when:</strong> Enterprise documents; PDFs with headings; mixed-format content. <strong>This is the most common production approach.</strong></li>
 </ul>
 <hr />
-<h3 id="26-sliding-window-chunking">2.6 Sliding Window Chunking<a class="headerlink" href="#26-sliding-window-chunking" title="Permanent link">&para;</a></h3>
-<p>Chunks are generated using overlapping windows that slide across the document.</p>
-<p>Example:</p>
+<h3 id="semantic-context-aware-chunking">Semantic / Context-Aware Chunking<a class="headerlink" href="#semantic-context-aware-chunking" title="Permanent link">&para;</a></h3>
+<p>Adjacent text units are grouped based on embedding similarity rather than fixed boundaries.</p>
 <ul>
-<li>Window size: 512 tokens</li>
-<li>Stride: 256 tokens</li>
-</ul>
-<h4 id="pros_5">Pros<a class="headerlink" href="#pros_5" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Preserves cross-boundary context</li>
-<li>Reduces information loss at chunk edges</li>
-<li>Improves recall</li>
-</ul>
-<h4 id="cons_5">Cons<a class="headerlink" href="#cons_5" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Increased index size</li>
-<li>Higher storage and retrieval cost</li>
-<li>More redundant embeddings</li>
-</ul>
-<h4 id="when-to-use_5">When to Use<a class="headerlink" href="#when-to-use_5" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Long-form documents</li>
-<li>Cases where boundary loss is critical</li>
-<li>Multi-hop reasoning tasks</li>
+<li><strong>Pros:</strong> High semantic coherence; reduces context fragmentation.</li>
+<li><strong>Cons:</strong> Computationally expensive — requires embedding during preprocessing; sensitive to similarity thresholds.</li>
+<li><strong>Use when:</strong> High-precision RAG; smaller corpora where quality matters most.</li>
 </ul>
 <hr />
-<h2 id="chunking-strategy-comparison">Chunking Strategy Comparison<a class="headerlink" href="#chunking-strategy-comparison" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Strategy</th>
-<th>Semantic Coherence</th>
-<th>Complexity</th>
-<th>Index Size</th>
-<th>Common Use</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Fixed-size</td>
-<td>Low</td>
-<td>Low</td>
-<td>Medium</td>
-<td>Baselines</td>
-</tr>
-<tr>
-<td>Sentence-based</td>
-<td>Medium</td>
-<td>Low</td>
-<td>Medium</td>
-<td>Articles</td>
-</tr>
-<tr>
-<td>Paragraph-based</td>
-<td>Medium</td>
-<td>Low</td>
-<td>Medium</td>
-<td>Documentation</td>
-</tr>
-<tr>
-<td>Recursive</td>
-<td>High</td>
-<td>Medium</td>
-<td>Medium</td>
-<td>Enterprise RAG</td>
-</tr>
-<tr>
-<td>Context-aware</td>
-<td>High</td>
-<td>High</td>
-<td>Low to Medium</td>
-<td>High-precision RAG</td>
-</tr>
-<tr>
-<td>Sliding window</td>
-<td>Medium</td>
-<td>Low</td>
-<td>High</td>
-<td>Long documents</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3 id="3-other-concepts">3. Other Concepts<a class="headerlink" href="#3-other-concepts" title="Permanent link">&para;</a></h3>
-<h4 id="31-chunk-size-vs-top-k-tradeoffs">3.1 Chunk Size vs Top-k Tradeoffs<a class="headerlink" href="#31-chunk-size-vs-top-k-tradeoffs" title="Permanent link">&para;</a></h4>
-<p>Chunk size and top-k retrieval are tightly coupled design parameters in RAG systems. Changing one almost always requires adjusting the other.</p>
-<h4 id="key-intuition">Key Intuition<a class="headerlink" href="#key-intuition" title="Permanent link">&para;</a></h4>
+<h3 id="sliding-window-chunking">Sliding Window Chunking<a class="headerlink" href="#sliding-window-chunking" title="Permanent link">&para;</a></h3>
+<p>Overlapping windows slide across the document (e.g., 512-token window, 256-token stride).</p>
 <ul>
-<li>Smaller chunks increase retrieval granularity but reduce context per chunk</li>
-<li>Larger chunks provide more local context but reduce retrieval precision</li>
+<li><strong>Pros:</strong> Preserves cross-boundary context; reduces information loss at chunk edges.</li>
+<li><strong>Cons:</strong> Doubles or more the index size; higher storage and retrieval cost; redundant embeddings.</li>
+<li><strong>Use when:</strong> Long-form documents; multi-hop reasoning tasks; cases where boundary loss is critical.</li>
 </ul>
-<h4 id="tradeoff-matrix">Tradeoff Matrix<a class="headerlink" href="#tradeoff-matrix" title="Permanent link">&para;</a></h4>
+<hr />
+<hr />
+<h2 id="4-chunk-size-and-top-k-are-coupled">4 Chunk Size and Top-k Are Coupled<a class="headerlink" href="#4-chunk-size-and-top-k-are-coupled" title="Permanent link">&para;</a></h2>
+<p>Changing chunk size almost always requires adjusting top-k. <strong>They must be tuned jointly.</strong></p>
 <table>
 <thead>
 <tr>
 <th>Chunk Size</th>
 <th>Typical Top-k</th>
-<th>Behavior</th>
+<th>Behaviour</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Small (100–300 tokens)</td>
 <td>High (10–20)</td>
-<td>High recall, lower precision</td>
+<td>High recall, lower precision — many fragments retrieved</td>
 </tr>
 <tr>
 <td>Medium (300–700 tokens)</td>
 <td>Medium (4–8)</td>
-<td>Balanced retrieval</td>
+<td>Balanced — good default starting point</td>
 </tr>
 <tr>
 <td>Large (700–1500 tokens)</td>
 <td>Low (1–3)</td>
-<td>High precision, risk of misses</td>
+<td>High precision, risk of missing relevant info</td>
 </tr>
 </tbody>
 </table>
-<h4 id="failure-patterns">Failure Patterns<a class="headerlink" href="#failure-patterns" title="Permanent link">&para;</a></h4>
+<p><strong>Common failure patterns:</strong></p>
 <ul>
 <li>Small chunks + low top-k → missing required information</li>
-<li>Large chunks + high top-k → context overload</li>
+<li>Large chunks + high top-k → context overload and noise</li>
 <li>Large chunks + low top-k → partial coverage</li>
 </ul>
 <hr />
-<h4 id="32-chunk-overlap-selection">3.2 Chunk Overlap Selection<a class="headerlink" href="#32-chunk-overlap-selection" title="Permanent link">&para;</a></h4>
-<p>Overlap determines how much content is shared between adjacent chunks.</p>
-<h4 id="why-overlap-matters">Why Overlap Matters<a class="headerlink" href="#why-overlap-matters" title="Permanent link">&para;</a></h4>
+<hr />
+<h2 id="5-chunk-overlap">5 Chunk Overlap<a class="headerlink" href="#5-chunk-overlap" title="Permanent link">&para;</a></h2>
+<p>Overlap (sharing tokens between adjacent chunks) prevents information loss at chunk boundaries.</p>
+<p><strong>Typical settings:</strong></p>
 <ul>
-<li>Prevents information loss at chunk boundaries</li>
-<li>Preserves cross-sentence and cross-paragraph context</li>
-</ul>
-<h4 id="typical-settings">Typical Settings<a class="headerlink" href="#typical-settings" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Fixed-size chunking: 10 to 20 percent overlap</li>
-<li>Sliding window chunking: stride equals 50 percent of window size</li>
+<li>Fixed-size chunking: 10–20% overlap</li>
+<li>Sliding window: stride equals 50% of window size</li>
 <li>Recursive chunking: overlap often unnecessary</li>
 </ul>
-<h4 id="tradeoffs">Tradeoffs<a class="headerlink" href="#tradeoffs" title="Permanent link">&para;</a></h4>
-<p><strong>Benefits</strong>
-- Improved recall
-- Reduced boundary effects</p>
-<p><strong>Costs</strong>
-- Larger index size
-- Higher storage and retrieval cost
-- More redundant embeddings</p>
-<h4 id="insight">Insight<a class="headerlink" href="#insight" title="Permanent link">&para;</a></h4>
-<p>Overlap helps recall but should be used sparingly. Overlap is a mitigation strategy, not a substitute for good chunking.</p>
+<p><strong>Benefits:</strong> Improved recall; reduced boundary effects.
+<strong>Costs:</strong> Larger index; higher storage and retrieval cost; redundant embeddings.</p>
+<blockquote>
+<p>Overlap is a mitigation strategy, not a substitute for good chunking design.</p>
+</blockquote>
 <hr />
-<h4 id="33-chunk-metadata-and-filtering">3.3 Chunk Metadata and Filtering<a class="headerlink" href="#33-chunk-metadata-and-filtering" title="Permanent link">&para;</a></h4>
-<h4 id="what-is-chunk-metadata">What Is Chunk Metadata?<a class="headerlink" href="#what-is-chunk-metadata" title="Permanent link">&para;</a></h4>
-<p>Metadata is structured information attached to each chunk that enables filtering and ranking during retrieval.</p>
-<p><strong>Common metadata fields</strong></p>
-<ul>
-<li>Document ID</li>
-<li>Section or heading</li>
-<li>Timestamp or version</li>
-<li>Author or source</li>
-<li>Content type</li>
-</ul>
-<h4 id="how-metadata-is-used">How Metadata Is Used<a class="headerlink" href="#how-metadata-is-used" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Filter chunks before similarity search</li>
-<li>Re-rank retrieved chunks</li>
-<li>Restrict retrieval to specific document subsets</li>
-</ul>
-<h4 id="benefits">Benefits<a class="headerlink" href="#benefits" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Improves retrieval precision</li>
-<li>Reduces noise</li>
-<li>Enables structured queries</li>
-</ul>
-<h4 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h4>
-<p>Retrieve only:</p>
-<ul>
-<li>Chunks from a specific product version</li>
-<li>Chunks created after a certain date</li>
-<li>Chunks from a trusted source</li>
-</ul>
-<h4 id="insight_1">Insight<a class="headerlink" href="#insight_1" title="Permanent link">&para;</a></h4>
-<p>Metadata filtering is one of the most effective ways to improve vanilla RAG without changing models.</p>
 <hr />
-<h4 id="34-chunking-for-tables-and-code">3.4 Chunking for Tables and Code<a class="headerlink" href="#34-chunking-for-tables-and-code" title="Permanent link">&para;</a></h4>
-<p>Text-centric chunking often fails for structured content such as tables and source code.</p>
-<h4 id="341-chunking-tables">3.4.1 Chunking Tables<a class="headerlink" href="#341-chunking-tables" title="Permanent link">&para;</a></h4>
-<p><strong>Challenges</strong></p>
+<h2 id="6-chunk-metadata-and-filtering">6 Chunk Metadata and Filtering<a class="headerlink" href="#6-chunk-metadata-and-filtering" title="Permanent link">&para;</a></h2>
+<p>Attaching structured metadata to each chunk enables filtering before or after similarity search — one of the highest-ROI improvements in a vanilla RAG system.</p>
+<p><strong>Common metadata fields:</strong> document ID, section heading, timestamp/version, author, content type, access permissions.</p>
+<p><strong>How it's used:</strong></p>
 <ul>
-<li>Rows and columns encode relationships</li>
-<li>Linear text chunking destroys structure</li>
+<li>Pre-filter by document type, date, or access permission before ANN search (faster, but risks reducing recall if over-filtered).</li>
+<li>Post-filter after ANN search (preserves recall, wastes compute on irrelevant candidates).</li>
 </ul>
-<p><strong>Common strategies</strong></p>
-<ul>
-<li>Row-based chunking</li>
-<li>Column-wise chunking for analytical queries</li>
-<li>Table-to-text serialization with schema preservation</li>
-</ul>
-<p><strong>Best practice</strong></p>
-<p>Attach table schema and headers as metadata to every chunk.</p>
-<h4 id="342-chunking-code">3.4.2 Chunking Code<a class="headerlink" href="#342-chunking-code" title="Permanent link">&para;</a></h4>
-<p><strong>Challenges</strong></p>
-<ul>
-<li>Long-range dependencies</li>
-<li>Functions and classes are semantic units</li>
-</ul>
-<p><strong>Common strategies</strong></p>
-<ul>
-<li>Function-level chunking</li>
-<li>Class-level chunking</li>
-<li>File-level chunking for small files</li>
-</ul>
-<p><strong>Best practice</strong></p>
-<p>Never split a function or class across chunks.</p>
+<p><strong>Example:</strong> Retrieve only chunks from documents created after a certain date, or from a specific product version.</p>
 <hr />
-<h4 id="35-adaptive-chunking-based-on-query-type">3.5 Adaptive Chunking Based on Query Type<a class="headerlink" href="#35-adaptive-chunking-based-on-query-type" title="Permanent link">&para;</a></h4>
-<h4 id="motivation">Motivation<a class="headerlink" href="#motivation" title="Permanent link">&para;</a></h4>
-<p>Different queries require different chunking granularity. Static chunking cannot optimally serve all query types.</p>
-<h4 id="common-query-types">Common Query Types<a class="headerlink" href="#common-query-types" title="Permanent link">&para;</a></h4>
+<hr />
+<h2 id="7-special-cases-tables-and-code">7 Special Cases: Tables and Code<a class="headerlink" href="#7-special-cases-tables-and-code" title="Permanent link">&para;</a></h2>
+<p>Text-centric chunking destroys the structure of tables and source code.</p>
+<p><strong>Tables:</strong></p>
+<ul>
+<li>Never split a table row across chunks.</li>
+<li>Attach the table schema and column headers as metadata to every row-chunk.</li>
+<li>Consider serialising rows to natural language for embedding.</li>
+</ul>
+<p><strong>Code:</strong></p>
+<ul>
+<li>Chunk at function or class boundaries — never split a function across chunks.</li>
+<li>File-level chunking for small files is acceptable.</li>
+<li>Long-range dependencies mean that smaller granularity (line-level) loses context.</li>
+</ul>
+<hr />
+<hr />
+<h2 id="8-adaptive-chunking">8 Adaptive Chunking<a class="headerlink" href="#8-adaptive-chunking" title="Permanent link">&para;</a></h2>
+<p>Different queries require different granularity. A single static chunking strategy cannot optimally serve all query types.</p>
 <table>
 <thead>
 <tr>
@@ -2617,45 +1380,28 @@
 </tr>
 <tr>
 <td>Multi-hop reasoning</td>
-<td>Overlapping or sliding window chunks</td>
+<td>Overlapping or sliding window</td>
 </tr>
 </tbody>
 </table>
-<h4 id="adaptive-strategies">Adaptive Strategies<a class="headerlink" href="#adaptive-strategies" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Maintain multiple indexes with different chunk sizes</li>
-<li>Dynamically select top-k based on query intent</li>
-<li>Use query classification to select chunking policy</li>
-</ul>
-<h4 id="pros_6">Pros<a class="headerlink" href="#pros_6" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Higher retrieval accuracy</li>
-<li>Better context utilization</li>
-<li>Reduced hallucinations</li>
-</ul>
-<h4 id="cons_6">Cons<a class="headerlink" href="#cons_6" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Increased system complexity</li>
-<li>Higher indexing and storage cost</li>
-<li>Requires query understanding</li>
-</ul>
+<p><strong>Adaptive approach:</strong> Maintain multiple indexes with different chunk sizes and select based on query classification. Higher accuracy, but more system complexity.</p>
 <hr />
-<h3 id="4-takeaways">4. Takeaways<a class="headerlink" href="#4-takeaways" title="Permanent link">&para;</a></h3>
-<ul>
-<li>How do you choose the right chunk size?</li>
-<li>The Embedding Model: Some models perform better with short sentences; others can handle long paragraphs.</li>
-<li>User Query Style: If users ask short, specific questions, small chunks are better. If they ask for summaries, larger chunks are needed.</li>
-<li>The "Lost in the Middle" Phenomenon: LLMs struggle to find information buried in the middle of a massive chunk.</li>
-<li>Chunking directly impacts retrieval quality and hallucination rates</li>
-<li>Smaller chunks improve recall, larger chunks improve coherence</li>
-<li>There is no universally optimal chunking strategy</li>
-<li>Recursive and context-aware chunking are commonly used in production</li>
-<li>Chunking should be evaluated jointly with retrieval and prompting</li>
-<li>Chunk size, overlap, and top-k must be tuned jointly</li>
-<li>Metadata filtering often yields large quality gains</li>
-<li>Tables and code require specialized chunking</li>
-<li>Adaptive chunking improves robustness but adds complexity</li>
-</ul>
+<hr />
+<h2 id="9-interview-questions">9 Interview Questions<a class="headerlink" href="#9-interview-questions" title="Permanent link">&para;</a></h2>
+<p><strong>Q: How do you choose the right chunk size?</strong></p>
+<p>A: Consider three factors: (1) the embedding model's effective range — some models degrade with very long inputs; (2) the user's query style — short factual queries need small chunks, summary queries need larger ones; (3) the "lost in the middle" phenomenon — LLMs often miss information buried in the middle of long context windows. Start with medium chunks (400–600 tokens) and evaluate retrieval recall before optimising.</p>
+<hr />
+<p><strong>Q: What is the "lost in the middle" problem?</strong></p>
+<p>A: LLMs tend to pay more attention to content at the beginning and end of their context window, and less to content in the middle. This means that if you inject many large chunks into the prompt, relevant information buried in the middle may be ignored. Solutions include re-ordering retrieved chunks (most relevant first/last) and using smaller chunks with higher top-k.</p>
+<hr />
+<p><strong>Q: Why is overlap used, and what are its costs?</strong></p>
+<p>A: Overlap ensures that information near chunk boundaries appears in at least one chunk in its full context. The cost is index bloat: overlapping chunks produce redundant embeddings, increasing storage and retrieval compute. Overlap is a safety net, not a primary strategy.</p>
+<hr />
+<p><strong>Q: How would you chunk a large PDF with tables and diagrams?</strong></p>
+<p>A: Parse the PDF with a structure-aware tool to extract text, tables, and metadata separately. Chunk the text recursively. Serialise tables (e.g., to CSV or natural language rows) and attach the table schema as metadata. For diagrams, use a vision model to generate textual descriptions, then chunk those. Tag each chunk with its source section and content type for filtered retrieval.</p>
+<hr />
+<p><strong>Q: What happens if you use the wrong chunk size for your embedding model?</strong></p>
+<p>A: If chunks exceed the model's effective input window, the encoder either truncates them (losing information) or the quality of the embedding degrades because the model cannot attend properly to all tokens. If chunks are much smaller than what the model is trained on, you lose context and the embedding may not capture full meaning. Always check your embedding model's recommended input range.</p>
 <hr />
 
 

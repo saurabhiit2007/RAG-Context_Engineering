@@ -13,10 +13,10 @@
       
       
       
-        <link rel="prev" href="../advanced_rag/">
+        <link rel="prev" href="../evaluation/">
       
       
-        <link rel="next" href="../quick_reference/">
+        <link rel="next" href="../supporting_topics/tf_idf/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Evaluation - RAG & Context Engineering</title>
+        <title>Quick Reference - RAG & Context Engineering</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#1-overview" class="md-skip">
+        <a href="#1-when-to-use-each-retrieval-method" class="md-skip">
           Skip to content
         </a>
       
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Evaluation
+              Quick Reference
             
           </span>
         </div>
@@ -526,6 +526,34 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../evaluation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -543,7 +571,7 @@
   <span class="md-ellipsis">
     
   
-    Evaluation
+    Quick Reference
   
 
     
@@ -561,7 +589,7 @@
   <span class="md-ellipsis">
     
   
-    Evaluation
+    Quick Reference
   
 
     
@@ -585,10 +613,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-overview" class="md-nav__link">
+  <a href="#1-when-to-use-each-retrieval-method" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Overview
+        1. When to Use Each Retrieval Method
       
     </span>
   </a>
@@ -596,10 +624,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-why-rag-evaluation-is-hard" class="md-nav__link">
+  <a href="#2-chunking-strategy-decision-guide" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Why RAG Evaluation Is Hard
+        2. Chunking Strategy Decision Guide
       
     </span>
   </a>
@@ -607,110 +635,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-component-vs-end-to-end-evaluation" class="md-nav__link">
+  <a href="#3-chunk-size-and-top-k-reference" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Component vs. End-to-End Evaluation
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. Component vs. End-to-End Evaluation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#component-level-evaluation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Component-Level Evaluation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#end-to-end-evaluation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        End-to-End Evaluation
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-retrieval-metrics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Retrieval Metrics
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. Retrieval Metrics">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#recallk" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Recall@k
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mean-reciprocal-rank-mrr" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Mean Reciprocal Rank (MRR)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ndcg-normalised-discounted-cumulative-gain" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        nDCG (Normalised Discounted Cumulative Gain)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#precisionk" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Precision@k
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-generation-quality-metrics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Generation Quality Metrics
+        3. Chunk Size and Top-k Reference
       
     </span>
   </a>
@@ -718,71 +646,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#6-faithfulness-and-groundedness" class="md-nav__link">
+  <a href="#4-retrieval-failure-diagnostic-flow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6. Faithfulness and Groundedness
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="6. Faithfulness and Groundedness">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#faithfulness" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Faithfulness
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#groundedness" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Groundedness
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#answer-relevance" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Answer Relevance
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#context-relevance" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Context Relevance
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#7-llm-as-a-judge-ragas-framework" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. LLM-as-a-Judge (RAGAS Framework)
+        4. Retrieval Failure Diagnostic Flow
       
     </span>
   </a>
@@ -790,10 +657,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#8-human-evaluation-protocols" class="md-nav__link">
+  <a href="#5-key-parameter-defaults" class="md-nav__link">
     <span class="md-ellipsis">
       
-        8. Human Evaluation Protocols
+        5. Key Parameter Defaults
       
     </span>
   </a>
@@ -801,10 +668,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#9-common-rag-failure-types-and-root-causes" class="md-nav__link">
+  <a href="#6-architecture-decision-matrix" class="md-nav__link">
     <span class="md-ellipsis">
       
-        9. Common RAG Failure Types and Root Causes
+        6. Architecture Decision Matrix
       
     </span>
   </a>
@@ -812,10 +679,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#10-building-an-evaluation-dataset" class="md-nav__link">
+  <a href="#7-bi-encoder-vs-cross-encoder-quick-reference" class="md-nav__link">
     <span class="md-ellipsis">
       
-        10. Building an Evaluation Dataset
+        7. Bi-Encoder vs. Cross-Encoder Quick Reference
       
     </span>
   </a>
@@ -823,10 +690,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#11-interview-questions" class="md-nav__link">
+  <a href="#8-evaluation-metric-summary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        11. Interview Questions
+        8. Evaluation Metric Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-the-production-rag-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. The Production RAG Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-top-interview-topics-by-frequency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Top Interview Topics by Frequency
       
     </span>
   </a>
@@ -837,34 +726,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../quick_reference/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Quick Reference
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -1098,10 +959,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-overview" class="md-nav__link">
+  <a href="#1-when-to-use-each-retrieval-method" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Overview
+        1. When to Use Each Retrieval Method
       
     </span>
   </a>
@@ -1109,10 +970,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-why-rag-evaluation-is-hard" class="md-nav__link">
+  <a href="#2-chunking-strategy-decision-guide" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Why RAG Evaluation Is Hard
+        2. Chunking Strategy Decision Guide
       
     </span>
   </a>
@@ -1120,110 +981,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-component-vs-end-to-end-evaluation" class="md-nav__link">
+  <a href="#3-chunk-size-and-top-k-reference" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Component vs. End-to-End Evaluation
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. Component vs. End-to-End Evaluation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#component-level-evaluation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Component-Level Evaluation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#end-to-end-evaluation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        End-to-End Evaluation
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-retrieval-metrics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Retrieval Metrics
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. Retrieval Metrics">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#recallk" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Recall@k
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mean-reciprocal-rank-mrr" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Mean Reciprocal Rank (MRR)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ndcg-normalised-discounted-cumulative-gain" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        nDCG (Normalised Discounted Cumulative Gain)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#precisionk" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Precision@k
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-generation-quality-metrics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Generation Quality Metrics
+        3. Chunk Size and Top-k Reference
       
     </span>
   </a>
@@ -1231,71 +992,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#6-faithfulness-and-groundedness" class="md-nav__link">
+  <a href="#4-retrieval-failure-diagnostic-flow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6. Faithfulness and Groundedness
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="6. Faithfulness and Groundedness">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#faithfulness" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Faithfulness
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#groundedness" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Groundedness
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#answer-relevance" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Answer Relevance
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#context-relevance" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Context Relevance
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#7-llm-as-a-judge-ragas-framework" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. LLM-as-a-Judge (RAGAS Framework)
+        4. Retrieval Failure Diagnostic Flow
       
     </span>
   </a>
@@ -1303,10 +1003,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#8-human-evaluation-protocols" class="md-nav__link">
+  <a href="#5-key-parameter-defaults" class="md-nav__link">
     <span class="md-ellipsis">
       
-        8. Human Evaluation Protocols
+        5. Key Parameter Defaults
       
     </span>
   </a>
@@ -1314,10 +1014,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#9-common-rag-failure-types-and-root-causes" class="md-nav__link">
+  <a href="#6-architecture-decision-matrix" class="md-nav__link">
     <span class="md-ellipsis">
       
-        9. Common RAG Failure Types and Root Causes
+        6. Architecture Decision Matrix
       
     </span>
   </a>
@@ -1325,10 +1025,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#10-building-an-evaluation-dataset" class="md-nav__link">
+  <a href="#7-bi-encoder-vs-cross-encoder-quick-reference" class="md-nav__link">
     <span class="md-ellipsis">
       
-        10. Building an Evaluation Dataset
+        7. Bi-Encoder vs. Cross-Encoder Quick Reference
       
     </span>
   </a>
@@ -1336,10 +1036,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#11-interview-questions" class="md-nav__link">
+  <a href="#8-evaluation-metric-summary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        11. Interview Questions
+        8. Evaluation Metric Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-the-production-rag-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. The Production RAG Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-top-interview-topics-by-frequency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Top Interview Topics by Frequency
       
     </span>
   </a>
@@ -1366,286 +1088,433 @@
   
 
 
-  <h1>Evaluation</h1>
+  <h1>Quick Reference</h1>
 
-<h2 id="1-overview">1. Overview<a class="headerlink" href="#1-overview" title="Permanent link">&para;</a></h2>
-<p>Evaluation is one of the hardest aspects of RAG. The system has multiple interacting components, no single ground-truth output, and can fail silently — generating fluent but incorrect answers. Effective evaluation requires multiple layers covering retrieval quality, generation quality, and faithfulness.</p>
-<hr />
-<hr />
-<h2 id="2-why-rag-evaluation-is-hard">2. Why RAG Evaluation Is Hard<a class="headerlink" href="#2-why-rag-evaluation-is-hard" title="Permanent link">&para;</a></h2>
-<p>Unlike traditional NLP tasks, RAG systems:</p>
-<ul>
-<li>Do not have a single ground-truth output (multiple valid answers may exist).</li>
-<li>Depend on external knowledge sources that can be wrong, stale, or irrelevant.</li>
-<li>Can fail silently — generating fluent but factually wrong answers.</li>
-<li>Have multiple interacting components: a failure in retrieval causes a failure in generation, but this is hard to detect end-to-end.</li>
-</ul>
-<p>No single metric is sufficient. Effective evaluation requires layered coverage.</p>
-<hr />
-<hr />
-<h2 id="3-component-vs-end-to-end-evaluation">3. Component vs. End-to-End Evaluation<a class="headerlink" href="#3-component-vs-end-to-end-evaluation" title="Permanent link">&para;</a></h2>
-<h3 id="component-level-evaluation">Component-Level Evaluation<a class="headerlink" href="#component-level-evaluation" title="Permanent link">&para;</a></h3>
-<p>Each module is tested independently.</p>
-<ul>
-<li><strong>Retrieval:</strong> Are relevant documents retrieved? Are they ranked correctly?</li>
-<li><strong>Generation:</strong> Given perfect context, can the model answer correctly?</li>
-</ul>
+<h2 id="1-when-to-use-each-retrieval-method">1. When to Use Each Retrieval Method<a class="headerlink" href="#1-when-to-use-each-retrieval-method" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th></th>
-<th></th>
+<th>Method</th>
+<th>Use When</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Pros</strong></td>
-<td>Easier to debug failures; clear error attribution; fast offline iteration</td>
+<td>BM25</td>
+<td>Exact keyword matches matter; no training budget; queries contain IDs, codes, or rare terms; strong baseline</td>
 </tr>
 <tr>
-<td><strong>Cons</strong></td>
-<td>Does not capture compounding errors; may overestimate real-world performance</td>
+<td>TF-IDF</td>
+<td>Very simple baseline; interpretability is critical; no BM25 available</td>
+</tr>
+<tr>
+<td>SPLADE</td>
+<td>Want BM25 efficiency + semantic expansion; existing inverted-index infra; diverse query vocabulary</td>
+</tr>
+<tr>
+<td>Dense bi-encoder</td>
+<td>Natural language queries; paraphrase matching; fine-grained semantic similarity</td>
+</tr>
+<tr>
+<td>Hybrid (dense + sparse)</td>
+<td>Production systems; diverse query types; best overall recall and precision</td>
+</tr>
+<tr>
+<td>Cross-encoder (reranker)</td>
+<td>Second-stage precision boost over 50–100 candidates; latency is acceptable</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h3 id="end-to-end-evaluation">End-to-End Evaluation<a class="headerlink" href="#end-to-end-evaluation" title="Permanent link">&para;</a></h3>
-<p>The full pipeline is tested from user query to final answer.</p>
+<hr />
+<h2 id="2-chunking-strategy-decision-guide">2. Chunking Strategy Decision Guide<a class="headerlink" href="#2-chunking-strategy-decision-guide" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th></th>
-<th></th>
+<th>Document Type</th>
+<th>Recommended Strategy</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Pros</strong></td>
-<td>Reflects real user experience; captures interaction effects between components</td>
+<td>Uniform text (articles, reports)</td>
+<td>Sentence-based or paragraph-based</td>
 </tr>
 <tr>
-<td><strong>Cons</strong></td>
-<td>Hard to diagnose root causes; more expensive and noisy</td>
+<td>Structured docs with headings (PDFs, wikis)</td>
+<td>Recursive chunking</td>
+</tr>
+<tr>
+<td>Long documents, multi-hop queries</td>
+<td>Sliding window or recursive</td>
+</tr>
+<tr>
+<td>High-precision, smaller corpus</td>
+<td>Semantic/context-aware</td>
+</tr>
+<tr>
+<td>Tables</td>
+<td>Row-based with schema metadata</td>
+</tr>
+<tr>
+<td>Source code</td>
+<td>Function-level or class-level</td>
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p>Strong systems use both — component evaluation during development, end-to-end evaluation before deployment.</p>
-</blockquote>
 <hr />
 <hr />
-<h2 id="4-retrieval-metrics">4. Retrieval Metrics<a class="headerlink" href="#4-retrieval-metrics" title="Permanent link">&para;</a></h2>
-<h3 id="recallk">Recall@k<a class="headerlink" href="#recallk" title="Permanent link">&para;</a></h3>
-<p>Fraction of queries for which at least one relevant document appears in the top-k retrieved results.</p>
-<ul>
-<li><strong>Why it matters:</strong> If recall is low, generation cannot recover. Especially critical for factual QA.</li>
-<li><strong>Limitation:</strong> Binary notion of relevance; does not consider ranking quality within top-k.</li>
-</ul>
+<h2 id="3-chunk-size-and-top-k-reference">3. Chunk Size and Top-k Reference<a class="headerlink" href="#3-chunk-size-and-top-k-reference" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Chunk Size</th>
+<th>Top-k (retrieval)</th>
+<th>Top-m (after reranker)</th>
+<th>Tradeoff</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Small (100–300 tokens)</td>
+<td>20–50</td>
+<td>5–10</td>
+<td>High recall, more context noise</td>
+</tr>
+<tr>
+<td>Medium (300–700 tokens)</td>
+<td>10–20</td>
+<td>5–10</td>
+<td>Balanced — good default</td>
+</tr>
+<tr>
+<td>Large (700–1500 tokens)</td>
+<td>3–8</td>
+<td>3–5</td>
+<td>High precision, risk of missing info</td>
+</tr>
+</tbody>
+</table>
 <hr />
-<h3 id="mean-reciprocal-rank-mrr">Mean Reciprocal Rank (MRR)<a class="headerlink" href="#mean-reciprocal-rank-mrr" title="Permanent link">&para;</a></h3>
-<p>Measures how early the first relevant document appears in the ranked list. Score = average of 1/rank across queries.</p>
-<ul>
-<li><strong>Why it matters:</strong> Rewards systems that rank relevant documents earlier; useful when only one document is needed.</li>
-<li><strong>Limitation:</strong> Ignores multiple relevant documents.</li>
-</ul>
 <hr />
-<h3 id="ndcg-normalised-discounted-cumulative-gain">nDCG (Normalised Discounted Cumulative Gain)<a class="headerlink" href="#ndcg-normalised-discounted-cumulative-gain" title="Permanent link">&para;</a></h3>
-<p>Measures quality of the full ranked list using graded relevance, penalising relevant documents that appear lower.</p>
-<ul>
-<li><strong>Why it matters:</strong> More realistic for multi-document relevance; handles graded (not just binary) relevance labels.</li>
-<li><strong>Limitation:</strong> Requires graded relevance annotations; more complex to compute and interpret.</li>
-</ul>
+<h2 id="4-retrieval-failure-diagnostic-flow">4. Retrieval Failure Diagnostic Flow<a class="headerlink" href="#4-retrieval-failure-diagnostic-flow" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>Low answer quality?
+  │
+  ├─ Check Recall@k
+  │     Is the relevant document in top-k?
+  │     NO → Fix the retriever:
+  │           - Better embedding model
+  │           - Add hybrid search (BM25 + dense)
+  │           - Add query expansion or HyDE
+  │           - Adjust chunk size
+  │           - Add metadata filters
+  │
+  ├─ Check Context Precision
+  │     Are the retrieved documents actually relevant?
+  │     NO → Add cross-encoder reranker
+  │           Improve chunking to reduce noise
+  │
+  ├─ Check Faithfulness
+  │     Is the answer grounded in retrieved text?
+  │     NO → Improve prompt (citation constraints)
+  │           Add explicit grounding instructions
+  │           Check for context window overflow
+  │
+  └─ Check Answer Correctness
+        Is the grounded answer actually right?
+        NO → Retrieved documents may be wrong, outdated, or insufficient
+              Update corpus; validate sources; improve coverage
+</code></pre></div>
 <hr />
-<h3 id="precisionk">Precision@k<a class="headerlink" href="#precisionk" title="Permanent link">&para;</a></h3>
-<p>Fraction of top-k retrieved documents that are relevant.</p>
-<ul>
-<li><strong>Why it matters:</strong> Complements recall — high precision means less noisy context for the LLM.</li>
-<li><strong>Limitation:</strong> Must be considered alongside recall; a system can have high precision@3 with low recall.</li>
-</ul>
-<blockquote>
-<p>High Recall@k is often more critical than precision in RAG retrieval, because the LLM can filter irrelevant context — but it cannot invent missing information.</p>
-</blockquote>
+<hr />
+<h2 id="5-key-parameter-defaults">5. Key Parameter Defaults<a class="headerlink" href="#5-key-parameter-defaults" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default / Starting Point</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chunk size</td>
+<td>400–600 tokens</td>
+<td>Tune based on query type and embedding model</td>
+</tr>
+<tr>
+<td>Chunk overlap</td>
+<td>10–15% of chunk size</td>
+<td>Mitigates boundary loss; increases index size</td>
+</tr>
+<tr>
+<td>Top-k (first-stage retriever)</td>
+<td>50–100</td>
+<td>Higher for hybrid; lower in resource-constrained systems</td>
+</tr>
+<tr>
+<td>Top-m (after reranker)</td>
+<td>5–10</td>
+<td>What the LLM actually sees</td>
+</tr>
+<tr>
+<td>BM25 k₁</td>
+<td>1.5</td>
+<td>Controls TF saturation speed</td>
+</tr>
+<tr>
+<td>BM25 b</td>
+<td>0.75</td>
+<td>Controls length normalisation strength</td>
+</tr>
+<tr>
+<td>RRF constant k</td>
+<td>60</td>
+<td>Robustly combines ranked lists; rarely needs tuning</td>
+</tr>
+<tr>
+<td>HNSW M</td>
+<td>16–64</td>
+<td>Higher = better recall, more memory</td>
+</tr>
+<tr>
+<td>HNSW ef_search</td>
+<td>100–200</td>
+<td>Higher = better recall, slower queries</td>
+</tr>
+</tbody>
+</table>
 <hr />
 <hr />
-<h2 id="5-generation-quality-metrics">5. Generation Quality Metrics<a class="headerlink" href="#5-generation-quality-metrics" title="Permanent link">&para;</a></h2>
+<h2 id="6-architecture-decision-matrix">6. Architecture Decision Matrix<a class="headerlink" href="#6-architecture-decision-matrix" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>System Size</th>
+<th>Latency Req.</th>
+<th>Update Freq.</th>
+<th>Recommended Architecture</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Small (&lt;100k docs)</td>
+<td>Any</td>
+<td>Any</td>
+<td>Flat index or HNSW + BM25 hybrid</td>
+</tr>
+<tr>
+<td>Medium (100k–10M docs)</td>
+<td>Low</td>
+<td>Frequent</td>
+<td>HNSW + sparse, with cross-encoder reranker</td>
+</tr>
+<tr>
+<td>Large (&gt;10M docs)</td>
+<td>Low</td>
+<td>Infrequent</td>
+<td>IVF+PQ + sparse, with reranker</td>
+</tr>
+<tr>
+<td>Very large (&gt;1B docs)</td>
+<td>Very low</td>
+<td>Infrequent</td>
+<td>IVF+PQ, distributed (Milvus), managed (Pinecone)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<hr />
+<h2 id="7-bi-encoder-vs-cross-encoder-quick-reference">7. Bi-Encoder vs. Cross-Encoder Quick Reference<a class="headerlink" href="#7-bi-encoder-vs-cross-encoder-quick-reference" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Bi-Encoder</th>
+<th>Cross-Encoder</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Encoding</td>
+<td>Query and doc separately</td>
+<td>Query + doc concatenated together</td>
+</tr>
+<tr>
+<td>Pre-computation</td>
+<td>Doc embeddings stored at index time</td>
+<td>Must run at query time per candidate</td>
+</tr>
+<tr>
+<td>Scalability</td>
+<td>Millions of docs</td>
+<td>~50–100 candidates</td>
+</tr>
+<tr>
+<td>Recall / Precision</td>
+<td>High recall</td>
+<td>High precision</td>
+</tr>
+<tr>
+<td>Speed</td>
+<td>Very fast (ANN search)</td>
+<td>Slow (full forward pass per pair)</td>
+</tr>
+<tr>
+<td>Used in</td>
+<td>First-stage retrieval</td>
+<td>Reranking</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<hr />
+<h2 id="8-evaluation-metric-summary">8. Evaluation Metric Summary<a class="headerlink" href="#8-evaluation-metric-summary" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
 <th>Metric</th>
+<th>Stage</th>
 <th>What It Measures</th>
-<th>Limitation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td>Recall@k</td>
+<td>Retrieval</td>
+<td>Is relevant doc in top k?</td>
+</tr>
+<tr>
+<td>MRR</td>
+<td>Retrieval</td>
+<td>How early is first relevant doc?</td>
+</tr>
+<tr>
+<td>nDCG</td>
+<td>Retrieval</td>
+<td>Full ranked list quality (graded relevance)</td>
+</tr>
+<tr>
+<td>Precision@k</td>
+<td>Retrieval</td>
+<td>What fraction of top-k is relevant?</td>
+</tr>
+<tr>
 <td>Exact Match (EM)</td>
-<td>Exact string match with reference answer</td>
-<td>Too strict for NL generation; penalises valid paraphrasing</td>
+<td>Generation</td>
+<td>Exact string match with reference</td>
 </tr>
 <tr>
-<td>F1 Score (token overlap)</td>
-<td>Token-level overlap with reference</td>
-<td>Surface-level; misses semantic equivalence</td>
-</tr>
-<tr>
-<td>BLEU / ROUGE</td>
-<td>N-gram overlap with reference text</td>
-<td>Poorly correlates with factual correctness; rewards fluency</td>
+<td>F1 (token)</td>
+<td>Generation</td>
+<td>Token overlap with reference</td>
 </tr>
 <tr>
 <td>BERTScore</td>
-<td>Semantic similarity via contextual embeddings</td>
-<td>Better than n-gram but still not factuality-aware</td>
+<td>Generation</td>
+<td>Semantic similarity to reference</td>
 </tr>
-</tbody>
-</table>
-<blockquote>
-<p>These metrics primarily measure fluency and surface similarity, not truthfulness. A hallucinated answer can score well if it is fluent and partially overlaps with the reference.</p>
-</blockquote>
-<hr />
-<hr />
-<h2 id="6-faithfulness-and-groundedness">6. Faithfulness and Groundedness<a class="headerlink" href="#6-faithfulness-and-groundedness" title="Permanent link">&para;</a></h2>
-<p>The most critical RAG-specific evaluation dimension. A system can score well on generation metrics while still hallucinating — generating correct-sounding text not supported by the retrieved documents.</p>
-<h3 id="faithfulness">Faithfulness<a class="headerlink" href="#faithfulness" title="Permanent link">&para;</a></h3>
-<p><strong>Question:</strong> Is every claim in the answer supported by the retrieved context?</p>
-<ul>
-<li>Measured by sentence-level entailment checks or LLM-as-a-judge prompting.</li>
-<li>Failure mode: Correct-sounding claims that are not in any retrieved document.</li>
-</ul>
-<hr />
-<h3 id="groundedness">Groundedness<a class="headerlink" href="#groundedness" title="Permanent link">&para;</a></h3>
-<p><strong>Question:</strong> Does every specific claim in the answer trace back to a retrieved source?</p>
-<ul>
-<li>Measured by claim extraction followed by source matching or citation validation.</li>
-<li>Failure mode: Answers that are correct (by coincidence or parametric knowledge) but unsupported by retrieved text.</li>
-</ul>
-<hr />
-<h3 id="answer-relevance">Answer Relevance<a class="headerlink" href="#answer-relevance" title="Permanent link">&para;</a></h3>
-<p><strong>Question:</strong> Does the answer actually address the original question?</p>
-<ul>
-<li>Measured by LLM-as-a-judge or semantic similarity between answer and query.</li>
-</ul>
-<hr />
-<h3 id="context-relevance">Context Relevance<a class="headerlink" href="#context-relevance" title="Permanent link">&para;</a></h3>
-<p><strong>Question:</strong> Were the retrieved documents actually relevant to the query?</p>
-<ul>
-<li>Measured by LLM-based relevance scoring per retrieved chunk.</li>
-</ul>
-<hr />
-<h2 id="7-llm-as-a-judge-ragas-framework">7. LLM-as-a-Judge (RAGAS Framework)<a class="headerlink" href="#7-llm-as-a-judge-ragas-framework" title="Permanent link">&para;</a></h2>
-<p>Using an LLM to evaluate RAG outputs is increasingly the standard approach. <strong>RAGAS</strong> is a widely-used framework evaluating four dimensions without requiring ground-truth labels for generation:</p>
-<table>
-<thead>
-<tr>
-<th>Dimension</th>
-<th>Question Answered</th>
-</tr>
-</thead>
-<tbody>
 <tr>
 <td>Faithfulness</td>
-<td>Are all claims in the answer supported by retrieved context?</td>
+<td>End-to-end</td>
+<td>Claims supported by retrieved context?</td>
 </tr>
 <tr>
 <td>Answer Relevance</td>
-<td>Is the answer on-topic for the original query?</td>
-</tr>
-<tr>
-<td>Context Recall</td>
-<td>Does the retrieved context contain what's needed to answer? (Needs reference answer)</td>
+<td>End-to-end</td>
+<td>Does answer address the query?</td>
 </tr>
 <tr>
 <td>Context Precision</td>
-<td>Are retrieved documents relevant, or is there noise?</td>
+<td>End-to-end</td>
+<td>Are retrieved docs relevant?</td>
+</tr>
+<tr>
+<td>Context Recall</td>
+<td>End-to-end</td>
+<td>Does context contain required info?</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Benefits:</strong> Scales without human labelling; captures semantic nuance beyond lexical overlap.</p>
-<p><strong>Risks:</strong></p>
-<ul>
-<li>Bias towards fluent answers — LLM judges may reward well-written hallucinations.</li>
-<li>Sensitivity to prompt design — scoring rubrics matter significantly.</li>
-<li>Self-preference bias — models tend to rate outputs from similar architectures more favourably.</li>
+<hr />
+<hr />
+<h2 id="9-the-production-rag-checklist">9. The Production RAG Checklist<a class="headerlink" href="#9-the-production-rag-checklist" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> Define evaluation metrics before building (Recall@k, faithfulness, answer correctness).</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Choose chunk size and strategy; evaluate retrieval recall before touching the LLM.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Start with hybrid retrieval (BM25 + dense) as the first-stage retriever.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Add a cross-encoder reranker; measure Precision@5 improvement.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Attach metadata to all chunks; implement filtered retrieval.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Implement faithfulness and groundedness checks before shipping.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Run the oracle experiment to confirm failures are in retrieval, not generation.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Log queries, retrieved context, and answers in production for continuous evaluation.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Re-index when changing embedding models.</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Build a held-out evaluation set; validate LLM-as-a-judge scores against humans.</li>
 </ul>
-<p><strong>Best practice:</strong> Validate LLM-as-a-judge scores against human judgments on a held-out set before trusting them for production decisions.</p>
 <hr />
 <hr />
-<h2 id="8-human-evaluation-protocols">8. Human Evaluation Protocols<a class="headerlink" href="#8-human-evaluation-protocols" title="Permanent link">&para;</a></h2>
-<p>Human evaluation remains the gold standard for RAG systems.</p>
-<p><strong>Common criteria:</strong> Correctness, completeness, faithfulness, clarity, usefulness.</p>
-<p><strong>Protocol design:</strong></p>
-<ul>
-<li>Blind evaluation (evaluators don't know which system produced which answer).</li>
-<li>Multiple annotators per example (typically 3).</li>
-<li>Measure inter-annotator agreement (Cohen's Kappa).</li>
-</ul>
-<p><strong>Tradeoffs:</strong> High cost; low scalability; slow iteration — but irreplaceable for final validation.</p>
-<hr />
-<hr />
-<h2 id="9-common-rag-failure-types-and-root-causes">9. Common RAG Failure Types and Root Causes<a class="headerlink" href="#9-common-rag-failure-types-and-root-causes" title="Permanent link">&para;</a></h2>
+<h2 id="10-top-interview-topics-by-frequency">10. Top Interview Topics by Frequency<a class="headerlink" href="#10-top-interview-topics-by-frequency" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Failure Type</th>
-<th>Diagnosis</th>
-<th>Fix</th>
+<th>Topic</th>
+<th>Frequency</th>
+<th>Key Point to Know</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Relevant doc not retrieved</td>
-<td>Low Recall@k</td>
-<td>Improve embeddings; use hybrid retrieval; adjust chunk size</td>
+<td>RAG vs. fine-tuning</td>
+<td>Very high</td>
+<td>RAG = knowledge access; fine-tuning = behaviour change</td>
 </tr>
 <tr>
-<td>Retrieved but not used by LLM</td>
-<td>Good recall, low faithfulness</td>
-<td>Improve prompt; citation constraints; rerank more aggressively</td>
+<td>Bi-encoder vs. cross-encoder</td>
+<td>Very high</td>
+<td>Bi = fast/recall; cross = slow/precision; use both in sequence</td>
 </tr>
 <tr>
-<td>Partial hallucinations</td>
-<td>Mixed faithful + invented claims</td>
-<td>Faithfulness scoring; instruction-tune with grounding</td>
+<td>Chunking strategy choice</td>
+<td>High</td>
+<td>Recursive is the production default; tune size + top-k jointly</td>
 </tr>
 <tr>
-<td>Over-reliance on parametric knowledge</td>
-<td>Model ignores retrieved context</td>
-<td>Explicit grounding instructions; Self-RAG</td>
+<td>BM25 vs. dense retrieval</td>
+<td>High</td>
+<td>Complementary; BM25 = exact match; dense = semantics</td>
 </tr>
 <tr>
-<td>Stale or contradictory sources</td>
-<td>Corpus not updated</td>
-<td>Add timestamps; filter by recency; update index</td>
+<td>Hybrid retrieval + RRF</td>
+<td>High</td>
+<td>Best overall quality; RRF is robust without weight tuning</td>
+</tr>
+<tr>
+<td>Faithfulness vs. correctness</td>
+<td>High</td>
+<td>Faithfulness = grounded in context; correctness = matches truth</td>
+</tr>
+<tr>
+<td>HyDE</td>
+<td>Medium</td>
+<td>Embed hypothetical answer instead of query to bridge vocab gap</td>
+</tr>
+<tr>
+<td>Lost in the middle</td>
+<td>Medium</td>
+<td>LLMs miss context in the middle; put best docs first/last</td>
+</tr>
+<tr>
+<td>HNSW vs. IVF</td>
+<td>Medium</td>
+<td>HNSW = recall/speed; IVF = memory efficiency</td>
+</tr>
+<tr>
+<td>RAGAS / LLM-as-judge</td>
+<td>Medium</td>
+<td>Standard eval framework; validate against human labels</td>
 </tr>
 </tbody>
 </table>
-<hr />
-<hr />
-<h2 id="10-building-an-evaluation-dataset">10. Building an Evaluation Dataset<a class="headerlink" href="#10-building-an-evaluation-dataset" title="Permanent link">&para;</a></h2>
-<p><strong>Challenge:</strong> Creating reliable ground-truth labels for RAG is expensive.</p>
-<p><strong>Approaches:</strong></p>
-<ol>
-<li><strong>Synthetic generation:</strong> Use an LLM to generate questions from your document corpus, creating question–context–answer triples. Fast and free, but synthetic questions may not match real user queries.</li>
-<li><strong>Production logging:</strong> Sample real user queries and have humans label relevant documents and correct answers. Most realistic, but requires live traffic.</li>
-<li><strong>Expert annotation:</strong> For high-stakes domains (medical, legal), pay subject matter experts to create a gold-standard test set. Expensive but highest quality.</li>
-</ol>
-<hr />
-<hr />
-<h2 id="11-interview-questions">11. Interview Questions<a class="headerlink" href="#11-interview-questions" title="Permanent link">&para;</a></h2>
-<p><strong>Q: Why is no single metric sufficient to evaluate a RAG system?</strong></p>
-<p>A: RAG has multiple failure modes that different metrics capture: retrieval metrics (recall, nDCG) measure whether the right documents are found; generation metrics (EM, F1) measure answer quality given perfect context; faithfulness metrics measure whether the answer is grounded in retrieved text; end-to-end metrics capture the combined effect. A system can have high recall but low faithfulness (retrieves well, then hallucinates). You need all layers to diagnose root causes.</p>
-<hr />
-<p><strong>Q: What is the difference between faithfulness and answer correctness?</strong></p>
-<p>A: Faithfulness measures whether the answer is supported by retrieved context — an answer can be wrong if the retrieved context is wrong, but still be "faithful". Answer correctness measures whether the answer matches a known ground truth — an answer can be correct but use parametric knowledge rather than retrieved context. Ideally you want both: correct and grounded in retrieved text.</p>
-<hr />
-<p><strong>Q: How would you build an evaluation set for a new RAG system with no existing labelled data?</strong></p>
-<p>A: Three approaches: (1) Synthetic generation — use an LLM to generate questions from your corpus, creating question-context-answer triples; (2) production logging — sample real user queries and have humans label relevant documents and correct answers; (3) expert annotation — for high-stakes domains, pay subject matter experts to create a gold-standard test set. Start with synthetic data for fast iteration and refine with human annotations before deployment.</p>
-<hr />
-<p><strong>Q: What are the risks of using LLM-as-a-judge for evaluation?</strong></p>
-<p>A: Three main risks: (1) Fluency bias — LLMs tend to prefer well-written answers even if they are less factually accurate; (2) Prompt sensitivity — the scoring rubric significantly affects scores and must be carefully designed; (3) Self-preference — when the same model family is used for generation and evaluation, it tends to rate its own outputs more favourably. Mitigate by using a different model family for judging than for generation, and always validate against human judgments on a held-out set.</p>
-<hr />
-<p><strong>Q: How do you diagnose whether a RAG quality problem is in retrieval or generation?</strong></p>
-<p>A: Run an oracle experiment: manually find the correct document and inject it directly into the prompt, bypassing retrieval entirely. If the model produces a correct answer with the oracle document, the problem is in retrieval. If the model still fails with the correct document in context, the problem is in generation (prompting, model reasoning, or context integration). This isolates the failure mode clearly.</p>
 <hr />
 
 

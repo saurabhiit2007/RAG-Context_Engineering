@@ -13,26 +13,28 @@
       
       
       
+        <link rel="prev" href="../indexing_and_vector_database/">
       
-        <link rel="next" href="RAG/fundamentals/">
+      
+        <link rel="next" href="../advanced_rag/">
       
       
         
       
       
-      <link rel="icon" href="assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>RAG & Context Engineering</title>
+        <title>Re-Ranking - RAG & Context Engineering</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -51,7 +53,7 @@
       
     
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -76,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#rag-context-engineering-concepts" class="md-skip">
+        <a href="#1-overview" class="md-skip">
           Skip to content
         </a>
       
@@ -92,7 +94,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="RAG &amp; Context Engineering" class="md-header__button md-logo" aria-label="RAG & Context Engineering" data-md-component="logo">
+    <a href="../.." title="RAG &amp; Context Engineering" class="md-header__button md-logo" aria-label="RAG & Context Engineering" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -112,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              Re-Ranking
             
           </span>
         </div>
@@ -225,7 +227,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="RAG &amp; Context Engineering" class="md-nav__button md-logo" aria-label="RAG & Context Engineering" data-md-component="logo">
+    <a href="../.." title="RAG &amp; Context Engineering" class="md-nav__button md-logo" aria-label="RAG & Context Engineering" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -252,19 +254,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -280,7 +273,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -289,20 +281,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -323,7 +315,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -341,7 +333,7 @@
   
   
     <li class="md-nav__item">
-      <a href="RAG/fundamentals/" class="md-nav__link">
+      <a href="../fundamentals/" class="md-nav__link">
         
   
   
@@ -369,7 +361,7 @@
   
   
     <li class="md-nav__item">
-      <a href="RAG/chunking/" class="md-nav__link">
+      <a href="../chunking/" class="md-nav__link">
         
   
   
@@ -397,7 +389,7 @@
   
   
     <li class="md-nav__item">
-      <a href="RAG/embedding/" class="md-nav__link">
+      <a href="../embedding/" class="md-nav__link">
         
   
   
@@ -425,7 +417,7 @@
   
   
     <li class="md-nav__item">
-      <a href="RAG/retrieval_methods/" class="md-nav__link">
+      <a href="../retrieval_methods/" class="md-nav__link">
         
   
   
@@ -453,7 +445,7 @@
   
   
     <li class="md-nav__item">
-      <a href="RAG/indexing_and_vector_database/" class="md-nav__link">
+      <a href="../indexing_and_vector_database/" class="md-nav__link">
         
   
   
@@ -478,10 +470,35 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="RAG/reranking/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Re-Ranking
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -497,6 +514,112 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-why-reranking-is-necessary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Why Reranking Is Necessary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-cross-encoder-reranking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Cross-Encoder Reranking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-two-stage-recall-precision-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The Two-Stage Recall → Precision Pipeline
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-llm-based-reranking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5 LLM-Based Reranking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-reranker-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Reranker Models
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-reranking-in-hybrid-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Reranking in Hybrid Systems
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-interview-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Interview Questions
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -509,7 +632,7 @@
   
   
     <li class="md-nav__item">
-      <a href="RAG/advanced_rag/" class="md-nav__link">
+      <a href="../advanced_rag/" class="md-nav__link">
         
   
   
@@ -537,7 +660,7 @@
   
   
     <li class="md-nav__item">
-      <a href="RAG/evaluation/" class="md-nav__link">
+      <a href="../evaluation/" class="md-nav__link">
         
   
   
@@ -565,7 +688,7 @@
   
   
     <li class="md-nav__item">
-      <a href="RAG/quick_reference/" class="md-nav__link">
+      <a href="../quick_reference/" class="md-nav__link">
         
   
   
@@ -642,7 +765,7 @@
   
   
     <li class="md-nav__item">
-      <a href="RAG/supporting_topics/tf_idf/" class="md-nav__link">
+      <a href="../supporting_topics/tf_idf/" class="md-nav__link">
         
   
   
@@ -670,7 +793,7 @@
   
   
     <li class="md-nav__item">
-      <a href="RAG/supporting_topics/bm25/" class="md-nav__link">
+      <a href="../supporting_topics/bm25/" class="md-nav__link">
         
   
   
@@ -698,7 +821,7 @@
   
   
     <li class="md-nav__item">
-      <a href="RAG/supporting_topics/splade/" class="md-nav__link">
+      <a href="../supporting_topics/splade/" class="md-nav__link">
         
   
   
@@ -726,7 +849,7 @@
   
   
     <li class="md-nav__item">
-      <a href="RAG/supporting_topics/sentence_transformers/" class="md-nav__link">
+      <a href="../supporting_topics/sentence_transformers/" class="md-nav__link">
         
   
   
@@ -769,7 +892,7 @@
   
   
     <li class="md-nav__item">
-      <a href="references/" class="md-nav__link">
+      <a href="../../references/" class="md-nav__link">
         
   
   
@@ -806,8 +929,102 @@
   
   
   
-    
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-why-reranking-is-necessary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Why Reranking Is Necessary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-cross-encoder-reranking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Cross-Encoder Reranking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-two-stage-recall-precision-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The Two-Stage Recall → Precision Pipeline
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-llm-based-reranking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5 LLM-Based Reranking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-reranker-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Reranker Models
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-reranking-in-hybrid-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Reranking in Hybrid Systems
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-interview-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Interview Questions
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -827,7 +1044,160 @@
   
 
 
-<h1 id="rag-context-engineering-concepts">RAG &amp; Context Engineering concepts<a class="headerlink" href="#rag-context-engineering-concepts" title="Permanent link">&para;</a></h1>
+  <h1>Re-Ranking</h1>
+
+<h2 id="1-overview">1. Overview<a class="headerlink" href="#1-overview" title="Permanent link">&para;</a></h2>
+<p>Reranking is a second-stage step that re-scores a small candidate set returned by the first-stage retriever. The goal is to shift from recall-optimised to precision-optimised — ensuring the documents that actually enter the LLM prompt are the most relevant, not just the most similar embeddings.</p>
+<hr />
+<hr />
+<h2 id="2-why-reranking-is-necessary">2. Why Reranking Is Necessary<a class="headerlink" href="#2-why-reranking-is-necessary" title="Permanent link">&para;</a></h2>
+<p>First-stage retrievers (bi-encoders, BM25) are optimised for speed and recall. They encode query and document independently, which means they cannot model fine-grained relevance — the nuanced relationship between a specific question and a specific passage. A document that is semantically similar to a query may not actually answer it.</p>
+<p><strong>Example:</strong> The query "What are the side effects of aspirin in elderly patients?" will semantically match many documents about aspirin. A bi-encoder may rank a general "aspirin overview" above a document that specifically discusses geriatric dosing risks — because the general document has higher semantic overlap. A cross-encoder reranker, reading both query and document together, would correctly identify the more specific document as more relevant.</p>
+<p>Rerankers fix this by evaluating each candidate in full context of the query.</p>
+<hr />
+<hr />
+<h2 id="3-cross-encoder-reranking">3. Cross-Encoder Reranking<a class="headerlink" href="#3-cross-encoder-reranking" title="Permanent link">&para;</a></h2>
+<p>The standard reranking approach. The query and each candidate document are concatenated and fed through a transformer together. Full self-attention across both texts allows every query token to attend to every document token.</p>
+<p><strong>How it works:</strong></p>
+<ol>
+<li>First-stage retriever returns top-k candidates (typically 50–100).</li>
+<li>For each candidate, concatenate <code>[CLS] query [SEP] document [SEP]</code> and run through the cross-encoder.</li>
+<li>The model outputs a single relevance score per candidate.</li>
+<li>Re-sort candidates by these scores; pass top-m (typically 5–10) to the LLM.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pros</strong></td>
+<td>Substantially higher precision than bi-encoders; captures exact question-answer relevance; rich token-level interactions</td>
+</tr>
+<tr>
+<td><strong>Cons</strong></td>
+<td>Cannot be pre-computed or indexed; one full forward pass per candidate — O(k) per query; too slow for first-stage retrieval on large corpora</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<hr />
+<h2 id="4-the-two-stage-recall-precision-pipeline">4. The Two-Stage Recall → Precision Pipeline<a class="headerlink" href="#4-the-two-stage-recall-precision-pipeline" title="Permanent link">&para;</a></h2>
+<p>The canonical production pattern combines a fast first-stage retriever with a slower but accurate reranker:</p>
+<div class="highlight"><pre><span></span><code>Query
+  │
+  ▼
+Stage 1: First-stage retriever (bi-encoder or BM25)
+         → Retrieve top 50–100 candidates
+         → Fast, recall-optimised (O(log N) search)
+  │
+  ▼
+Stage 2: Reranker (cross-encoder)
+         → Re-score all 50–100 candidates
+         → Slow, precision-optimised (O(k) forward passes)
+         → Return top 5–10
+  │
+  ▼
+Stage 3: LLM generation
+         → Receives only top 5–10 reranked documents as context
+</code></pre></div>
+<blockquote>
+<p>Adding a cross-encoder reranker is one of the highest-ROI improvements in a RAG system. The first retriever casts a wide net; the reranker ensures only the most relevant content reaches the LLM.</p>
+</blockquote>
+<hr />
+<hr />
+<h2 id="5-llm-based-reranking">5 LLM-Based Reranking<a class="headerlink" href="#5-llm-based-reranking" title="Permanent link">&para;</a></h2>
+<p>An LLM is prompted to score or rank candidates rather than using a dedicated cross-encoder.</p>
+<p><strong>Strategies:</strong></p>
+<ul>
+<li><strong>Pointwise:</strong> Score each document independently on a scale (e.g., 0–10 relevance).</li>
+<li><strong>Pairwise:</strong> Compare two documents at a time and identify the more relevant one.</li>
+<li><strong>Listwise:</strong> Ask the LLM to sort the entire candidate list and return the ranked order.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pros</strong></td>
+<td>Flexible — can use task-specific instructions; can reason about relevance semantically</td>
+</tr>
+<tr>
+<td><strong>Cons</strong></td>
+<td>Most expensive (LLM API cost per reranking); non-deterministic; prompt-sensitive</td>
+</tr>
+</tbody>
+</table>
+<p><strong>When to use:</strong> When cross-encoder models underperform on your domain; when you need explainable relevance reasoning; when latency constraints are loose.</p>
+<hr />
+<hr />
+<h2 id="6-reranker-models">6. Reranker Models<a class="headerlink" href="#6-reranker-models" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ms-marco-MiniLM-L-6-v2</code></td>
+<td>Fast, small cross-encoder fine-tuned on MS MARCO — good default</td>
+</tr>
+<tr>
+<td><code>bge-reranker-large</code></td>
+<td>Strong performance; part of the BGE family</td>
+</tr>
+<tr>
+<td><code>cross-encoder/ms-marco-electra-base</code></td>
+<td>Stronger than MiniLM, still fast</td>
+</tr>
+<tr>
+<td>Cohere Rerank API</td>
+<td>Managed API; good multilingual support</td>
+</tr>
+<tr>
+<td>GPT-4 / Claude (listwise)</td>
+<td>Most accurate but highest latency and cost</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<hr />
+<h2 id="7-reranking-in-hybrid-systems">7. Reranking in Hybrid Systems<a class="headerlink" href="#7-reranking-in-hybrid-systems" title="Permanent link">&para;</a></h2>
+<p>In hybrid retrieval pipelines (dense + sparse), reranking typically happens after Reciprocal Rank Fusion merges the two result sets:</p>
+<div class="highlight"><pre><span></span><code>Dense retrieval → top 100
+                        ↘
+                         RRF merge → top 100 fused → Cross-encoder reranker → top 10 → LLM
+                        ↗
+Sparse retrieval → top 100
+</code></pre></div>
+<p>This architecture maximises both recall (hybrid retrieval) and precision (cross-encoder reranking).</p>
+<hr />
+<hr />
+<h2 id="8-interview-questions">8. Interview Questions<a class="headerlink" href="#8-interview-questions" title="Permanent link">&para;</a></h2>
+<p><strong>Q: Why use a bi-encoder for retrieval instead of a cross-encoder from the start?</strong></p>
+<p>A: Cross-encoders cannot be pre-computed — every query-document pair requires a full model pass, so you cannot index documents ahead of time. A bi-encoder pre-computes all document embeddings once and stores them. At query time you only encode the query once and find nearest neighbours with fast math. For a corpus of 1 million documents, a cross-encoder would require 1 million forward passes per query — completely infeasible. Bi-encoders make retrieval tractable; cross-encoders then improve precision on a small shortlist.</p>
+<hr />
+<p><strong>Q: What is a good top-k for the first-stage retriever?</strong></p>
+<p>A: Typically 50–100. Large enough to have high recall (not miss relevant documents), small enough to keep reranking latency manageable. The exact number depends on the reranker's latency budget and how many documents will ultimately be passed to the LLM (usually 5–10). In hybrid systems, each retriever returns 50–100 and RRF merges them before reranking.</p>
+<hr />
+<p><strong>Q: What happens if the first-stage retriever misses the relevant document entirely?</strong></p>
+<p>A: The reranker cannot help — it can only reorder what was already retrieved. This is why first-stage recall is so critical. If Recall@100 is low, invest in improving the retriever (better embedding model, hybrid retrieval, query expansion) rather than in a better reranker. The reranker is a precision tool, not a recall tool.</p>
+<hr />
+<p><strong>Q: How do you evaluate whether a reranker is actually helping?</strong></p>
+<p>A: Compare Precision@5 (or Precision@10) before and after reranking on a labelled evaluation set. Also measure MRR — whether the most relevant document is moving to a higher rank. End-to-end, measure faithfulness and answer correctness before/after adding the reranker. Watch latency as a cost: cross-encoder reranking adds 50–200ms per query depending on model size and number of candidates.</p>
+<hr />
+<p><strong>Q: What is the difference between reranking and retrieval?</strong></p>
+<p>A: Retrieval selects candidates from the full corpus — it must be fast and prioritises recall. Reranking re-scores a small shortlist — it can be slower and prioritises precision. Retrieval uses approximate methods (ANN, BM25) that scale to millions of documents. Reranking uses exact, expensive methods (cross-encoders, LLMs) that only work on tens to hundreds of candidates. They serve complementary roles in the pipeline.</p>
+<hr />
 
 
 
@@ -883,10 +1253,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.copy", "mathjax"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.copy", "mathjax"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
