@@ -1,416 +1,212 @@
-### 1. Overview
+## 1. Overview
 
-Chunking is the process of splitting documents into smaller units before embedding and indexing. It is a critical design choice in RAG systems because it directly impacts retrieval quality, context relevance, latency, and cost.
-
-Long documents must be broken down into chunks to:
-
-- Fit model token limits
-- Improve retrieval granularity
-- Reduce semantic dilution
-- Control prompt length and cost
-
-Poor chunking can cause:
-
-- Retrieval failure
-- Loss of context
-- Fragmented or incomplete answers
-
-### 2. Chunking Strategies
-
-### 2.1 Fixed-Size Chunking
-
-Documents are split into chunks of a fixed token or character length, often with optional overlap.
-
-Example:
-
-- Chunk size: 512 tokens
-- Overlap: 50 tokens
-
-#### Algorithm
-
-1. Tokenize the document
-2. Split tokens into consecutive windows of size `N`
-3. Optionally overlap adjacent windows by `M` tokens
-
-#### Pros
-
-- Simple to implement
-- Fast and scalable
-- Works reasonably well as a baseline
-
-#### Cons
-
-- Ignores semantic boundaries
-- May split sentences or paragraphs
-- Important information can be fragmented across chunks
-
-#### When to Use
-
-- Baseline RAG systems
-- Uniform document formats
-- Large-scale indexing where simplicity matters
+Chunking splits documents into smaller units before embedding and indexing. It is a critical design choice because it directly determines retrieval granularity, context relevance, latency, and cost. Poor chunking is one of the easiest ways to silently break a RAG system.
 
 ---
 
-### 2.2 Sentence-Based Chunking
+---
 
-Documents are split at sentence boundaries, often grouping multiple sentences into a single chunk until a token limit is reached.
+## 2 Why Chunks Must Be Sized Carefully
 
-#### Algorithm
+Embedding models have fixed input limits (typically 512 to 8192 tokens), so documents must be split. But chunk size affects quality in both directions:
 
-1. Sentence tokenize the document
-2. Accumulate sentences until the chunk reaches a size threshold
-3. Start a new chunk when the threshold is exceeded
-
-#### Pros
-
-- Preserves sentence semantics
-- Reduces mid-sentence splits
-- Better coherence than fixed-size chunking
-
-#### Cons
-
-- Sentence lengths vary significantly
-- Long sentences can exceed limits
-- Still ignores higher-level structure
-
-#### When to Use
-
-- Narrative text
-- QA over articles or reports
-- Medium-length documents
+- **Too small:** Chunks lose semantic meaning; retrieval returns fragments that don't fully answer the question.
+- **Too large:** Chunks contain multiple unrelated topics; embedding quality degrades; context window fills with noise.
 
 ---
 
-### 2.3 Paragraph-Based Chunking
+---
 
-Chunks are formed using paragraph boundaries, typically defined by newline separation.
+## 3. Chunking Strategies
 
-#### Algorithm
+### Fixed-Size Chunking
 
-1. Split document by paragraph delimiters
-2. Merge small paragraphs until size threshold is met
-3. Split large paragraphs if needed
+Documents are split into consecutive windows of N tokens with optional overlap. Simple and fast, but ignores semantic boundaries.
 
-#### Pros
+**Algorithm:**
+1. Tokenise the document.
+2. Split into consecutive windows of size N.
+3. Optionally overlap adjacent windows by M tokens.
 
-- Preserves local topical coherence
-- Aligns well with human-written structure
-- Better retrieval relevance for explanatory text
-
-#### Cons
-
-- Paragraph length is highly inconsistent
-- Large paragraphs may require further splitting
-- Formatting noise can affect quality
-
-#### When to Use
-
-- Well-structured documents
-- Technical blogs and documentation
-- Markdown or HTML content
+- **Pros:** Simple to implement; fast and scalable; good baseline.
+- **Cons:** Ignores semantic boundaries; may split sentences mid-thought.
+- **Use when:** Baseline systems; uniform document formats; large-scale indexing where simplicity matters.
 
 ---
 
-### 2.4 Recursive Chunking
+### Sentence-Based Chunking
 
-Recursive chunking applies a hierarchy of splitting rules, starting with coarse semantic units and progressively falling back to finer ones if size constraints are violated.
+Documents are split at sentence boundaries, accumulating sentences until a token threshold is reached.
 
-Typical split order:
-
-- Sections
-- Subsections
-- Paragraphs
-- Sentences
-- Fixed-size fallback
-
-#### Algorithm
-
-1. Attempt to split by highest-level boundary
-2. If chunk exceeds size limit, split using next level
-3. Continue recursively until constraints are satisfied
-
-#### Pros
-
-- Preserves document structure
-- Produces semantically meaningful chunks
-- Handles diverse document formats well
-
-#### Cons
-
-- More complex to implement
-- Requires reliable document parsing
-- Slightly higher preprocessing cost
-
-#### When to Use
-
-- Enterprise documents
-- PDFs with headings
-- Mixed-format content
+- **Pros:** Preserves sentence semantics; reduces mid-sentence splits.
+- **Cons:** Sentence lengths vary; ignores higher-level document structure.
+- **Use when:** Narrative text; QA over articles or reports.
 
 ---
 
-### 2.5 Context-Aware Chunking
+### Paragraph-Based Chunking
 
-Chunks are formed based on semantic similarity rather than fixed boundaries. Adjacent text segments are grouped if they share high semantic coherence.
+Chunks are formed at paragraph boundaries and merged if small; large paragraphs are split further if needed.
 
-#### Algorithm
-
-1. Compute embeddings for small text units
-2. Measure semantic similarity between adjacent units
-3. Merge units until similarity drops or size limit is reached
-
-#### Pros
-
-- High semantic coherence
-- Reduces context fragmentation
-- Improves retrieval precision
-
-#### Cons
-
-- Computationally expensive
-- Requires embedding during preprocessing
-- Sensitive to similarity thresholds
-
-#### When to Use
-
-- High-accuracy RAG systems
-- Knowledge-intensive QA
-- Smaller corpora where quality matters
+- **Pros:** Preserves local topical coherence; aligns with human-written structure.
+- **Cons:** Paragraph length is highly inconsistent; formatting noise can affect quality.
+- **Use when:** Well-structured documentation; markdown or HTML content.
 
 ---
 
-### 2.6 Sliding Window Chunking
+### Recursive Chunking
 
-Chunks are generated using overlapping windows that slide across the document.
+Applies a hierarchy of split rules — sections → paragraphs → sentences → fixed-size fallback — only falling back to finer splits when the chunk exceeds the size limit.
 
-Example:
-
-- Window size: 512 tokens
-- Stride: 256 tokens
-
-#### Pros
-
-- Preserves cross-boundary context
-- Reduces information loss at chunk edges
-- Improves recall
-
-#### Cons
-
-- Increased index size
-- Higher storage and retrieval cost
-- More redundant embeddings
-
-#### When to Use
-
-- Long-form documents
-- Cases where boundary loss is critical
-- Multi-hop reasoning tasks
+- **Pros:** Preserves document structure; produces semantically meaningful chunks; handles diverse formats.
+- **Cons:** More complex to implement; requires reliable document parsing.
+- **Use when:** Enterprise documents; PDFs with headings; mixed-format content. **This is the most common production approach.**
 
 ---
 
-## Chunking Strategy Comparison
+### Semantic / Context-Aware Chunking
 
-| Strategy | Semantic Coherence | Complexity | Index Size | Common Use |
-|-------|-------------------|------------|-----------|-----------|
-| Fixed-size | Low | Low | Medium | Baselines |
-| Sentence-based | Medium | Low | Medium | Articles |
-| Paragraph-based | Medium | Low | Medium | Documentation |
-| Recursive | High | Medium | Medium | Enterprise RAG |
-| Context-aware | High | High | Low to Medium | High-precision RAG |
-| Sliding window | Medium | Low | High | Long documents |
+Adjacent text units are grouped based on embedding similarity rather than fixed boundaries.
+
+- **Pros:** High semantic coherence; reduces context fragmentation.
+- **Cons:** Computationally expensive — requires embedding during preprocessing; sensitive to similarity thresholds.
+- **Use when:** High-precision RAG; smaller corpora where quality matters most.
 
 ---
 
+### Sliding Window Chunking
 
-### 3. Other Concepts
+Overlapping windows slide across the document (e.g., 512-token window, 256-token stride).
 
-#### 3.1 Chunk Size vs Top-k Tradeoffs
+- **Pros:** Preserves cross-boundary context; reduces information loss at chunk edges.
+- **Cons:** Doubles or more the index size; higher storage and retrieval cost; redundant embeddings.
+- **Use when:** Long-form documents; multi-hop reasoning tasks; cases where boundary loss is critical.
 
-Chunk size and top-k retrieval are tightly coupled design parameters in RAG systems. Changing one almost always requires adjusting the other.
+---
 
-#### Key Intuition
+---
 
-- Smaller chunks increase retrieval granularity but reduce context per chunk
-- Larger chunks provide more local context but reduce retrieval precision
+## 4 Chunk Size and Top-k Are Coupled
 
-#### Tradeoff Matrix
+Changing chunk size almost always requires adjusting top-k. **They must be tuned jointly.**
 
-| Chunk Size | Typical Top-k | Behavior |
-|-----------|--------------|----------|
-| Small (100–300 tokens) | High (10–20) | High recall, lower precision |
-| Medium (300–700 tokens) | Medium (4–8) | Balanced retrieval |
-| Large (700–1500 tokens) | Low (1–3) | High precision, risk of misses |
+| Chunk Size | Typical Top-k | Behaviour |
+|---|---|---|
+| Small (100–300 tokens) | High (10–20) | High recall, lower precision — many fragments retrieved |
+| Medium (300–700 tokens) | Medium (4–8) | Balanced — good default starting point |
+| Large (700–1500 tokens) | Low (1–3) | High precision, risk of missing relevant info |
 
-#### Failure Patterns
+**Common failure patterns:**
 
 - Small chunks + low top-k → missing required information
-- Large chunks + high top-k → context overload
+- Large chunks + high top-k → context overload and noise
 - Large chunks + low top-k → partial coverage
 
 ---
 
-#### 3.2 Chunk Overlap Selection
+---
 
-Overlap determines how much content is shared between adjacent chunks.
+## 5 Chunk Overlap
 
-#### Why Overlap Matters
+Overlap (sharing tokens between adjacent chunks) prevents information loss at chunk boundaries.
 
-- Prevents information loss at chunk boundaries
-- Preserves cross-sentence and cross-paragraph context
+**Typical settings:**
 
-#### Typical Settings
-
-- Fixed-size chunking: 10 to 20 percent overlap
-- Sliding window chunking: stride equals 50 percent of window size
+- Fixed-size chunking: 10–20% overlap
+- Sliding window: stride equals 50% of window size
 - Recursive chunking: overlap often unnecessary
 
-#### Tradeoffs
+**Benefits:** Improved recall; reduced boundary effects.
+**Costs:** Larger index; higher storage and retrieval cost; redundant embeddings.
 
-**Benefits**
-- Improved recall
-- Reduced boundary effects
-
-**Costs**
-- Larger index size
-- Higher storage and retrieval cost
-- More redundant embeddings
-
-#### Insight
-
-Overlap helps recall but should be used sparingly. Overlap is a mitigation strategy, not a substitute for good chunking.
+> Overlap is a mitigation strategy, not a substitute for good chunking design.
 
 ---
 
-#### 3.3 Chunk Metadata and Filtering
+---
 
-#### What Is Chunk Metadata?
+## 6 Chunk Metadata and Filtering
 
-Metadata is structured information attached to each chunk that enables filtering and ranking during retrieval.
+Attaching structured metadata to each chunk enables filtering before or after similarity search — one of the highest-ROI improvements in a vanilla RAG system.
 
-**Common metadata fields**
+**Common metadata fields:** document ID, section heading, timestamp/version, author, content type, access permissions.
 
-- Document ID
-- Section or heading
-- Timestamp or version
-- Author or source
-- Content type
+**How it's used:**
 
-#### How Metadata Is Used
+- Pre-filter by document type, date, or access permission before ANN search (faster, but risks reducing recall if over-filtered).
+- Post-filter after ANN search (preserves recall, wastes compute on irrelevant candidates).
 
-- Filter chunks before similarity search
-- Re-rank retrieved chunks
-- Restrict retrieval to specific document subsets
-
-#### Benefits
-
-- Improves retrieval precision
-- Reduces noise
-- Enables structured queries
-
-#### Example
-
-Retrieve only:
-
-- Chunks from a specific product version
-- Chunks created after a certain date
-- Chunks from a trusted source
-
-#### Insight
-
-Metadata filtering is one of the most effective ways to improve vanilla RAG without changing models.
+**Example:** Retrieve only chunks from documents created after a certain date, or from a specific product version.
 
 ---
 
-#### 3.4 Chunking for Tables and Code
+---
 
-Text-centric chunking often fails for structured content such as tables and source code.
+## 7 Special Cases: Tables and Code
 
-#### 3.4.1 Chunking Tables
+Text-centric chunking destroys the structure of tables and source code.
 
-**Challenges**
+**Tables:**
 
-- Rows and columns encode relationships
-- Linear text chunking destroys structure
+- Never split a table row across chunks.
+- Attach the table schema and column headers as metadata to every row-chunk.
+- Consider serialising rows to natural language for embedding.
 
-**Common strategies**
+**Code:**
 
-- Row-based chunking
-- Column-wise chunking for analytical queries
-- Table-to-text serialization with schema preservation
-
-**Best practice**
-
-Attach table schema and headers as metadata to every chunk.
-
-#### 3.4.2 Chunking Code
-
-**Challenges**
-
-- Long-range dependencies
-- Functions and classes are semantic units
-
-**Common strategies**
-
-- Function-level chunking
-- Class-level chunking
-- File-level chunking for small files
-
-**Best practice**
-
-Never split a function or class across chunks.
+- Chunk at function or class boundaries — never split a function across chunks.
+- File-level chunking for small files is acceptable.
+- Long-range dependencies mean that smaller granularity (line-level) loses context.
 
 ---
 
-#### 3.5 Adaptive Chunking Based on Query Type
+---
 
-#### Motivation
+## 8 Adaptive Chunking
 
-Different queries require different chunking granularity. Static chunking cannot optimally serve all query types.
-
-#### Common Query Types
+Different queries require different granularity. A single static chunking strategy cannot optimally serve all query types.
 
 | Query Type | Preferred Chunking |
-|----------|-------------------|
+|---|---|
 | Fact lookup | Small chunks |
 | Concept explanation | Medium chunks |
 | Procedural steps | Large chunks |
-| Multi-hop reasoning | Overlapping or sliding window chunks |
+| Multi-hop reasoning | Overlapping or sliding window |
 
-#### Adaptive Strategies
-
-- Maintain multiple indexes with different chunk sizes
-- Dynamically select top-k based on query intent
-- Use query classification to select chunking policy
-
-#### Pros
-
-- Higher retrieval accuracy
-- Better context utilization
-- Reduced hallucinations
-
-#### Cons
-
-- Increased system complexity
-- Higher indexing and storage cost
-- Requires query understanding
+**Adaptive approach:** Maintain multiple indexes with different chunk sizes and select based on query classification. Higher accuracy, but more system complexity.
 
 ---
 
-### 4. Takeaways
+---
 
-- How do you choose the right chunk size?
-   - The Embedding Model: Some models perform better with short sentences; others can handle long paragraphs.
-   - User Query Style: If users ask short, specific questions, small chunks are better. If they ask for summaries, larger chunks are needed.
-   - The "Lost in the Middle" Phenomenon: LLMs struggle to find information buried in the middle of a massive chunk.
-- Chunking directly impacts retrieval quality and hallucination rates
-- Smaller chunks improve recall, larger chunks improve coherence
-- There is no universally optimal chunking strategy
-- Recursive and context-aware chunking are commonly used in production
-- Chunking should be evaluated jointly with retrieval and prompting
-- Chunk size, overlap, and top-k must be tuned jointly
-- Metadata filtering often yields large quality gains
-- Tables and code require specialized chunking
-- Adaptive chunking improves robustness but adds complexity
+## 9 Interview Questions
+
+**Q: How do you choose the right chunk size?**
+
+A: Consider three factors: (1) the embedding model's effective range — some models degrade with very long inputs; (2) the user's query style — short factual queries need small chunks, summary queries need larger ones; (3) the "lost in the middle" phenomenon — LLMs often miss information buried in the middle of long context windows. Start with medium chunks (400–600 tokens) and evaluate retrieval recall before optimising.
+
+---
+
+**Q: What is the "lost in the middle" problem?**
+
+A: LLMs tend to pay more attention to content at the beginning and end of their context window, and less to content in the middle. This means that if you inject many large chunks into the prompt, relevant information buried in the middle may be ignored. Solutions include re-ordering retrieved chunks (most relevant first/last) and using smaller chunks with higher top-k.
+
+---
+
+**Q: Why is overlap used, and what are its costs?**
+
+A: Overlap ensures that information near chunk boundaries appears in at least one chunk in its full context. The cost is index bloat: overlapping chunks produce redundant embeddings, increasing storage and retrieval compute. Overlap is a safety net, not a primary strategy.
+
+---
+
+**Q: How would you chunk a large PDF with tables and diagrams?**
+
+A: Parse the PDF with a structure-aware tool to extract text, tables, and metadata separately. Chunk the text recursively. Serialise tables (e.g., to CSV or natural language rows) and attach the table schema as metadata. For diagrams, use a vision model to generate textual descriptions, then chunk those. Tag each chunk with its source section and content type for filtered retrieval.
+
+---
+
+**Q: What happens if you use the wrong chunk size for your embedding model?**
+
+A: If chunks exceed the model's effective input window, the encoder either truncates them (losing information) or the quality of the embedding degrades because the model cannot attend properly to all tokens. If chunks are much smaller than what the model is trained on, you lose context and the embedding may not capture full meaning. Always check your embedding model's recommended input range.
 
 ---
